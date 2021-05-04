@@ -6,16 +6,16 @@
 
 ## User Level
 ### Admin
-username: admin
-password: admin
+- username: admin
+- password: admin
 
 ### guru
-username: gurusd
-password: gurusd
+- username: gurusd
+- password: gurusd
 
 ### siswa
-username: siswasd
-password: siswasd
+- username: siswasd
+- password: siswasd
 
 ## Added New User
 - Using auth/register
