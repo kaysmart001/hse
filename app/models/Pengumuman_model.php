@@ -57,7 +57,7 @@ class Pengumuman_model {
 	public function delete($id) {
 		$query = "DELETE FROM " . $this->table . " WHERE pengumuman_id=:pengumuman_id";
 		$this->db->query($query);
-		$this->db->bind('pengumuman_id', $id);
+		$this->db->bind('pengumuman_id', $id['id']);
 		$this->db->execute();
 
 		return $this->db->rowCount();

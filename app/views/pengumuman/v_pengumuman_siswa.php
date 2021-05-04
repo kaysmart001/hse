@@ -69,11 +69,11 @@
 									<td><?php echo $key + 1; ?></td>
 									<td><?php echo $pengumuman['jenjang_nama']; ?></td>
 									<td><?php echo $pengumuman['pengumuman_isi']; ?></td>
-									<td><?php echo $pengumuman['pengumuman_waktu']; ?></td>
+									<td><?php echo date('Y-m-d', strtotime($pengumuman['pengumuman_waktu'])); ?></td>
 									<?php if ($_SESSION['role'] == 1) : ?>
 									<td>
-										<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalEdit" data-id="<?php echo $pengumuman['pengumuman_id'] ?>"><i class="fa fa-edit"></i></button>
-										<button class="btn btn-default btn-xs"><i class="fa fa-trash"></i></button>
+										<button class="btn btn-default btn-xs btn-edit" data-id="<?php echo $pengumuman['pengumuman_id'] ?>" data-jenjang="<?php echo $pengumuman['jenjang_id']; ?>" data-isi="<?php echo $pengumuman['pengumuman_isi']; ?>"><i class="fa fa-edit"></i></button>
+										<button class="btn btn-default btn-xs btn-delete" data-id="<?php echo $pengumuman['pengumuman_id']; ?>" data-jenjang="<?php echo $pengumuman['jenjang_id']; ?>"><i class="fa fa-trash"></i></button>
 									</td>
 									<?php endif; ?>
 								</tr>
@@ -118,6 +118,69 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Edit Pengumuman</h4>
+				</div>
+				<form action="" method="post">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="">Pengumuman Jenjang</label>
+							<select name="pengumuman_jenjang" class="form-control" id="pengumuman_jenjang" required="">
+								<option value="">Pilih Jenjang</option>
+								<option value="0">Semua</option>
+								<?php foreach ($data['jenjang'] as $key => $jenjang) : ?>
+									<option value="<?php echo $jenjang['jenjang_id']; ?>"><?php echo $jenjang['jenjang_nama']; ?></option>
+								<?php endforeach; ?>
+							</select>
+							<input type="hidden" name="pengumuman_id">
+						</div>
+						<div class="form-group">
+							<label for="">Pengumuman Isi</label>
+							<textarea name="pengumuman_isi" class="form-control" rows="5" placeholder="Pengumuman Isi"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="">Pengumuman Waktu</label>
+							<input type="date" name="pengumuman_waktu" class="form-control" placeholder="Pengumuman Waktu" value="<?php echo date('Y-m-d'); ?>">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+						<button type="submit" class="btn btn-primary">Simpan</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog">
+	  <div class="modal-dialog modal-sm" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-primary">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Delete Pengumuman</h4>
+	      </div>
+	      <form action="" method="post">
+	      <div class="modal-body">
+	        <div class="form-group">
+	        	<h4 class="text-center">Anda yakin akan menghapus pengumuman ini?</h4>
+	        	<input type="hidden" name="id" class="form-control">
+	        	<input type="hidden" name="pengumuman_jenjang" class="form-control">
+	        	<input type="hidden" name="delete_type" class="form-control">
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+	        <button type="submit" class="btn btn-danger">Ya, hapus</button>
+	      </div>
+		  </form>
+	    </div>
+	  </div>
+	</div>
 </div>
 <?php } else { ?>
 </section>
@@ -153,6 +216,27 @@
 	    });
 	    $("#ExportExcel").on("click", function() {
 	        table.button( '.buttons-excel' ).trigger();
+	    });
+
+	    $('.btn-edit').on('click', function() {
+	    	const id = $(this).data('id');
+	    	const jenjang = $(this).data('jenjang');
+	    	const isi = $(this).data('isi');
+
+	    	$('#modalEdit').modal('show');
+	    	$('#modalEdit').find('input[name=pengumuman_id]').val(id);
+	    	$('#modalEdit').find(`select[name=pengumuman_jenjang] option[value=${jenjang}]`).attr('selected', 'selected');
+	    	$('#modalEdit').find('textarea[name=pengumuman_isi]').text(isi);
+	    });
+
+	    $('.btn-delete').on('click', function() {
+	    	const id = $(this).data('id');
+	    	const jenjang = $(this).data('jenjang');
+
+	    	$('#modalDelete').modal('show');
+	    	$('#modalDelete').find('input[name=id]').val(id);
+	    	$('#modalDelete').find('input[name=pengumuman_jenjang]').val(jenjang);
+	    	$('#modalDelete').find('input[name=delete_type]').val('true');
 	    });
 	});
 </script>

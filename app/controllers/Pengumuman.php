@@ -52,6 +52,16 @@ class Pengumuman extends Controller {
 						header('Location: ' . base_url() . 'pengumuman/jenjang/' . $_POST['pengumuman_jenjang']);
 						exit;
 					}
+				} else if (isset($_POST['delete_type'])) {
+					if ($this->Pengumuman_model->delete($_POST) > 0) {
+						Flash::flasher('Berhasil', 'Pengumuman berhasil dihapus.', 'success');
+						header('Location: ' . base_url() . 'pengumuman/jenjang/' . $_POST['pengumuman_jenjang']);
+						exit;
+					} else {
+						Flash::flasher('Gagal', 'Pengumuman gagal dihapus.', 'danger');
+						header('Location: ' . base_url() . 'pengumuman/jenjang/' . $_POST['pengumuman_jenjang']);
+						exit;
+					}
 				} else {
 					if ($this->Pengumuman_model->add($_POST) > 0) {
 						Flash::flasher('Berhasil', 'Pengumuman berhasil ditambahkan.', 'success');
