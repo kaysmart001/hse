@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 05, 2021 at 03:39 AM
+-- Generation Time: May 05, 2021 at 11:12 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.1.33
 
@@ -92,6 +92,14 @@ CREATE TABLE `tb_jadwal` (
   `jadwal_mapel` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `tb_jadwal`
+--
+
+INSERT INTO `tb_jadwal` (`jadwal_id`, `jadwal_hari`, `jadwal_mulai`, `jadwal_akhir`, `jadwal_kelas`, `jadwal_mapel`) VALUES
+(1, 1, '07:20', '08:50', 1, 1),
+(2, 2, '10:00', '11:20', 2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -173,6 +181,13 @@ CREATE TABLE `tb_mapel` (
   `mapel_nama` varchar(255) DEFAULT NULL,
   `mapel_guru` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tb_mapel`
+--
+
+INSERT INTO `tb_mapel` (`mapel_id`, `mapel_kode`, `mapel_nama`, `mapel_guru`) VALUES
+(1, 'K0001', 'Biologi', 1);
 
 -- --------------------------------------------------------
 
@@ -373,6 +388,7 @@ ALTER TABLE `tb_kelas`
 --
 ALTER TABLE `tb_mapel`
   ADD PRIMARY KEY (`mapel_id`),
+  ADD UNIQUE KEY `mapel_kode` (`mapel_kode`),
   ADD KEY `mapel_guru` (`mapel_guru`);
 
 --
@@ -438,7 +454,7 @@ ALTER TABLE `tb_guru`
 -- AUTO_INCREMENT for table `tb_jadwal`
 --
 ALTER TABLE `tb_jadwal`
-  MODIFY `jadwal_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `jadwal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_jenjang`
@@ -462,7 +478,7 @@ ALTER TABLE `tb_kelas`
 -- AUTO_INCREMENT for table `tb_mapel`
 --
 ALTER TABLE `tb_mapel`
-  MODIFY `mapel_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `mapel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_pembayaran`
@@ -521,7 +537,8 @@ ALTER TABLE `tb_guru`
 -- Constraints for table `tb_jadwal`
 --
 ALTER TABLE `tb_jadwal`
-  ADD CONSTRAINT `tb_jadwal_ibfk_1` FOREIGN KEY (`jadwal_kelas`) REFERENCES `tb_kelas` (`kelas_id`);
+  ADD CONSTRAINT `tb_jadwal_ibfk_1` FOREIGN KEY (`jadwal_kelas`) REFERENCES `tb_kelas` (`kelas_id`),
+  ADD CONSTRAINT `tb_jadwal_ibfk_2` FOREIGN KEY (`jadwal_mapel`) REFERENCES `tb_mapel` (`mapel_id`);
 
 --
 -- Constraints for table `tb_kelas`
@@ -530,6 +547,12 @@ ALTER TABLE `tb_kelas`
   ADD CONSTRAINT `tb_kelas_ibfk_1` FOREIGN KEY (`kelas_jenjang`) REFERENCES `tb_jenjang` (`jenjang_id`),
   ADD CONSTRAINT `tb_kelas_ibfk_2` FOREIGN KEY (`kelas_tingkat`) REFERENCES `tb_tingkat` (`tingkat_id`),
   ADD CONSTRAINT `tb_kelas_ibfk_3` FOREIGN KEY (`kelas_jurusan`) REFERENCES `tb_jurusan` (`jurusan_id`);
+
+--
+-- Constraints for table `tb_mapel`
+--
+ALTER TABLE `tb_mapel`
+  ADD CONSTRAINT `tb_mapel_ibfk_1` FOREIGN KEY (`mapel_guru`) REFERENCES `tb_guru` (`guru_id`);
 
 --
 -- Constraints for table `tb_pembayaran`
