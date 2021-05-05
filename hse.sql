@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 04, 2021 at 06:48 PM
+-- Generation Time: May 05, 2021 at 03:39 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.1.33
 
@@ -86,10 +86,11 @@ INSERT INTO `tb_guru` (`guru_id`, `guru_nip`, `guru_nama`, `guru_tmp_lahir`, `gu
 CREATE TABLE `tb_jadwal` (
   `jadwal_id` int(11) NOT NULL,
   `jadwal_nama` varchar(255) DEFAULT NULL,
-  `jadwal_waktu` datetime DEFAULT NULL,
-  `jadwal_keterangan` text,
-  `jadwal_foto` varchar(255) DEFAULT NULL,
-  `jadwal_kelas` int(11) DEFAULT NULL
+  `jadwal_hari` int(11) DEFAULT NULL,
+  `jadwal_mulai` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `jadwal_akhir` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `jadwal_kelas` int(11) DEFAULT NULL,
+  `jadwal_maple` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -195,8 +196,9 @@ CREATE TABLE `tb_pengumuman` (
 
 INSERT INTO `tb_pengumuman` (`pengumuman_id`, `pengumuman_jenjang`, `pengumuman_isi`, `pengumuman_waktu`) VALUES
 (1, 1, 'Untuk siswa SD kelas 1A harap mengerjakan tugas hariannya, trims!', '2021-05-04 18:11:05'),
-(2, 2, 'Untuk siswa SMP diharapkan besok mengikuti kelas online.', '2021-05-04 18:17:05'),
-(3, 3, 'Semua siswa SMA besok diliburkan', '2021-05-04 18:23:41');
+(2, 2, 'Untuk siswa SMP diharapkan besok mengikuti kelas online..', '2021-05-04 00:00:00'),
+(3, 3, 'Semua siswa SMA besok diliburkan', '2021-05-04 18:23:41'),
+(4, 1, 'Hari senin jangan lupa mengerjakan latihan soal MTK', '2021-05-04 21:42:26');
 
 -- --------------------------------------------------------
 
@@ -446,7 +448,7 @@ ALTER TABLE `tb_pembayaran`
 -- AUTO_INCREMENT for table `tb_pengumuman`
 --
 ALTER TABLE `tb_pengumuman`
-  MODIFY `pengumuman_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `pengumuman_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tb_rapor`
