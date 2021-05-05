@@ -72,10 +72,12 @@
 									<td><?php echo $jadwal['mapel_nama']; ?></td>
 									<td><?php echo $jadwal['jadwal_mulai'].' - '.$jadwal['jadwal_akhir']; ?></td>
 									<td><?php echo $jadwal['jenjang_nama'].' - '.$jadwal['kelas_nama']; ?></td>
+									<?php if ($_SESSION['role'] == 1) : ?>
 									<td>
 										<button class="btn btn-default btn-xs btn-edit" data-id="<?php echo $jadwal['jadwal_id']; ?>"><i class="fa fa-edit"></i></button>
 										<button class="btn btn-default btn-xs btn-delete" data-id="<?php echo $jadwal['jadwal_id']; ?>"><i class="fa fa-trash"></i></button>
 									</td>
+									<?php endif; ?>
 								</tr>
 							<?php endforeach; ?>
 						</tbody>

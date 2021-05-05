@@ -199,11 +199,17 @@
 	        buttons: [
 	            { 
 	              "extend": 'print',
-	              "title": 'Data Pengumuman'
+	              "title": 'Data Pengumuman',
+	              "exportOptions": {
+	              	"columns": [ 4, ':visible' ]
+	              }
 	            },
 	            { 
 	              "extend": 'excel',
-	              "title": 'Data Pengumuman'
+	              "title": 'Data Pengumuman',
+	              "exportOptions": {
+	              	"columns": [ 4, ':visible' ]
+	              }
 	            },
 	        ]
 	    });

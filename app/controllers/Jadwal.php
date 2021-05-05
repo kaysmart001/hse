@@ -15,9 +15,15 @@ class Jadwal extends Controller {
 		$data['mapel'] = $this->Mapel_model->get();
 		$data['kelas'] = $this->Kelas_model->get_kelas();
 
-		$this->view('dashboard/v_header');
-		$this->view('jadwal/v_jadwal', $data);
-		$this->view('dashboard/v_footer');
+		if ($_SESSION['role'] > 1) {
+			$this->view('home/v_header');
+			$this->view('jadwal/v_jadwal', $data);
+			$this->view('home/v_footer');
+		} else {
+			$this->view('dashboard/v_header');
+			$this->view('jadwal/v_jadwal', $data);
+			$this->view('dashboard/v_footer');
+		}
 	}
 
 	public function process() {

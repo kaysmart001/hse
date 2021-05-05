@@ -206,11 +206,17 @@
 	        buttons: [
 	            { 
 	              "extend": 'print',
-	              "title": 'Data Jadwal'
+	              "title": 'Data Jadwal',
+	              "exportOptions": {
+	              	"columns": [ 4, ':visible' ]
+	              }
 	            },
 	            { 
 	              "extend": 'excel',
-	              "title": 'Data Jadwal'
+	              "title": 'Data Jadwal',
+	              "exportOptions": {
+	              	"columns": [ 4, ':visible' ]
+	              }
 	            },
 	        ]
 	    });
