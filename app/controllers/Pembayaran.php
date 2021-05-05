@@ -4,6 +4,8 @@ class Pembayaran extends Controller {
 
 	public function __construct() {
 		if (!isset($_SESSION['login'])) { header('Location: ' . base_url()); }
+		if ($_SESSION['role'] == 2) { header('Location:' . base_url()); }
+
 		$this->Siswa_model = $this->model('Siswa_model');
 		$this->Pembayaran_model = $this->model('Pembayaran_model');
 		$this->check_profile = $this->Siswa_model->get_by(['siswa_uid', $_SESSION['id']]);
