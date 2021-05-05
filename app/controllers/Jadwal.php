@@ -7,19 +7,28 @@ class Jadwal extends Controller {
 		$this->Jadwal_model = $this->model('Jadwal_model');
 		$this->Kelas_model = $this->model('Kelas_model');
 		$this->Guru_model = $this->model('Guru_model');
+		$this->Siswa_model = $this->model('Siswa_model');
 		$this->Mapel_model = $this->model('Mapel_model');
 	}
 
 	public function index() {
-		$data['jadwal'] = $this->Jadwal_model->get();
 		$data['mapel'] = $this->Mapel_model->get();
 		$data['kelas'] = $this->Kelas_model->get_kelas();
 
 		if ($_SESSION['role'] > 1) {
+			if ($_SESSION['role'] == 2) {
+				$check_profile = $this->Guru_model->get_by(['guru_uid', $_SESSION['id']]);
+				$data['jadwal'] = $this->Jadwal_model->get(['jenjang_id', $check_profile->guru_jenjang]);
+			} else if ($_SESSION['role'] == 3) {
+				$check_profile = $this->Siswa_model->get_by(['siswa_uid', $_SESSION['id']]);
+				$data['jadwal'] = $this->Jadwal_model->get(['kelas_id', $check_profile->siswa_kelas]);
+			}
+			
 			$this->view('home/v_header');
 			$this->view('jadwal/v_jadwal', $data);
 			$this->view('home/v_footer');
 		} else {
+			$data['jadwal'] = $this->Jadwal_model->get();
 			$this->view('dashboard/v_header');
 			$this->view('jadwal/v_jadwal', $data);
 			$this->view('dashboard/v_footer');

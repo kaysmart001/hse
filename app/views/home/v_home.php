@@ -58,12 +58,14 @@
 
             <!-- Portfolio Item 5-->
             <div class="col-md-6 col-lg-4 mb-5 mb-md-0">
-                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#modalJadwal">
-                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                    </div>
-                    <img class="img-fluid" src="<?php echo base_url(); ?>assets/img/portfolio/jadwalhse.png" alt="" />
-                </div>
+            	<a href="<?php echo base_url(); ?>jadwal">
+	                <div class="portfolio-item mx-auto">
+	                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+	                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+	                    </div>
+	                    <img class="img-fluid" src="<?php echo base_url(); ?>assets/img/portfolio/jadwalhse.png" alt="" />
+	                </div>
+	            </a>
             </div>
             <!-- Portfolio Item 6-->
             <div class="col-md-6 col-lg-4">
@@ -137,69 +139,6 @@
 										<a href="https://classroom.google.com/c/MTgzMDU1NTI4NTg3" class="btn btn-info btn-md">Classroom SD 5</a><br><br>
 										<a href="https://classroom.google.com/c/MTgzMDU5ODQ3MTUz" class="btn btn-info btn-md">Classroom SD 6</a>
 									</p>
-									<button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Jadwal Modal -->
-		<div class="portfolio-modal modal fade" id="modalJadwal" tabindex="-1" role="dialog" aria-labelledby="modalJadwalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-xl" role="document">
-				<div class="modal-content">
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true"><i class="fas fa-times"></i></span>
-					</button>
-					<div class="modal-body text-center">
-						<div class="container">
-							<div class="row justify-content-center">
-								<div class="col-lg-8">
-									<!-- Jadwal Modal - Title-->
-									<h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="modalJadwalLabel">Jadwal</h2>
-									<!-- Icon Divider-->
-									<div class="divider-custom">
-										<div class="divider-custom-line"></div>
-										<div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-										<div class="divider-custom-line"></div>
-									</div>
-									<!-- Jadwal Modal - Image-->
-
-									<!-- Jadwal Modal - Text-->
-									<p class="mb-5">JADWAL KELAS 1 SD</p>
-									<center>
-										<td><img src="<?php echo base_url(); ?>uploads/jadwal/<?php echo $row['nama_file'];?>" width="500"/></td><br><br>
-									</center>
-
-
-									<p class="mb-5">JADWAL KELAS 2 SD</p>
-									<center>
-										<td><img src="<?php echo base_url(); ?>uploads/jadwal/<?php echo $row['nama_file'];?>" width="500"/></td><br><br>
-									</center>
-
-
-									<p class="mb-5">JADWAL KELAS 3 SD</p>
-									<center>
-										<td><img src="<?php echo base_url(); ?>uploads/jadwal/<?php echo $row['nama_file'];?>" width="500"/></td><br><br>
-									</center>
-
-									<p class="mb-5">JADWAL KELAS 4 SD</p>
-									<center>
-										<td><img src="<?php echo base_url(); ?>uploads/jadwal/<?php echo $row['nama_file'];?>" width="500"/></td><br><br>
-									</center>
-
-									<p class="mb-5">JADWAL KELAS 5 SD</p>
-									<center>
-										<td><img src="<?php echo base_url(); ?>uploads/jadwal/<?php echo $row['nama_file'];?>" width="500"/></td><br><br>
-									</center>
-
-									<p class="mb-5">JADWAL KELAS 6 SD</p>
-									<center>
-										<td><img src="<?php echo base_url(); ?>uploads/jadwal/<?php echo $row['nama_file'];?>" width="500"/></td><br><br>
-									</center>
-
 									<button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
 								</div>
 							</div>
