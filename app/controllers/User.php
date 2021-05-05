@@ -54,7 +54,7 @@ class User extends Controller {
 	public function ajax_get_ubah() {
 		if ($_POST) {
 			if ($_POST['id'] != '') {
-				$query = $this->User_model->getUserOne(['id', $_POST['id']]);
+				$query = $this->User_model->get_by(['id', $_POST['id']]);
 				$data['status'] = 200;
 				$data['message'] = 'Berhasil mengambil data';
 				$data['data'] = $query;

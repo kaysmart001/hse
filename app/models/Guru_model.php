@@ -8,6 +8,11 @@ class Guru_model {
 		$this->db = new Model;
 	}
 
+	public function get() {
+		$this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY guru_id DESC');
+		return $this->db->result();
+	}
+
 	public function get_by($by) {
 		$this->db->query('SELECT * FROM ' . $this->table . ' WHERE '.$by[0].'=:'.$by[0]);
 		$this->db->bind($by[0], $by[1]);

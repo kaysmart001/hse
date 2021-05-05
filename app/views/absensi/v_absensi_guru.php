@@ -154,10 +154,6 @@
 	              "title": 'Data Absensi'
 	            },
 	            { 
-	              "extend": 'pdf',
-	              "title": 'Data Absensi'
-	            },
-	            { 
 	              "extend": 'excel',
 	              "title": 'Data Absensi'
 	            },

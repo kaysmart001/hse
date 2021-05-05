@@ -5,13 +5,13 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<h1><i class="fa fa-home fa-fw"></i> Pengumuman</h1>
+				<h1><i class="fa fa-home fa-fw"></i> Mapel <small>(Mata Pelajaran)</small></h1>
 				<ol class="breadcrumb">
 	                <li class="active">
 	                    <a href="<?php echo base_url(); ?>dashboard"><i class="fa fa-dashboard"></i> Dashboard</a>
 	                </li>
-                    <li><a href="<?php echo base_url(); ?>pengumuman">Pengumuman</a></li>
-                    <li><?php echo (isset($data['pengumuman'][0]['jenjang_nama']) ? $data['pengumuman'][0]['jenjang_nama'] : ''); ?></li>
+                    <li><a href="<?php echo base_url(); ?>jadwal">Jadwal</a></li>
+                    <li>Mapel</li>
                 </ol>
 			</div>
 		</div>
@@ -23,7 +23,7 @@
 				<a href="<?php echo base_url(); ?>"><i class="fa fa-angle-left"></i>&nbsp;Kembali</a>
 			</div>
 			<div class="col-md-8">
-				<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Pengumuman</h2>
+				<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Mapel</h2>
 				<div class="divider-custom">
 	                <div class="divider-custom-line"></div>
 	                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
@@ -51,31 +51,36 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="table-responsive">
-					<table id="tblPengumuman" class="table table-borered table-hover">
+					<table id="tblMapel" class="table table-borered table-hover">
 						<thead>
 							<tr>
 								<th>No</th>
-								<th>Jenjang</th>
-								<th>Isi Pengumuman</th>
-								<th>Tanggal/Waktu</th>
+								<th>Kode</th>
+								<th>Nama/Pelajaran</th>
+								<th>Guru</th>
 								<?php if ($_SESSION['role'] == 1) : ?>
 								<th>Actions</th>
 								<?php endif; ?>
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach($data['pengumuman'] as $key => $pengumuman) : ?>
+							<?php foreach($data['mapel'] as $key => $mapel) : ?>
 								<tr>
 									<td><?php echo $key + 1; ?></td>
-									<td><?php echo $pengumuman['jenjang_nama']; ?></td>
-									<td><?php echo $pengumuman['pengumuman_isi']; ?></td>
-									<td><?php echo date('Y-m-d', strtotime($pengumuman['pengumuman_waktu'])); ?></td>
-									<?php if ($_SESSION['role'] == 1) : ?>
+									<td><?php echo $mapel['mapel_kode']; ?></td>
+									<td><?php echo $mapel['mapel_nama']; ?></td>
+									<td><?php echo $mapel['guru_nama']; ?></td>
 									<td>
-										<button class="btn btn-default btn-xs btn-edit" data-id="<?php echo $pengumuman['pengumuman_id'] ?>" data-jenjang="<?php echo $pengumuman['jenjang_id']; ?>" data-isi="<?php echo $pengumuman['pengumuman_isi']; ?>"><i class="fa fa-edit"></i></button>
-										<button class="btn btn-default btn-xs btn-delete" data-id="<?php echo $pengumuman['pengumuman_id']; ?>" data-jenjang="<?php echo $pengumuman['jenjang_id']; ?>"><i class="fa fa-trash"></i></button>
+										<button 
+											class="btn btn-default btn-xs btn-edit" 
+											data-id="<?php echo $mapel['mapel_id']; ?>"
+											data-kode="<?php echo $mapel['mapel_kode']; ?>"
+											data-nama="<?php echo $mapel['mapel_nama']; ?>"
+											data-guru="<?php echo $mapel['mapel_guru']; ?>">
+											<i class="fa fa-edit"></i>
+										</button>
+										<button class="btn btn-default btn-xs btn-delete" data-id="<?php echo $mapel['mapel_id']; ?>"><i class="fa fa-trash"></i></button>
 									</td>
-									<?php endif; ?>
 								</tr>
 							<?php endforeach; ?>
 						</tbody>
@@ -90,24 +95,27 @@
 			<div class="modal-content">
 				<div class="modal-header bg-primary">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Tambah Pengumuman</h4>
+					<h4 class="modal-title">Tambah Mapel</h4>
 				</div>
 				<form action="" method="post">
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="">Pengumuman Jenjang</label>
-							<select name="pengumuman_jenjang" class="form-control" id="pengumuman_jenjang" required="">
-								<option value="">Pilih Jenjang</option>
-								<option value="0">Semua</option>
-								<?php foreach ($data['jenjang'] as $key => $jenjang) : ?>
-									<option value="<?php echo $jenjang['jenjang_id']; ?>"><?php echo $jenjang['jenjang_nama']; ?></option>
-								<?php endforeach; ?>
-							</select>
-							<input type="hidden" name="pengumuman_waktu" value="<?php echo date('Y-m-d H:i:s'); ?>">
+							<label for="">Mapel Kode</label>
+							<?php $n = 'K00' . rand(10, 30); ?>
+							<input type="text" name="mapel_kode" class="form-control" placeholder="Mapel Kode" value="<?php echo $n; ?>" required="">
 						</div>
 						<div class="form-group">
-							<label for="">Pengumuman Isi</label>
-							<textarea name="pengumuman_isi" class="form-control" rows="5" placeholder="Pengumuman Isi"></textarea>
+							<label for="">Mapel Nama</label>
+							<input type="text" name="mapel_nama" class="form-control" placeholder="Mapel Nama" required="">
+						</div>
+						<div class="form-group">
+							<label for="">Mapel Guru</label>
+							<select name="mapel_guru" id="" class="form-control">
+								<option value="">Pilih Guru</option>
+								<?php foreach($data['guru'] as $key => $guru) : ?>
+									<option value="<?php echo $guru['guru_id']; ?>"><?php echo $guru['guru_nama']; ?></option>
+								<?php endforeach; ?>
+							</select>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -124,28 +132,28 @@
 			<div class="modal-content">
 				<div class="modal-header bg-primary">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Edit Pengumuman</h4>
+					<h4 class="modal-title">Edit Mapel</h4>
 				</div>
 				<form action="" method="post">
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="">Pengumuman Jenjang</label>
-							<select name="pengumuman_jenjang" class="form-control" id="pengumuman_jenjang" required="">
-								<option value="">Pilih Jenjang</option>
-								<option value="0">Semua</option>
-								<?php foreach ($data['jenjang'] as $key => $jenjang) : ?>
-									<option value="<?php echo $jenjang['jenjang_id']; ?>"><?php echo $jenjang['jenjang_nama']; ?></option>
+							<label for="">Mapel Kode</label>
+							<?php $n = 'K00' . rand(10, 30); ?>
+							<input type="text" name="mapel_kode" class="form-control" placeholder="Mapel Kode" value="<?php echo $n; ?>" required="">
+							<input type="hidden" name="mapel_id">
+						</div>
+						<div class="form-group">
+							<label for="">Mapel Nama</label>
+							<input type="text" name="mapel_nama" class="form-control" placeholder="Mapel Nama" required="">
+						</div>
+						<div class="form-group">
+							<label for="">Mapel Guru</label>
+							<select name="mapel_guru" id="" class="form-control">
+								<option value="">Pilih Guru</option>
+								<?php foreach($data['guru'] as $key => $guru) : ?>
+									<option value="<?php echo $guru['guru_id']; ?>"><?php echo $guru['guru_nama']; ?></option>
 								<?php endforeach; ?>
 							</select>
-							<input type="hidden" name="pengumuman_id">
-						</div>
-						<div class="form-group">
-							<label for="">Pengumuman Isi</label>
-							<textarea name="pengumuman_isi" class="form-control" rows="5" placeholder="Pengumuman Isi"></textarea>
-						</div>
-						<div class="form-group">
-							<label for="">Pengumuman Waktu</label>
-							<input type="date" name="pengumuman_waktu" class="form-control" placeholder="Pengumuman Waktu" value="<?php echo date('Y-m-d'); ?>">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -162,14 +170,13 @@
 	    <div class="modal-content">
 	      <div class="modal-header bg-primary">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title">Delete Pengumuman</h4>
+	        <h4 class="modal-title">Delete Mapel</h4>
 	      </div>
 	      <form action="" method="post">
 	      <div class="modal-body">
 	        <div class="form-group">
-	        	<h4 class="text-center">Anda yakin akan menghapus pengumuman ini?</h4>
+	        	<h4 class="text-center">Anda yakin akan menghapus mapel ini?</h4>
 	        	<input type="hidden" name="id" class="form-control">
-	        	<input type="hidden" name="pengumuman_jenjang" class="form-control">
 	        	<input type="hidden" name="delete_type" class="form-control">
 	        </div>
 	      </div>
@@ -195,15 +202,15 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-	    var table = $('#tblPengumuman').DataTable({
+	    var table = $('#tblMapel').DataTable({
 	        buttons: [
 	            { 
 	              "extend": 'print',
-	              "title": 'Data Pengumuman'
+	              "title": 'Data Jadwal'
 	            },
 	            { 
 	              "extend": 'excel',
-	              "title": 'Data Pengumuman'
+	              "title": 'Data Jadwal'
 	            },
 	        ]
 	    });
@@ -216,23 +223,23 @@
 
 	    $('.btn-edit').on('click', function() {
 	    	const id = $(this).data('id');
-	    	const jenjang = $(this).data('jenjang');
-	    	const isi = $(this).data('isi');
+	    	const kode = $(this).data('kode');
+	    	const nama = $(this).data('nama');
+	    	const guru = $(this).data('guru');
 
 	    	$('#modalEdit').modal('show');
-	    	$('#modalEdit').find('input[name=pengumuman_id]').val(id);
-	    	$('#modalEdit').find(`select[name=pengumuman_jenjang] option[value=${jenjang}]`).attr('selected', 'selected');
-	    	$('#modalEdit').find('textarea[name=pengumuman_isi]').text(isi);
+	    	$('#modalEdit').find('input[name=mapel_id]').val(id);
+	    	$('#modalEdit').find('input[name=mapel_kode]').val(kode);
+	    	$('#modalEdit').find('input[name=mapel_nama]').val(nama);
+	    	$('#modalEdit').find(`select[name=mapel_guru] option[value=${guru}]`).attr('selected', 'selected');
 	    });
 
 	    $('.btn-delete').on('click', function() {
 	    	const id = $(this).data('id');
-	    	const jenjang = $(this).data('jenjang');
 
 	    	$('#modalDelete').modal('show');
 	    	$('#modalDelete').find('input[name=id]').val(id);
-	    	$('#modalDelete').find('input[name=pengumuman_jenjang]').val(jenjang);
 	    	$('#modalDelete').find('input[name=delete_type]').val('true');
-	    });
+	    })
 	});
 </script>

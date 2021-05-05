@@ -33,7 +33,7 @@ class User_model {
 	}
 
 	public function get_by($by) {
-		$this->db->query('SELECT * FROM ' . $this->table . ' WHERE '.$by[0].'=:'.$by[0]);
+		$this->db->query('SELECT id, username, email, role FROM ' . $this->table . ' WHERE '.$by[0].'=:'.$by[0]);
 		$this->db->bind($by[0], $by[1]);
 		return $this->db->row();
 	}

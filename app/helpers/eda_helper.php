@@ -33,3 +33,16 @@ if (!function_exists('segment_url')) {
 		return $url;
 	}
 }
+
+if (!function_exists('get_hari')) {
+	function get_hari($d = NULL) {
+		if (isset($d)) {
+			$hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+			foreach ($hari as $key => $value) {
+				if ($key == $d) {
+					return $value;
+				}
+			}
+		}
+	}
+}

@@ -85,12 +85,11 @@ INSERT INTO `tb_guru` (`guru_id`, `guru_nip`, `guru_nama`, `guru_tmp_lahir`, `gu
 
 CREATE TABLE `tb_jadwal` (
   `jadwal_id` int(11) NOT NULL,
-  `jadwal_nama` varchar(255) DEFAULT NULL,
   `jadwal_hari` int(11) DEFAULT NULL,
   `jadwal_mulai` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `jadwal_akhir` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `jadwal_kelas` int(11) DEFAULT NULL,
-  `jadwal_maple` int(11) DEFAULT NULL
+  `jadwal_mapel` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -161,6 +160,19 @@ INSERT INTO `tb_kelas` (`kelas_id`, `kelas_jenjang`, `kelas_tingkat`, `kelas_jur
 (3, 3, 10, 1, 'X IPA A'),
 (4, 4, 10, 3, 'X TKJ A'),
 (5, 1, 2, NULL, '2B');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_mapel`
+--
+
+CREATE TABLE `tb_mapel` (
+  `mapel_id` int(11) NOT NULL,
+  `mapel_kode` varchar(255) DEFAULT NULL,
+  `mapel_nama` varchar(255) DEFAULT NULL,
+  `mapel_guru` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -330,7 +342,8 @@ ALTER TABLE `tb_guru`
 --
 ALTER TABLE `tb_jadwal`
   ADD PRIMARY KEY (`jadwal_id`),
-  ADD KEY `jadwal_kelas` (`jadwal_kelas`);
+  ADD KEY `jadwal_kelas` (`jadwal_kelas`),
+  ADD KEY `jadwal_mapel` (`jadwal_mapel`);
 
 --
 -- Indexes for table `tb_jenjang`
@@ -354,6 +367,13 @@ ALTER TABLE `tb_kelas`
   ADD KEY `kelas_jenjang` (`kelas_jenjang`),
   ADD KEY `kelas_tingkat` (`kelas_tingkat`),
   ADD KEY `kelas_jurusan` (`kelas_jurusan`);
+
+--
+-- Indexes for table `tb_mapel`
+--
+ALTER TABLE `tb_mapel`
+  ADD PRIMARY KEY (`mapel_id`),
+  ADD KEY `mapel_guru` (`mapel_guru`);
 
 --
 -- Indexes for table `tb_pembayaran`
@@ -437,6 +457,12 @@ ALTER TABLE `tb_jurusan`
 --
 ALTER TABLE `tb_kelas`
   MODIFY `kelas_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tb_mapel`
+--
+ALTER TABLE `tb_mapel`
+  MODIFY `mapel_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_pembayaran`
