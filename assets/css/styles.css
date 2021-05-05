@@ -5508,6 +5508,7 @@ a.close.disabled {
   border-top: 0 solid #dee2e6;
   border-bottom-right-radius: 0.75rem;
   border-bottom-left-radius: 0.75rem;
+  padding: 1rem;
 }
 .modal-footer > * {
   margin: 0.25rem;
@@ -10251,4 +10252,16 @@ form .row:first-child .floating-label-form-group {
 
 .pull-right {
   float: right;
+}
+
+.bg-primary .modal-title { color: white; }
+
+.badge.bg-primary {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.badge.bg-default {
+  background: var(--gray);
+  color: var(--white);
 }

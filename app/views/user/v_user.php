@@ -6,11 +6,11 @@
 			<div class="col-md-12">
 				<h1><i class="fa fa-home fa-fw"></i> User</h1>
 				<ol class="breadcrumb">
-	                <li class="active">
-	                    <i class="fa fa-dashboard"></i> Dashboard
-	                </li>
-                    <li>User</li>
-                </ol>
+          <li class="active">
+              <i class="fa fa-dashboard"></i> Dashboard
+          </li>
+            <li>User</li>
+        </ol>
 			</div>
 		</div>
 

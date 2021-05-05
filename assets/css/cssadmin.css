@@ -94,4 +94,14 @@ body {
     margin-bottom: 50px;
 }
 
+.badge.bg-success {
+  background: #5cb85c;
+  color: white;
+}
+
+.badge.bg-default {
+  background: #8c8c8c;
+  color: white;
+}
+
 /*Template admin*/

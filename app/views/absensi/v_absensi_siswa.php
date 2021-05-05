@@ -34,6 +34,9 @@
 		</div>
 <?php } ?>
 
+		<div class="row">
+			<div class="col-md-12"><?php Flash::flash_message(); ?></div>
+		</div>
 		<div class="row mb-2">
 			<div class="col-md-6">
 				<?php if ($_SESSION['role'] == 1) { ?>

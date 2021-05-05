@@ -27,7 +27,7 @@
             <?php if ($_SESSION['role'] != 1) { ?>
               <?php if ($_SESSION['role'] == 3) { ?>
               <li class="nav-item">
-                <a href="pembayaran_spp.php" class="nav-link text-green"> Pembayaran</a>
+                <a href="<?php echo base_url(); ?>pembayaran" class="nav-link text-green"> Pembayaran</a>
               </li>
               <?php } ?>
               <li class="nav-item">
