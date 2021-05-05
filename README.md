@@ -23,3 +23,6 @@ or
 - Using menu user
 
 ## Urwel :)
+
+#### note
+If you've got error collation or utf in database import process, try to use hse_noutf.sql
