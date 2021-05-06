@@ -51,6 +51,19 @@ class User_model {
 		return $this->db->rowCount();
 	}
 
+	public function create($data) {
+		$query = "INSERT INTO ".$this->table." (username, email, password, role) VALUES (:username, :email, :password, :role)";
+		$this->db->query($query);
+		$this->db->bind('username', $data['username']);
+		$this->db->bind('email', $data['email']);
+		$this->db->bind('role', (isset($data['role']) ? $data['role'] : 0));
+		$this->db->bind('password', password_hash($data['password'], PASSWORD_DEFAULT));
+
+		$this->db->execute();
+
+		return $this->db->insert_id();
+	}
+
 	public function update($data) {
 		$query = "UPDATE ".$this->table." SET username=:username, email=:email, role=:role WHERE id=:id";
 		$this->db->query($query);

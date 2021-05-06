@@ -13,6 +13,27 @@ class Siswa_model {
 		return $this->db->result();
 	}
 
+	public function get_all($by, $single = FALSE) {
+		$this->db->query(
+			'SELECT * FROM ' 
+			. $this->table . 
+			' INNER JOIN tb_jenjang ON jenjang_id = siswa_jenjang ' .
+			' INNER JOIN tb_kelas ON kelas_id = siswa_kelas ' .
+			(!is_null($by) ? ' WHERE ' . $by[0] . '=:' . $by[0] : '')
+		);
+		if (!is_null($by)) {
+			$this->db->bind($by[0], $by[1]);
+		}
+
+		if ($single) {
+			$method = $this->db->row();
+		} else {
+			$method = $this->db->result();
+		}
+
+		return $method;
+	}
+
 	public function get_by($by) {
 		$this->db->query('SELECT * FROM ' . $this->table . ' WHERE '.$by[0].'=:'.$by[0]);
 		$this->db->bind($by[0], $by[1]);
@@ -164,5 +185,14 @@ class Siswa_model {
 		$this->db->bind('siswa_uid', $uid);
 
 		return $this->db->row();
+	}
+
+	public function delete($id) {
+		$query = "DELETE FROM " . $this->table . " WHERE siswa_id=:siswa_id";
+		$this->db->query($query);
+		$this->db->bind('siswa_id', $id);
+		$this->db->execute();
+
+		return $this->db->rowCount();
 	}
 }

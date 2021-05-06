@@ -77,4 +77,9 @@ class Model {
 	public function rowCount() {
 		return $this->stmt->rowCount();
 	}
+
+	// Last Insert ID
+	public function insert_id() {
+		return $this->dbh->lastInsertId();
+	}
 }
