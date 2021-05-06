@@ -4,12 +4,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <h1><i class="fa fa-home fa-fw"></i> Data Siswa</h1>
+                <h1><i class="fa fa-home fa-fw"></i> Data Guru</h1>
                 <ol class="breadcrumb">
                     <li class="active">
                         <i class="fa fa-dashboard"></i> Dashboard
                     </li>
-                    <li>Data Siswa</li>
+                    <li>Data Guru</li>
                 </ol>
             </div>
         </div>
@@ -23,11 +23,11 @@
                                 <i class="fa fa-id-card fa-5x"></i>
                             </div>
                             <div class="col-lg-9 text-right">
-                                <div>Data Siswa <?php echo $jenjang['jenjang_nama']; ?></div>
+                                <div>Data Guru <?php echo $jenjang['jenjang_nama']; ?></div>
                             </div>
                         </div>
                     </div>
-                    <a href="<?php echo base_url(); ?>siswa/<?php echo $jenjang['jenjang_id']; ?>">
+                    <a href="<?php echo base_url(); ?>guru/<?php echo $jenjang['jenjang_id']; ?>">
                         <div class="panel-footer">
                             <span class="pull-left">Lihat Semua</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -44,7 +44,7 @@
                 <button id="ExportPrint" class="btn btn-sm btn-primary"><i class="fa fa-print"></i>&nbsp;Print</button>
             </div>
             <div class="col-md-6 text-right">
-                <a href="<?php echo base_url(); ?>siswa/add" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i>&nbsp;Tambah Siswa</a>
+                <a href="<?php echo base_url(); ?>guru/add" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i>&nbsp;Tambah Guru</a>
             </div>
         </div>
         <div class="row">
@@ -53,33 +53,29 @@
             </div>
             <div class="col-md-12">
                 <div class="table-responsive">
-                    <table id="tblSiswa" class="table table-borered table-hover">
+                    <table id="tblGuru" class="table table-borered table-hover">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>NIS</th>
                                 <th>Nama</th>
                                 <th>Jenis Kelamin</th>
-                                <th>Jenjang Penididkan</th>
-                                <th>Kelas</th>
-                                <th>Semester</th>
+                                <th>Guru Jenjang</th>
                                 <th style="max-width: 8vw;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($data['siswa'] as $key => $siswa) : ?>
+                            <?php foreach($data['guru'] as $key => $guru) : ?>
                                 <tr>
                                     <td><?php echo $key + 1; ?></td>
-                                    <td><?php echo $siswa['siswa_nis']; ?></td>
-                                    <td><?php echo $siswa['siswa_nama']; ?></td>
-                                    <td><?php echo ($siswa['siswa_jenis_kelamin'] == 1 ? 'Laki-Laki' : ($siswa['siswa_jenis_kelamin'] == 2 ? 'Wanita' : '')); ?></td>
-                                    <td><?php echo $siswa['jenjang_nama']; ?></td>
-                                    <td><?php echo $siswa['kelas_nama']; ?></td>
-                                    <td><?php echo $siswa['siswa_semester']; ?></td>
+                                    <td><?php echo $guru['guru_nip']; ?></td>
+                                    <td><?php echo $guru['guru_nama']; ?></td>
+                                    <td><?php echo ($guru['guru_jenis_kelamin'] == 1 ? 'Laki-Laki' : ($guru['guru_jenis_kelamin'] == 2 ? 'Wanita' : '')); ?></td>
+                                    <td><?php echo $guru['jenjang_nama']; ?></td>
                                     <td>
-                                        <a href="<?php echo base_url(); ?>siswa/detail/<?php echo $siswa['siswa_id']; ?>" class="btn btn-default btn-xs"><i class="fa fa-eye"></i></a>
-                                        <a href="<?php echo base_url(); ?>siswa/detail/<?php echo $siswa['siswa_id']; ?>" class="btn btn-default btn-xs"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-default btn-xs" data-id="<?php echo $siswa['siswa_id']; ?>" data-uid="<?php echo $siswa['siswa_uid']; ?>" data-jenjang="<?php echo $siswa['siswa_jenjang']; ?>" onclick="hapus(this)"><i class="fa fa-trash"></i></button>
+                                        <a href="<?php echo base_url(); ?>guru/detail/<?php echo $guru['guru_id']; ?>" class="btn btn-default btn-xs"><i class="fa fa-eye"></i></a>
+                                        <a href="<?php echo base_url(); ?>guru/detail/<?php echo $guru['guru_id']; ?>" class="btn btn-default btn-xs"><i class="fa fa-edit"></i></a>
+                                        <button class="btn btn-default btn-xs" data-id="<?php echo $guru['guru_id']; ?>" data-uid="<?php echo $guru['guru_uid']; ?>" data-jenjang="<?php echo $guru['guru_jenjang']; ?>" onclick="hapus(this)"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -97,15 +93,15 @@
     <div class="modal-content">
       <div class="modal-header bg-primary">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Delete Siswa</h4>
+        <h4 class="modal-title">Delete Guru</h4>
       </div>
-      <form action="<?php echo base_url(); ?>siswa/delete" method="post">
+      <form action="<?php echo base_url(); ?>guru/delete" method="post">
       <div class="modal-body">
         <div class="form-group">
-            <h4 class="text-center">Anda yakin akan menghapus siswa ini?</h4>
-            <input type="hidden" id="siswa_id_delete" name="siswa_id_delete" class="form-control">
-            <input type="hidden" id="siswa_uid_delete" name="siswa_uid_delete" class="form-control">
-            <input type="hidden" id="siswa_jenjang" name="siswa_jenjang" class="form-control">
+            <h4 class="text-center">Anda yakin akan menghapus guru ini?</h4>
+            <input type="hidden" id="guru_id_delete" name="guru_id_delete" class="form-control">
+            <input type="hidden" id="guru_uid_delete" name="guru_uid_delete" class="form-control">
+            <input type="hidden" id="guru_jenjang" name="guru_jenjang" class="form-control">
         </div>
       </div>
       <div class="modal-footer">
@@ -126,15 +122,15 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        var table = $('#tblSiswa').DataTable({
+        var table = $('#tblGuru').DataTable({
             buttons: [
                 { 
                   "extend": 'print',
-                  "title": 'Data Siswa'
+                  "title": 'Data Guru'
                 },
                 { 
                   "extend": 'excel',
-                  "title": 'Data Siswa'
+                  "title": 'Data Guru'
                 },
             ]
         });
@@ -147,8 +143,8 @@
     });
     function hapus(obj) {
         $('#modalDelete').modal('show');
-        $('#siswa_id_delete').val(obj.dataset.id);
-        $('#siswa_uid_delete').val(obj.dataset.uid);
-        $('#siswa_jenjang').val(obj.dataset.jenjang);
+        $('#guru_id_delete').val(obj.dataset.id);
+        $('#guru_uid_delete').val(obj.dataset.uid);
+        $('#guru_jenjang').val(obj.dataset.jenjang);
     }
 </script>

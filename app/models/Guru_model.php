@@ -13,6 +13,26 @@ class Guru_model {
 		return $this->db->result();
 	}
 
+	public function get_all($by, $single = FALSE) {
+		$this->db->query(
+			'SELECT * FROM ' 
+			. $this->table . 
+			' INNER JOIN tb_jenjang ON jenjang_id = guru_jenjang ' .
+			(!is_null($by) ? ' WHERE ' . $by[0] . '=:' . $by[0] : '')
+		);
+		if (!is_null($by)) {
+			$this->db->bind($by[0], $by[1]);
+		}
+
+		if ($single) {
+			$method = $this->db->row();
+		} else {
+			$method = $this->db->result();
+		}
+
+		return $method;
+	}
+
 	public function get_by($by) {
 		$this->db->query('SELECT * FROM ' . $this->table . ' WHERE '.$by[0].'=:'.$by[0]);
 		$this->db->bind($by[0], $by[1]);
@@ -110,5 +130,14 @@ class Guru_model {
 		$this->db->bind('guru_uid', $uid);
 
 		return $this->db->row();
+	}
+
+	public function delete($id) {
+		$query = "DELETE FROM " . $this->table . " WHERE guru_id=:guru_id";
+		$this->db->query($query);
+		$this->db->bind('guru_id', $id);
+		$this->db->execute();
+
+		return $this->db->rowCount();
 	}
 }

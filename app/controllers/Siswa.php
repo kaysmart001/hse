@@ -55,6 +55,15 @@ class Siswa extends Controller {
 		$this->view('dashboard/v_footer');
 	}
 
+	public function add() {
+		$data['jenjang'] = $this->Jenjang_model->get();
+		$data['kelas'] = $this->Kelas_model->get();
+		
+		$this->view('dashboard/v_header');
+		$this->view('siswa/v_form_siswa', $data);
+		$this->view('dashboard/v_footer');
+	}
+
 	public function add_update() {
 		// Setting upload photo
 		$extension = ['png', 'jpg', 'jpeg'];
@@ -100,16 +109,16 @@ class Siswa extends Controller {
 								$_POST['siswa_uid'] = $insert_user;
 								if ($this->Siswa_model->add($_POST) > 0) {
 									Flash::flasher('Berhasil', 'User dan Profile berhasil dibuat', 'success');
-									header('Location: ' . base_url() . 'siswa');
+									header('Location: ' . base_url() . 'siswa/' . $_POST['siswa_jenjang']);
 									exit;
 								} else {
 									Flash::flasher('Berhasil', 'User berhasil disimpan, namun profile gagal dibuat.', 'success');
-									header('Location: ' . base_url() . 'siswa');
+									header('Location: ' . base_url() . 'siswa/' . $_POST['siswa_jenjang']);
 									exit;
 								}
 							} else {
 								Flash::flasher('Gagal', 'Profile gagal dibuat, last ID tidak didapatkan.', 'danger');
-								header('Location: ' . base_url() . 'siswa');
+								header('Location: ' . base_url() . 'siswa/' . $_POST['siswa_jenjang']);
 								exit;
 							}
 						}
@@ -143,16 +152,16 @@ class Siswa extends Controller {
 						$_POST['siswa_uid'] = $insert_user;
 						if ($this->Siswa_model->add($_POST) > 0) {
 							Flash::flasher('Berhasil', 'User dan Profile berhasil dibuat', 'success');
-							header('Location: ' . base_url() . 'siswa');
+							header('Location: ' . base_url() . 'siswa/' . $_POST['siswa_jenjang']);
 							exit;
 						} else {
 							Flash::flasher('Berhasil', 'User berhasil disimpan, namun profile gagal dibuat.', 'success');
-							header('Location: ' . base_url() . 'siswa');
+							header('Location: ' . base_url() . 'siswa/' . $_POST['siswa_jenjang']);
 							exit;
 						}
 					} else {
 						Flash::flasher('Gagal', 'Profile gagal dibuat, last ID tidak didapatkan.', 'danger');
-						header('Location: ' . base_url() . 'siswa');
+						header('Location: ' . base_url() . 'siswa/' . $_POST['siswa_jenjang']);
 						exit;
 					}
 				}
@@ -177,41 +186,41 @@ class Siswa extends Controller {
 		if (isset($_POST['password_user']) || $_POST['password_user'] != '') {
 			if ($this->User_model->change_password($_POST['password_user'], $_POST['password']) > 0) {
 				Flash::flasher('Berhasil', 'Password berhasil diubah', 'success');
-				header('Location: ' . base_url() . 'profile');
+				header('Location: ' . base_url() . 'siswa/detail/' . $_POST['password_siswa']);
 				exit;
 			} else {
 				Flash::flasher('Gagal', 'Password gagal diubah', 'danger');
-				header('Location: ' . base_url() . 'profile');
+				header('Location: ' . base_url() . 'siswa/detail/' . $_POST['password_siswa']);
 				exit;
 			}
 		} else {
 			Flash::flasher('Gagal', 'Password gagal diubah, id user tidak ditemukan.', 'danger');
-			header('Location: ' . base_url() . 'profile');
+			header('Location: ' . base_url() . 'siswa/detail/' . $_POST['password_siswa']);
 			exit;
 		}
 	}
 
-	public function delete_siswa() {
+	public function delete() {
 		if ($_POST) {
 			if (isset($_POST['siswa_id_delete'])) {
 				if ($this->Siswa_model->delete($_POST['siswa_id_delete']) > 0) {
 					if ($this->User_model->delete($_POST['siswa_uid_delete']) > 0) {
 						Flash::flasher('Berhasil', 'Siswa berhasil dihapus', 'success');
-						header('Location: ' . base_url() . 'siswa');
+						header('Location: ' . base_url() . 'siswa/' . $_POST['siswa_jenjang']);
 						exit;
 					} else {
 						Flash::flasher('Peringatan', 'Siswa berhasil dihapus, namun data user login tidak.', 'danger');
-						header('Location: ' . base_url() . 'siswa');
+						header('Location: ' . base_url() . 'siswa/' . $_POST['siswa_jenjang']);
 						exit;
 					}
 				} else {
 					Flash::flasher('Gagal', 'Siswa gagal dihapus', 'danger');
-					header('Location: ' . base_url() . 'siswa');
+					header('Location: ' . base_url() . 'siswa/' . $_POST['siswa_jenjang']);
 					exit;
 				}
 			} else {
 				Flash::flasher('Gagal', 'Siswa gagal dihapus, ID tidak ditemukan', 'danger');
-				header('Location: ' . base_url() . 'siswa');
+				header('Location: ' . base_url() . 'siswa/' . $_POST['siswa_jenjang']);
 				exit;
 			}
 		}

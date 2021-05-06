@@ -180,6 +180,7 @@
         	<label for="">Password Baru</label>
         	<input type="password" class="form-control" required="">
         	<input type="hidden" name="password_user" class="form-control" value="<?php echo $data['user']->id; ?>">
+        	<input type="hidden" name="password_siswa" class="form-control" value="<?php echo $data['siswa']->siswa_id; ?>">
         </div>
         <div class="form-group">
         	<label for="">Ulangi Password Baru</label>
