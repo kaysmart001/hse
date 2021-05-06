@@ -10265,3 +10265,8 @@ form .row:first-child .floating-label-form-group {
   background: var(--gray);
   color: var(--white);
 }
+
+.badge.bg-danger {
+  background: #d9534f;
+  color: white;
+}

@@ -31,6 +31,7 @@
 								<i class="fa fa-id-card fa-5x"></i>
 							</div>
 							<div class="col-lg-9 text-right">
+								<span><?php echo $data['user']; ?></span>
 								<div>Jumlah User</div>
 							</div>
 						</div>
@@ -52,6 +53,7 @@
 								<i class="fa fa-folder-open fa-5x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
+								<span><?php echo $data['jadwal']; ?></span>
 								<div>Jadwal Pelajaran</div>
 							</div>
 						</div>
@@ -73,6 +75,7 @@
 								<i class="fa fa-cart-plus fa-5x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
+								<span><?php echo $data['absen']; ?></span>
 								<div>Jumlah Absen</div>
 							</div>
 						</div>
@@ -94,6 +97,7 @@
 								<i class="fa fa-support fa-5x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
+								<span><?php echo $data['guru']; ?></span>
 								<div class="huge">Jumlah Guru</div>
 							</div>
 						</div>

@@ -9,7 +9,8 @@ class Absensi_model {
 	}
 
 	public function get() {
-		
+		$this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY absen_id DESC');
+		return $this->db->result();
 	}
 
 	public function get_siswa($by = NULL, $single = FALSE) {

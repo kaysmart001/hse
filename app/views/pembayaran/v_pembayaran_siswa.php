@@ -61,7 +61,7 @@
 									<td>
 										<a href="<?php echo base_url(); ?>uploads/bukti/<?php echo $pembayaran['pembayaran_bukti']; ?>"><i class="fa fa-file"></i>&nbsp; <?php echo $pembayaran['pembayaran_bukti']; ?></a>
 									</td>
-									<td><?php echo ($pembayaran['pembayaran_status'] == 1 ? '<span class="badge bg-primary">Diverifikasi</span>' : '<span class="badge bg-default">Menunggu</span>') ?></td>
+									<td><?php echo ($pembayaran['pembayaran_status'] == 1 ? '<span class="badge bg-success">Diverifikasi</span>' : ($pembayaran['pembayaran_status'] == 2 ? '<span class="badge bg-danger">Ditolak</span>' : '<span class="badge bg-default">Menunggu</span>')) ?></td>
 								</tr>
 							<?php endforeach; ?>
 						</tbody>

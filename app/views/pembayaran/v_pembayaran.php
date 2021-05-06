@@ -41,7 +41,7 @@
 										<?php echo $pembayaran['jenjang_nama'].' '.$pembayaran['kelas_nama']; ?>
 									</td>
 									<td>
-										<?php echo ($pembayaran['pembayaran_status'] == 1 ? '<span class="badge bg-success">Diverifikasi</span>' : '<span class="badge bg-default">Menunggu</span>') ?>
+										<?php echo ($pembayaran['pembayaran_status'] == 1 ? '<span class="badge bg-success">Diverifikasi</span>' : ($pembayaran['pembayaran_status'] == 2 ? '<span class="badge bg-danger">Ditolak</span>' : '<span class="badge bg-default">Menunggu</span>')) ?>
 									</td>
 									<td>
 										<a href="<?php echo base_url(); ?>pembayaran/accept/<?php echo $pembayaran['pembayaran_id']; ?>" class="btn btn-success btn-xs"><i class="fa fa-check-circle"></i> Verifikasi</a>
