@@ -27,7 +27,7 @@
                 <a href="<?php echo base_url(); ?>"><i class="fa fa-angle-left"></i>&nbsp;Kembali</a>
             </div>
             <div class="col-md-8">
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Pengumuman</h2>
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Rapor</h2>
                 <div class="divider-custom">
                     <div class="divider-custom-line"></div>
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
