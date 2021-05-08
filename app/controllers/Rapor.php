@@ -32,14 +32,28 @@ class Rapor extends Controller {
 		} else {
 			$wj = ['siswa_jenjang', 1];
 			$ws = NULL;
+
+			if ($_SESSION['role'] == 2) {
+				$check_profile = $this->Guru_model->get_by(['guru_uid', $_SESSION['id']]);
+				$wj = ['siswa_jenjang', $check_profile->guru_jenjang];
+			} else if ($_SESSION['role'] == 3) {
+				$check_profile = $this->Siswa_model->get_by(['siswa_uid', $_SESSION['id']]);
+				$wj = ['siswa_jenjang', $check_profile->siswa_jenjang];
+			}
 		}
 
 		$data['siswa'] = $this->Siswa_model->get_all($wj);
 		$data['rapor'] = $this->Rapor_model->get_by($wj, $ws);
 
-		$this->view('dashboard/v_header');
-		$this->view('rapor/v_rapor', $data);
-		$this->view('dashboard/v_footer');
+		if ($_SESSION['role'] > 1) {
+			$this->view('home/v_header');
+			$this->view('rapor/v_rapor', $data);
+			$this->view('home/v_footer');
+		} else if ($_SESSION['role'] == 1) {
+			$this->view('dashboard/v_header');
+			$this->view('rapor/v_rapor', $data);
+			$this->view('dashboard/v_footer');
+		}
 	}
 
 	public function add_update() {

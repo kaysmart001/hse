@@ -1,8 +1,11 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/buttons.dataTables.min.css">
+<?php if ($_SESSION['role'] != 3) : ?>
 <link href="<?php echo base_url(); ?>assets/plugins/select2/select2.css" rel="stylesheet" />
 <link href="<?php echo base_url(); ?>assets/plugins/select2/select2-bootstrap.css" rel="stylesheet" />
 <script src="<?php echo base_url(); ?>assets/plugins/select2/select2.min.js"></script>
+<?php endif; ?>
+<?php if ($_SESSION['role'] == 1) { ?>
 <div id="page-wrapper">
     <div class="container-fluid">
         <div class="row">
@@ -16,6 +19,25 @@
                 </ol>
             </div>
         </div>
+<?php } else { ?>
+<section class="page-section portfolio mt-4" id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <a href="<?php echo base_url(); ?>"><i class="fa fa-angle-left"></i>&nbsp;Kembali</a>
+            </div>
+            <div class="col-md-8">
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Pengumuman</h2>
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+<?php } ?>
+        <?php if ($_SESSION['role'] == 1) : ?>
         <div class="row mb-3">
             <?php foreach($data['jenjang'] as $key => $jenjang) : ?>
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
@@ -41,14 +63,17 @@
             </div>
             <?php endforeach; ?>
         </div>
+        <?php endif; ?>
         <div class="row mb-2">
             <div class="col-md-6">
                 <button id="ExportExcel" class="btn btn-sm btn-primary"><i class="fa fa-file-excel-o"></i>&nbsp;Excel</button>
                 <button id="ExportPrint" class="btn btn-sm btn-primary"><i class="fa fa-print"></i>&nbsp;Print</button>
             </div>
+            <?php if ($_SESSION['role'] != 3) : ?>
             <div class="col-md-6 text-right">
                 <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalAdd"><i class="fa fa-plus-circle"></i>&nbsp;Tambah Rapor</a>
             </div>
+            <?php endif; ?>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -64,7 +89,9 @@
                                 <th>Nama</th>
                                 <th>Kelas</th>
                                 <th>Raport</th>
+                                <?php if ($_SESSION['role'] != 3) : ?>
                                 <th style="max-width: 8vw;">Actions</th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,10 +102,12 @@
                                     <td><?php echo $rapor['siswa_nama']; ?></td>
                                     <td><?php echo $rapor['jenjang_nama'] . ' ' . $rapor['kelas_nama']; ?></td>
                                     <td><a href="<?php echo base_url(); ?>uploads/rapor/<?php echo $rapor['rapor_file']; ?>"><?php echo $rapor['rapor_file']; ?></a></td>
+                                    <?php if ($_SESSION['role'] != 3) : ?>
                                     <td>
                                         <button class="btn btn-default btn-xs"><i class="fa fa-edit" data-id="<?php echo $rapor['rapor_id']; ?>" data-jenjang="<?php echo $rapor['jenjang_id']; ?>" data-siswa="<?php echo $rapor['siswa_id']; ?>" data-semester="<?php echo $rapor['rapor_semester']; ?>" data-file="<?php echo $rapor['rapor_file']; ?>" onclick="edit(this)"></i></button>
                                         <button class="btn btn-default btn-xs"><i class="fa fa-trash" data-id="<?php echo $rapor['rapor_id']; ?>" data-jenjang="<?php echo $rapor['jenjang_id']; ?>" onclick="hapus(this)"></i></button>
                                     </td>
+                                    <?php endif; ?>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -89,6 +118,7 @@
     </div>
 </div>
 
+<?php if ($_SESSION['role'] != 3) { ?>
 <!-- Modal Add -->
 <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -198,6 +228,9 @@
     </div>
   </div>
 </div>
+<?php } else { ?>
+</section>
+<?php } ?>
 
 <script src="<?php echo base_url(); ?>assets/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
@@ -226,9 +259,14 @@
         $("#ExportExcel").on("click", function() {
             table.button( '.buttons-excel' ).trigger();
         });
-
+        <?php if ($_SESSION['role'] != 3) : ?>
         $('.select-search').select2();
+        <?php endif; ?>
     });
+</script>
+
+<?php if($_SESSION['role'] != 3) { ?>
+<script type="text/javascript">
     function selSiswa(obj) {
         $('input[name=rapor_siswa]').val(obj.value);
         const jenjang = $('select[name=siswa]').find(':selected').attr('data-jenjang');
@@ -255,3 +293,4 @@
         $('#jenjang_id').val(obj.dataset.jenjang);
     }
 </script>
+<?php } ?>

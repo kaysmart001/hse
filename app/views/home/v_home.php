@@ -69,12 +69,14 @@
             </div>
             <!-- Portfolio Item 6-->
             <div class="col-md-6 col-lg-4">
-                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#modalRapot">
-                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                    </div>
-                    <img class="img-fluid" src="<?php echo base_url(); ?>assets/img/portfolio/rapothse.png" alt="" />
-                </div>
+            	<a href="<?php echo base_url(); ?>rapor">
+	                <div class="portfolio-item mx-auto">
+	                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+	                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+	                    </div>
+	                    <img class="img-fluid" src="<?php echo base_url(); ?>assets/img/portfolio/rapothse.png" alt="" />
+	                </div>
+	            </a>
             </div>
 		</div>
 
@@ -147,39 +149,6 @@
 				</div>
 			</div>
 		</div>
-
-		<!-- Rapot Modal -->
-        <div class="portfolio-modal modal fade" id="modalRapot" tabindex="-1" role="dialog" aria-labelledby="modalRapotLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                    </button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Rapot Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="modalRapotLabel">Raport</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Rapot Modal - Image-->
-                                    
-                                    <!-- Rapot Modal - Text-->
-                                    <p class="mb-5">Isi disini raportnya</p>
-                                    <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 <?php } else { ?>
 		<div class="row">
 			<div class="col">
