@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 05, 2021 at 11:12 AM
+-- Generation Time: May 08, 2021 at 03:55 PM
 -- Server version: 8.0.17
 -- PHP Version: 7.1.33
 
@@ -204,6 +204,13 @@ CREATE TABLE `tb_pembayaran` (
   `pembayaran_siswa` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `tb_pembayaran`
+--
+
+INSERT INTO `tb_pembayaran` (`pembayaran_id`, `pembayaran_jenis`, `pembayaran_keterangan`, `pembayaran_bukti`, `pembayaran_status`, `pembayaran_siswa`) VALUES
+(1, 1, 'Biaya untuk pendaftaran.', 'wabot.png', 2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -235,10 +242,19 @@ INSERT INTO `tb_pengumuman` (`pengumuman_id`, `pengumuman_jenjang`, `pengumuman_
 
 CREATE TABLE `tb_rapor` (
   `rapor_id` int(11) NOT NULL,
-  `rapor_jenis` int(11) DEFAULT NULL,
+  `rapor_semester` int(11) DEFAULT NULL,
   `rapor_file` varchar(255) DEFAULT NULL,
   `rapor_siswa` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tb_rapor`
+--
+
+INSERT INTO `tb_rapor` (`rapor_id`, `rapor_semester`, `rapor_file`, `rapor_siswa`) VALUES
+(1, 1, 'rapor.pdf', 1),
+(2, 1, 'user-default.png', 3),
+(3, 1, 'wabot.png', 2);
 
 -- --------------------------------------------------------
 
@@ -278,7 +294,10 @@ CREATE TABLE `tb_siswa` (
 --
 
 INSERT INTO `tb_siswa` (`siswa_id`, `siswa_nis`, `siswa_nama`, `siswa_tmp_lahir`, `siswa_tgl_lahir`, `siswa_jenis_kelamin`, `siswa_agama`, `siswa_anak_ke`, `siswa_alamat`, `siswa_nama_ayah`, `siswa_nama_ibu`, `siswa_alamat_ortu`, `siswa_nohp_ortu`, `siswa_pekerjaan_ayah`, `siswa_pekerjaan_ibu`, `siswa_nama_wali`, `siswa_nohp_wali`, `siswa_alamat_wali`, `siswa_pekerjaan_wali`, `siswa_jenjang`, `siswa_kelas`, `siswa_semester`, `siswa_foto`, `siswa_uid`) VALUES
-(1, '0', 'Yana', 'Jakarta', '2014-04-14', 1, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 1, 1, '1', 'avatar.png', 3);
+(1, '0', 'Yana', 'Jakarta', '2014-04-14', 1, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 1, 1, '1', 'avatar.png', 3),
+(2, '14002391', 'John Doe', 'Jakarta', '2019-03-05', 1, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 1, 1, '1', 'wabot.png', 5),
+(3, '0', 'Mariana', 'Jakarta', '2005-03-05', 2, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 3, 3, '1', 'user-default.png', 6),
+(4, '0', 'Aldo', 'Jakarta', '2002-03-05', 1, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 1, 1, '1', 'user-default.png', 7);
 
 -- --------------------------------------------------------
 
@@ -331,7 +350,10 @@ INSERT INTO `tb_user` (`id`, `username`, `email`, `password`, `role`) VALUES
 (1, 'admin', 'admin@gmail.com', '$2y$10$7sqSt.26.IwKlQd47nd3cehwS8DhIH5STS/TVl/8b2wUzxAsrWZYq', 1),
 (2, 'gurusd', 'gurusd@gmail.com', '$2y$10$xpV0.l.a3BxDFjd8FUQvo.DMieTm9qtoJe8qlNQg9IoKKfFRDQwAa', 2),
 (3, 'siswasd', 'siswasd@gmail.com', '$2y$10$XJmwXBaO3uRuOYClnFwy1OjiSHOA9BurEPp89p1oU0oQP.k3ABnIO', 3),
-(4, 'gurusmp', 'gurusmp@gmail.com', '$2y$10$h.6VEgIwaACeucm6x/toE.Uknxxn6Bei4QD/VkQc4nnGQSBhP9boO', 2);
+(4, 'gurusmp', 'gurusmp@gmail.com', '$2y$10$h.6VEgIwaACeucm6x/toE.Uknxxn6Bei4QD/VkQc4nnGQSBhP9boO', 2),
+(5, 'siswasd2', 'siswasd2@gmail.com', '$2y$10$BDOy9F59PZ7gIDx/jBodgOxrfrnNpF.SV7nUyhHvv8SWs8QUXBJLy', 3),
+(6, 'siswasma', 'siswasma@gmail.com', '$2y$10$S42BkHkklSRCbZ1bHOl0K.96obZx1XknbkkZXkwKT4zi.Sz2qRcVa', 3),
+(7, 'aldo', 'aldo@gmail.com', '$2y$10$mZh0Cl.mcNs3SiJAfUMTMe9xj33pay4iFWWpYXfj3n9u6fx6oKEDK', 3);
 
 --
 -- Indexes for dumped tables
@@ -484,7 +506,7 @@ ALTER TABLE `tb_mapel`
 -- AUTO_INCREMENT for table `tb_pembayaran`
 --
 ALTER TABLE `tb_pembayaran`
-  MODIFY `pembayaran_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pembayaran_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_pengumuman`
@@ -496,13 +518,13 @@ ALTER TABLE `tb_pengumuman`
 -- AUTO_INCREMENT for table `tb_rapor`
 --
 ALTER TABLE `tb_rapor`
-  MODIFY `rapor_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `rapor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_siswa`
 --
 ALTER TABLE `tb_siswa`
-  MODIFY `siswa_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `siswa_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tb_tingkat`
@@ -514,7 +536,7 @@ ALTER TABLE `tb_tingkat`
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
