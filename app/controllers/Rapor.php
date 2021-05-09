@@ -39,6 +39,7 @@ class Rapor extends Controller {
 			} else if ($_SESSION['role'] == 3) {
 				$check_profile = $this->Siswa_model->get_by(['siswa_uid', $_SESSION['id']]);
 				$wj = ['siswa_jenjang', $check_profile->siswa_jenjang];
+				$ws = ['rapor_siswa', $check_profile->siswa_id];
 			}
 		}
 
