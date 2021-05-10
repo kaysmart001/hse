@@ -1,10 +1,5 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/buttons.dataTables.min.css">
-<?php if ($_SESSION['role'] != 3) : ?>
-<link href="<?php echo base_url(); ?>assets/plugins/select2/select2.css" rel="stylesheet" />
-<link href="<?php echo base_url(); ?>assets/plugins/select2/select2-bootstrap.css" rel="stylesheet" />
-<script src="<?php echo base_url(); ?>assets/plugins/select2/select2.min.js"></script>
-<?php endif; ?>
 <?php if ($_SESSION['role'] == 1) { ?>
 <div id="page-wrapper">
     <div class="container-fluid">
@@ -37,7 +32,7 @@
             <div class="col-md-2"></div>
         </div>
 <?php } ?>
-        <?php if ($_SESSION['role'] == 1) : ?>
+        
         <div class="row mb-3">
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div class="panel panel-primary">
@@ -46,7 +41,7 @@
                             <div class="col-xs-3">
                                 <i class="fa fa-id-card fa-5x"></i>
                             </div>
-                            <div class="col-lg-9 text-right">
+                            <div class="col-lg-9 <?php echo ($_SESSION['role'] == 1 ? 'text-right' : 'text-center'); ?>">
                                 <div>Data Topik</div>
                             </div>
                         </div>
@@ -67,7 +62,7 @@
                             <div class="col-xs-3">
                                 <i class="fa fa-id-card fa-5x"></i>
                             </div>
-                            <div class="col-lg-9 text-right">
+                            <div class="col-lg-9 <?php echo ($_SESSION['role'] == 1 ? 'text-right' : 'text-center'); ?>">
                                 <div>Data Soal</div>
                             </div>
                         </div>
@@ -88,7 +83,7 @@
                             <div class="col-xs-3">
                                 <i class="fa fa-id-card fa-5x"></i>
                             </div>
-                            <div class="col-lg-9 text-right">
+                            <div class="col-lg-9 <?php echo ($_SESSION['role'] == 1 ? 'text-right' : 'text-center'); ?>">
                                 <div>Data Ujian</div>
                             </div>
                         </div>
@@ -109,7 +104,7 @@
                             <div class="col-xs-3">
                                 <i class="fa fa-id-card fa-5x"></i>
                             </div>
-                            <div class="col-lg-9 text-right">
+                            <div class="col-lg-9 <?php echo ($_SESSION['role'] == 1 ? 'text-right' : 'text-center'); ?>">
                                 <div>Data Rekap</div>
                             </div>
                         </div>
@@ -124,7 +119,7 @@
                 </div>
             </div>
         </div>
-        <?php endif; ?>
+        
         <div class="row mb-2">
             <div class="col-md-6">
                 <button id="ExportExcel" class="btn btn-sm btn-primary"><i class="fa fa-file-excel-o"></i>&nbsp;Excel</button>
@@ -132,6 +127,7 @@
             </div>
             <?php if ($_SESSION['role'] != 3) : ?>
             <div class="col-md-6 text-right">
+                <a href="" class="btn btn-sm btn-info"><i class="fa fa-cloud-download"></i>&nbsp;Export Soal</a>
                 <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalAdd"><i class="fa fa-plus-circle"></i>&nbsp;Tambah Soal</a>
             </div>
             <?php endif; ?>
@@ -142,21 +138,47 @@
             </div>
             <div class="col-md-12">
                 <div class="table-responsive">
-                    <table id="tblTopik" class="table table-borered table-hover">
+                    <table id="tblSoal" class="table table-borered table-hover">
                         <thead>
                             <tr>
-                                <th>No</th>
+                                <th style="max-width: 30px;">No</th>
                                 <th>Topik</th>
                                 <th>Soal</th>
                                 <th>Tipe</th>
                                 <th>Total Jawaban</th>
                                 <?php if ($_SESSION['role'] != 3) : ?>
-                                <th style="max-width: 8vw;">Actions</th>
+                                <th>Actions</th>
                                 <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            <?php foreach($data['soal'] as $key => $soal) : ?>
+                                <tr>
+                                    <td><?php echo $key + 1; ?></td>
+                                    <td><?php echo $soal['topik_judul']; ?></td>
+                                    <td><?php echo $soal['soal_detail']; ?></td>
+                                    <td><?php echo ($soal['soal_tipe'] == 1 ? 'Pilihan Ganda' : 'Essai'); ?></td>
+                                    <td></td>
+                                    <td>
+                                        <?php if ($_SESSION['id'] == $soal['soal_pembuat']) { ?>
+                                        <a href="<?php echo base_url(); ?>cbt/jawaban/<?php echo $soal['soal_id']; ?>" class="btn btn-primary btn-xs" title="Tambah Jawaban" data-toggle="tooltip" data-placement="top" title="Tambah Jawaban"><i class="fa fa-plus-circle"></i></a>
+                                        <button 
+                                            class="btn btn-default btn-xs" 
+                                            data-id="<?php echo $soal['soal_id']; ?>" 
+                                            data-topik="<?php echo $soal['soal_topik']; ?>" 
+                                            data-detail="<?php echo $soal['soal_detail']; ?>" 
+                                            data-tipe="<?php echo $soal['soal_tipe']; ?>"
+                                            title="Edit"
+                                            onclick="edit(this)">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-default btn-xs" data-id="<?php echo $soal['soal_id']; ?>" title="Hapus" onclick="hapus(this)"><i class="fa fa-trash"></i></button>
+                                        <?php } else { ?>
+                                            <span class="badge bg-default">Dibuat oleh user lain</span>
+                                        <?php } ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -172,11 +194,71 @@
     <div class="modal-content">
       <div class="modal-header bg-primary">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Tambah Topik</h4>
+        <h4 class="modal-title">Tambah Soal</h4>
       </div>
-      <form action="<?php echo base_url(); ?>cbt/add_update_topik" method="post" enctype="multipart/form-data">
+      <form action="<?php echo base_url(); ?>cbt/cud_soal" method="post">
       <div class="modal-body">
         <div class="form-group">
+            <label for="">Topik</label>
+            <select name="soal_topik" id="" class="form-control">
+                <option value="">Pilih Topik</option>
+                <?php foreach($data['topik'] as $key => $topik) : ?>
+                    <option value="<?php echo $topik['topik_id']; ?>"><?php echo $topik['topik_judul']; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="">Soal</label>
+            <textarea name="soal_detail" class="form-control" rows="4" placeholder="Contoh: 10 * 100 = ?"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="">Tipe Soal</label>
+            <select name="soal_tipe" class="form-control" id="">
+                <option value="">Pilih Tipe</option>
+                <option value="1">Pilihan Ganda</option>
+                <option value="2">Essai</option>
+            </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Modal Edit -->
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Edit Soal</h4>
+      </div>
+      <form action="<?php echo base_url(); ?>cbt/cud_soal" method="post">
+      <div class="modal-body">
+        <div class="form-group">
+            <label for="">Topik</label>
+            <select name="soal_topik" id="" class="form-control">
+                <option value="">Pilih Topik</option>
+                <?php foreach($data['topik'] as $key => $topik) : ?>
+                    <option value="<?php echo $topik['topik_id']; ?>"><?php echo $topik['topik_judul']; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <input type="hidden" name="soal_id">
+        </div>
+        <div class="form-group">
+            <label for="">Soal</label>
+            <textarea name="soal_detail" class="form-control" rows="4" placeholder="Contoh: 10 * 100 = ?"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="">Tipe Soal</label>
+            <select name="soal_tipe" class="form-control" id="">
+                <option value="">Pilih Tipe</option>
+                <option value="1">Pilihan Ganda</option>
+                <option value="2">Essai</option>
+            </select>
         </div>
       </div>
       <div class="modal-footer">
@@ -194,12 +276,13 @@
     <div class="modal-content">
       <div class="modal-header bg-primary">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Delete Topik</h4>
+        <h4 class="modal-title">Delete Soal</h4>
       </div>
-      <form action="<?php echo base_url(); ?>cbt/delete_topik" method="post">
+      <form action="<?php echo base_url(); ?>cbt/cud_soal" method="post">
       <div class="modal-body">
         <div class="form-group">
-            <h4 class="text-center">Anda yakin akan menghapus topik ini?</h4>
+            <h4 class="text-center">Anda yakin akan menghapus soal ini?</h4>
+            <input type="hidden" name="soal_id_delete">
         </div>
       </div>
       <div class="modal-footer">
@@ -210,6 +293,10 @@
     </div>
   </div>
 </div>
+<?php } ?>
+
+<?php if ($_SESSION['role'] == 1) { ?>
+    </div>
 <?php } else { ?>
 </section>
 <?php } ?>
@@ -223,7 +310,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        var table = $('#tblTopik').DataTable({
+        var table = $('#tblSoal').DataTable({
             buttons: [
                 { 
                   "extend": 'print',
@@ -241,5 +328,22 @@
         $("#ExportExcel").on("click", function() {
             table.button( '.buttons-excel' ).trigger();
         });
+
+        $('[data-toggle="tooltip"]').tooltip();
     });
+
+    function edit(obj) {
+        const { id, topik, detail, tipe } = obj.dataset
+        const modal = $('#modalEdit').modal('show');
+
+        modal.find('input[name=soal_id]').val(id);
+        modal.find(`select[name=soal_topik] option[value=${topik}]`).attr('selected', 'selected');
+        modal.find('textarea[name=soal_detail]').text(detail);
+        modal.find(`select[name=soal_tipe] option[value=${tipe}]`).attr('selected', 'selected');
+    }
+
+    function hapus(obj) {
+        $('#modalDelete').modal('show');
+        $('#modalDelete').find('input[name=soal_id_delete]').val(obj.dataset.id);
+    }
 </script>

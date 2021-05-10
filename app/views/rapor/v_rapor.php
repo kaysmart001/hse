@@ -228,6 +228,10 @@
     </div>
   </div>
 </div>
+<?php } ?>
+
+<?php if ($_SESSION['role'] == 1) { ?>
+    </div>
 <?php } else { ?>
 </section>
 <?php } ?>
