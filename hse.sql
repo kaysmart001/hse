@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 10, 2021 at 06:33 PM
+-- Generation Time: May 10, 2021 at 06:35 PM
 -- Server version: 8.0.17
 -- PHP Version: 7.1.33
 
@@ -120,7 +120,7 @@ CREATE TABLE `tb_jawaban` (
 --
 
 INSERT INTO `tb_jawaban` (`jawaban_id`, `jawaban_soal`, `jawaban_detail`, `jawaban_benar`, `jawaban_pembuat`) VALUES
-(1, 1, '100', 0, NULL),
+(1, 1, '100', 0, 1),
 (3, 2, '3', 0, 2);
 
 -- --------------------------------------------------------
