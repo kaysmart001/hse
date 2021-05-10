@@ -4,11 +4,12 @@ class Cbt extends Controller {
 
 	public function __construct() {
 		if (!isset($_SESSION['login'])) { header('Location: ' . base_url()); }
-		if ($_SESSION['role'] == 3) { header('Location: ' . base_url()); }
 		$this->CBT_master_model = $this->model('CBT_master_model');
 	}
 
 	public function index() {
+		if ($_SESSION['role'] == 3) { header('Location: ' . base_url() . 'cbt/ujian'); }
+		
 		$data['topik'] = $this->CBT_master_model->get_topik();
 
 		if ($_SESSION['role'] == 2) {
@@ -59,6 +60,8 @@ class Cbt extends Controller {
 	}
 
 	public function soal() {
+		if ($_SESSION['role'] == 3) { header('Location: ' . base_url() . 'cbt/ujian'); }
+
 		$data['soal'] = $this->CBT_master_model->get_soal();
 		$data['topik'] = $this->CBT_master_model->get_topik();
 
@@ -109,6 +112,8 @@ class Cbt extends Controller {
 	}
 
 	public function jawaban($id = NULL) {
+		if ($_SESSION['role'] == 3) { header('Location: ' . base_url() . 'cbt/ujian'); }
+
 		if (!is_null($id)) {
 			if (is_numeric($id)) {
 				$soal = $this->CBT_master_model->get_soal(['soal_id', $id], TRUE);
@@ -175,11 +180,11 @@ class Cbt extends Controller {
 	}
 
 	public function ujian() {
-		if ($_SESSION['role'] == 2) {
+		if ($_SESSION['role'] != 1) {
 			$this->view('home/v_header');
 			$this->view('cbt/v_ujian');
 			$this->view('home/v_footer');
-		} else if ($_SESSION['role'] == 1) {
+		} else {
 			$this->view('dashboard/v_header');
 			$this->view('cbt/v_ujian');
 			$this->view('dashboard/v_footer');

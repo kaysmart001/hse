@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <h1><i class="fa fa-home fa-fw"></i> Data Soal (CBT)</h1>
+                <h1><i class="fa fa-home fa-fw"></i> Data Jawaban (CBT)</h1>
                 <ol class="breadcrumb">
                     <li class="active">
                         <i class="fa fa-dashboard"></i> Dashboard
@@ -20,10 +20,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2">
-                <a href="<?php echo base_url(); ?>"><i class="fa fa-angle-left"></i>&nbsp;Kembali</a>
+                <a href="<?php echo base_url(); ?>cbt/soal"><i class="fa fa-angle-left"></i>&nbsp;Kembali</a>
             </div>
             <div class="col-md-8">
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Soal</h2>
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Jawaban</h2>
                 <div class="divider-custom">
                     <div class="divider-custom-line"></div>
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>

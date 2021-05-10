@@ -36,16 +36,6 @@
 	            </a>
             </div>
 
-            <!-- Panel Data Guru -->
-            <div class="col-md-6 col-lg-4 mb-5">
-                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#modalDataGuru">
-                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                    </div>
-                    <img class="img-fluid" src="<?php echo base_url(); ?>assets/img/portfolio/dataguruhse.png" alt="" />
-                </div>
-            </div>
-
             <!-- GANTI GAMBAR DI MENU BERANDA-->
             <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
                 <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#modalRuangKelas">
@@ -78,38 +68,18 @@
 	                </div>
 	            </a>
             </div>
-		</div>
 
-		<!-- Data Guru Modal -->
-		<div class="portfolio-modal modal fade" id="modalDataGuru" tabindex="-1" role="dialog" aria-labelledby="modalDataGuru" aria-hidden="true">
-			<div class="modal-dialog modal-xl" role="document">
-				<div class="modal-content">
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true"><i class="fas fa-times"></i></span>
-					</button>
-					<div class="modal-body text-center">
-						<div class="container">
-							<div class="row justify-content-center">
-								<div class="col-lg-8">
-								<!-- Data Guru Modal - Title-->
-								<h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="modalDataGuru">Data Guru</h2>
-								<!-- Icon Divider-->
-								<div class="divider-custom">
-									<div class="divider-custom-line"></div>
-									<div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-									<div class="divider-custom-line"></div>
-								</div>
-								<!-- Data Guru Modal - Image-->
-
-								<!-- Data Guru Modal - Text-->
-								<p class="mb-5">Isi disini form nya</p>
-								<button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+            <!-- Panel CBT -->
+            <div class="col-md-6 col-lg-4 mb-5">
+            	<a href="<?php echo base_url(); ?>cbt">
+	                <div class="portfolio-item mx-auto">
+	                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+	                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+	                    </div>
+	                    <img class="img-fluid" src="<?php echo base_url(); ?>assets/img/portfolio/7.png" alt="" />
+	                </div>
+	            </a>
+            </div>
 		</div>
 
 		<!-- Ruang Kelas Modal -->
