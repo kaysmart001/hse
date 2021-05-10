@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 10, 2021 at 02:29 PM
+-- Generation Time: May 10, 2021 at 05:54 PM
 -- Server version: 8.0.17
 -- PHP Version: 7.1.33
 
@@ -45,7 +45,8 @@ INSERT INTO `tb_absen` (`absen_id`, `absen_user`, `absen_jenis`, `absen_keterang
 (2, 3, 1, NULL, '2021-05-03 22:52:33'),
 (3, 2, 1, NULL, '2021-05-04 16:48:15'),
 (4, 3, 1, NULL, '2021-05-04 16:53:29'),
-(5, 4, 1, NULL, '2021-05-04 16:54:41');
+(5, 4, 1, NULL, '2021-05-04 16:54:41'),
+(6, 2, 1, NULL, '2021-05-10 17:35:47');
 
 -- --------------------------------------------------------
 
@@ -112,6 +113,13 @@ CREATE TABLE `tb_jawaban` (
   `jawaban_detail` text,
   `jawaban_benar` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tb_jawaban`
+--
+
+INSERT INTO `tb_jawaban` (`jawaban_id`, `jawaban_soal`, `jawaban_detail`, `jawaban_benar`) VALUES
+(1, 1, '100', 0);
 
 -- --------------------------------------------------------
 
@@ -322,8 +330,17 @@ CREATE TABLE `tb_soal` (
   `soal_id` int(11) NOT NULL,
   `soal_topik` int(11) DEFAULT NULL,
   `soal_detail` text,
-  `soal_tipe` int(11) DEFAULT NULL
+  `soal_tipe` int(11) DEFAULT NULL,
+  `soal_pembuat` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tb_soal`
+--
+
+INSERT INTO `tb_soal` (`soal_id`, `soal_topik`, `soal_detail`, `soal_tipe`, `soal_pembuat`) VALUES
+(1, 1, '1 + 120 = ?', 1, 1),
+(2, 2, '1 + 1 = ?', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -373,7 +390,8 @@ CREATE TABLE `tb_topik` (
 --
 
 INSERT INTO `tb_topik` (`topik_id`, `topik_judul`, `topik_deskripsi`, `topik_status`, `topik_pembuat`) VALUES
-(1, 'Ujian Harian.', 'Ujian Harian.', 1, 1);
+(1, 'Ujian Harian.', 'Ujian Harian.', 1, 1),
+(2, 'Ujian Harian SD', 'Ujian Harian SD', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -596,7 +614,8 @@ ALTER TABLE `tb_siswa`
 --
 ALTER TABLE `tb_soal`
   ADD PRIMARY KEY (`soal_id`),
-  ADD KEY `soal_topik` (`soal_topik`);
+  ADD KEY `soal_topik` (`soal_topik`),
+  ADD KEY `soal_pembuat` (`soal_pembuat`);
 
 --
 -- Indexes for table `tb_tingkat`
@@ -671,7 +690,7 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT for table `tb_absen`
 --
 ALTER TABLE `tb_absen`
-  MODIFY `absen_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `absen_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_guru`
@@ -689,7 +708,7 @@ ALTER TABLE `tb_jadwal`
 -- AUTO_INCREMENT for table `tb_jawaban`
 --
 ALTER TABLE `tb_jawaban`
-  MODIFY `jawaban_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `jawaban_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_jenjang`
@@ -743,7 +762,7 @@ ALTER TABLE `tb_siswa`
 -- AUTO_INCREMENT for table `tb_soal`
 --
 ALTER TABLE `tb_soal`
-  MODIFY `soal_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `soal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_tingkat`
@@ -755,7 +774,7 @@ ALTER TABLE `tb_tingkat`
 -- AUTO_INCREMENT for table `tb_topik`
 --
 ALTER TABLE `tb_topik`
-  MODIFY `topik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `topik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_ujian`
