@@ -76,6 +76,9 @@
         <li class="<?php echo (segment_uri(1) == 'pembayaran' ? 'active' : '' ); ?>">
           <a href="<?php echo base_url(); ?>pembayaran">Pembayaran Masuk</a>
         </li>
+        <li class="<?php echo (segment_uri(1) == 'cbt' ? 'active' : '' ); ?>">
+          <a href="<?php echo base_url(); ?>cbt">CBT</a>
+        </li>
         <?php endif; ?>
       </ul>
     </div>

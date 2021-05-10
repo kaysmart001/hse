@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 08, 2021 at 03:55 PM
+-- Generation Time: May 10, 2021 at 02:29 PM
 -- Server version: 8.0.17
 -- PHP Version: 7.1.33
 
@@ -99,6 +99,19 @@ CREATE TABLE `tb_jadwal` (
 INSERT INTO `tb_jadwal` (`jadwal_id`, `jadwal_hari`, `jadwal_mulai`, `jadwal_akhir`, `jadwal_kelas`, `jadwal_mapel`) VALUES
 (1, 1, '07:20', '08:50', 1, 1),
 (2, 2, '10:00', '11:20', 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_jawaban`
+--
+
+CREATE TABLE `tb_jawaban` (
+  `jawaban_id` int(11) NOT NULL,
+  `jawaban_soal` int(11) DEFAULT NULL,
+  `jawaban_detail` text,
+  `jawaban_benar` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -302,6 +315,19 @@ INSERT INTO `tb_siswa` (`siswa_id`, `siswa_nis`, `siswa_nama`, `siswa_tmp_lahir`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_soal`
+--
+
+CREATE TABLE `tb_soal` (
+  `soal_id` int(11) NOT NULL,
+  `soal_topik` int(11) DEFAULT NULL,
+  `soal_detail` text,
+  `soal_tipe` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_tingkat`
 --
 
@@ -327,6 +353,121 @@ INSERT INTO `tb_tingkat` (`tingkat_id`, `tingkat_nama`) VALUES
 (7, '7'),
 (8, '8'),
 (9, '9');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_topik`
+--
+
+CREATE TABLE `tb_topik` (
+  `topik_id` int(11) NOT NULL,
+  `topik_judul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `topik_deskripsi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `topik_status` int(11) DEFAULT NULL,
+  `topik_pembuat` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tb_topik`
+--
+
+INSERT INTO `tb_topik` (`topik_id`, `topik_judul`, `topik_deskripsi`, `topik_status`, `topik_pembuat`) VALUES
+(1, 'Ujian Harian.', 'Ujian Harian.', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_ujian`
+--
+
+CREATE TABLE `tb_ujian` (
+  `ujian_id` int(11) NOT NULL,
+  `ujian_judul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `ujian_deskripsi` text,
+  `ujian_waktu_mulai` datetime DEFAULT NULL,
+  `ujian_waktu_akhir` datetime DEFAULT NULL,
+  `ujian_hasil_siswa` int(11) DEFAULT NULL,
+  `ujian_detail_siswa` int(11) DEFAULT NULL,
+  `ujian_nilai_benar` decimal(10,0) DEFAULT NULL,
+  `ujian_nilai_salah` decimal(10,0) DEFAULT NULL,
+  `ujian_nilai_kosong` decimal(10,0) DEFAULT NULL,
+  `ujian_nilai_maks` decimal(10,0) DEFAULT NULL,
+  `ujian_status` int(11) DEFAULT NULL,
+  `ujian_pembuat` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_ujian_group`
+--
+
+CREATE TABLE `tb_ujian_group` (
+  `group_ujian` int(11) DEFAULT NULL,
+  `group_kelas` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_ujian_jawaban`
+--
+
+CREATE TABLE `tb_ujian_jawaban` (
+  `uj_soal` int(11) DEFAULT NULL,
+  `uj_jawaban` int(11) DEFAULT NULL,
+  `uj_selected` int(11) DEFAULT NULL,
+  `uj_order` int(11) DEFAULT NULL,
+  `uj_posisi` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_ujian_soal`
+--
+
+CREATE TABLE `tb_ujian_soal` (
+  `us_id` int(11) NOT NULL,
+  `us_users` int(11) DEFAULT NULL,
+  `us_soal` int(11) DEFAULT NULL,
+  `us_jawaban_teks` text,
+  `us_nilai` decimal(10,0) DEFAULT NULL,
+  `us_order` tinyint(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_ujian_topik`
+--
+
+CREATE TABLE `tb_ujian_topik` (
+  `ut_id` int(11) NOT NULL,
+  `ut_ujian` int(11) DEFAULT NULL,
+  `ut_topik` int(11) DEFAULT NULL,
+  `ut_tipe` int(11) DEFAULT NULL,
+  `ut_total` int(11) DEFAULT NULL,
+  `ut_jawaban` int(11) DEFAULT NULL,
+  `ut_jawaban_acak` int(11) DEFAULT NULL,
+  `ut_soal_acak` int(11) DEFAULT NULL,
+  `ut_ujian_tampil` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_ujian_users`
+--
+
+CREATE TABLE `tb_ujian_users` (
+  `users_id` int(11) NOT NULL,
+  `users_ujian` int(11) DEFAULT NULL,
+  `users_siswa` int(11) DEFAULT NULL,
+  `users_status` int(11) DEFAULT NULL,
+  `users_tgl_pengerjaan` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -381,6 +522,13 @@ ALTER TABLE `tb_jadwal`
   ADD PRIMARY KEY (`jadwal_id`),
   ADD KEY `jadwal_kelas` (`jadwal_kelas`),
   ADD KEY `jadwal_mapel` (`jadwal_mapel`);
+
+--
+-- Indexes for table `tb_jawaban`
+--
+ALTER TABLE `tb_jawaban`
+  ADD PRIMARY KEY (`jawaban_id`),
+  ADD KEY `jawaban_soal` (`jawaban_soal`);
 
 --
 -- Indexes for table `tb_jenjang`
@@ -444,11 +592,70 @@ ALTER TABLE `tb_siswa`
   ADD KEY `siswa_uid` (`siswa_uid`);
 
 --
+-- Indexes for table `tb_soal`
+--
+ALTER TABLE `tb_soal`
+  ADD PRIMARY KEY (`soal_id`),
+  ADD KEY `soal_topik` (`soal_topik`);
+
+--
 -- Indexes for table `tb_tingkat`
 --
 ALTER TABLE `tb_tingkat`
   ADD PRIMARY KEY (`tingkat_id`),
   ADD UNIQUE KEY `tingkat_nama` (`tingkat_nama`);
+
+--
+-- Indexes for table `tb_topik`
+--
+ALTER TABLE `tb_topik`
+  ADD PRIMARY KEY (`topik_id`),
+  ADD KEY `topik_pembuat` (`topik_pembuat`);
+
+--
+-- Indexes for table `tb_ujian`
+--
+ALTER TABLE `tb_ujian`
+  ADD PRIMARY KEY (`ujian_id`),
+  ADD KEY `ujian_pembuat` (`ujian_pembuat`);
+
+--
+-- Indexes for table `tb_ujian_group`
+--
+ALTER TABLE `tb_ujian_group`
+  ADD KEY `group_ujian` (`group_ujian`),
+  ADD KEY `group_kelas` (`group_kelas`);
+
+--
+-- Indexes for table `tb_ujian_jawaban`
+--
+ALTER TABLE `tb_ujian_jawaban`
+  ADD KEY `uj_soal` (`uj_soal`),
+  ADD KEY `uj_jawaban` (`uj_jawaban`);
+
+--
+-- Indexes for table `tb_ujian_soal`
+--
+ALTER TABLE `tb_ujian_soal`
+  ADD PRIMARY KEY (`us_id`),
+  ADD KEY `us_users` (`us_users`),
+  ADD KEY `us_soal` (`us_soal`);
+
+--
+-- Indexes for table `tb_ujian_topik`
+--
+ALTER TABLE `tb_ujian_topik`
+  ADD PRIMARY KEY (`ut_id`),
+  ADD KEY `ut_ujian` (`ut_ujian`),
+  ADD KEY `ut_topik` (`ut_topik`);
+
+--
+-- Indexes for table `tb_ujian_users`
+--
+ALTER TABLE `tb_ujian_users`
+  ADD PRIMARY KEY (`users_id`),
+  ADD KEY `users_ujian` (`users_ujian`),
+  ADD KEY `users_siswa` (`users_siswa`);
 
 --
 -- Indexes for table `tb_user`
@@ -477,6 +684,12 @@ ALTER TABLE `tb_guru`
 --
 ALTER TABLE `tb_jadwal`
   MODIFY `jadwal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tb_jawaban`
+--
+ALTER TABLE `tb_jawaban`
+  MODIFY `jawaban_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_jenjang`
@@ -527,10 +740,46 @@ ALTER TABLE `tb_siswa`
   MODIFY `siswa_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `tb_soal`
+--
+ALTER TABLE `tb_soal`
+  MODIFY `soal_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tb_tingkat`
 --
 ALTER TABLE `tb_tingkat`
   MODIFY `tingkat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `tb_topik`
+--
+ALTER TABLE `tb_topik`
+  MODIFY `topik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tb_ujian`
+--
+ALTER TABLE `tb_ujian`
+  MODIFY `ujian_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tb_ujian_soal`
+--
+ALTER TABLE `tb_ujian_soal`
+  MODIFY `us_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tb_ujian_topik`
+--
+ALTER TABLE `tb_ujian_topik`
+  MODIFY `ut_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tb_ujian_users`
+--
+ALTER TABLE `tb_ujian_users`
+  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
@@ -561,6 +810,12 @@ ALTER TABLE `tb_guru`
 ALTER TABLE `tb_jadwal`
   ADD CONSTRAINT `tb_jadwal_ibfk_1` FOREIGN KEY (`jadwal_kelas`) REFERENCES `tb_kelas` (`kelas_id`),
   ADD CONSTRAINT `tb_jadwal_ibfk_2` FOREIGN KEY (`jadwal_mapel`) REFERENCES `tb_mapel` (`mapel_id`);
+
+--
+-- Constraints for table `tb_jawaban`
+--
+ALTER TABLE `tb_jawaban`
+  ADD CONSTRAINT `tb_jawaban_ibfk_1` FOREIGN KEY (`jawaban_soal`) REFERENCES `tb_soal` (`soal_id`);
 
 --
 -- Constraints for table `tb_kelas`
@@ -601,6 +856,59 @@ ALTER TABLE `tb_siswa`
   ADD CONSTRAINT `tb_siswa_ibfk_1` FOREIGN KEY (`siswa_jenjang`) REFERENCES `tb_jenjang` (`jenjang_id`),
   ADD CONSTRAINT `tb_siswa_ibfk_2` FOREIGN KEY (`siswa_kelas`) REFERENCES `tb_kelas` (`kelas_id`),
   ADD CONSTRAINT `tb_siswa_ibfk_3` FOREIGN KEY (`siswa_uid`) REFERENCES `tb_user` (`id`);
+
+--
+-- Constraints for table `tb_soal`
+--
+ALTER TABLE `tb_soal`
+  ADD CONSTRAINT `tb_soal_ibfk_1` FOREIGN KEY (`soal_topik`) REFERENCES `tb_topik` (`topik_id`);
+
+--
+-- Constraints for table `tb_topik`
+--
+ALTER TABLE `tb_topik`
+  ADD CONSTRAINT `tb_topik_ibfk_1` FOREIGN KEY (`topik_pembuat`) REFERENCES `tb_user` (`id`);
+
+--
+-- Constraints for table `tb_ujian`
+--
+ALTER TABLE `tb_ujian`
+  ADD CONSTRAINT `tb_ujian_ibfk_1` FOREIGN KEY (`ujian_pembuat`) REFERENCES `tb_user` (`id`);
+
+--
+-- Constraints for table `tb_ujian_group`
+--
+ALTER TABLE `tb_ujian_group`
+  ADD CONSTRAINT `tb_ujian_group_ibfk_1` FOREIGN KEY (`group_ujian`) REFERENCES `tb_ujian` (`ujian_id`),
+  ADD CONSTRAINT `tb_ujian_group_ibfk_2` FOREIGN KEY (`group_kelas`) REFERENCES `tb_kelas` (`kelas_id`);
+
+--
+-- Constraints for table `tb_ujian_jawaban`
+--
+ALTER TABLE `tb_ujian_jawaban`
+  ADD CONSTRAINT `tb_ujian_jawaban_ibfk_1` FOREIGN KEY (`uj_soal`) REFERENCES `tb_ujian_soal` (`us_id`),
+  ADD CONSTRAINT `tb_ujian_jawaban_ibfk_2` FOREIGN KEY (`uj_jawaban`) REFERENCES `tb_jawaban` (`jawaban_id`);
+
+--
+-- Constraints for table `tb_ujian_soal`
+--
+ALTER TABLE `tb_ujian_soal`
+  ADD CONSTRAINT `tb_ujian_soal_ibfk_1` FOREIGN KEY (`us_users`) REFERENCES `tb_ujian_users` (`users_id`),
+  ADD CONSTRAINT `tb_ujian_soal_ibfk_2` FOREIGN KEY (`us_soal`) REFERENCES `tb_soal` (`soal_id`);
+
+--
+-- Constraints for table `tb_ujian_topik`
+--
+ALTER TABLE `tb_ujian_topik`
+  ADD CONSTRAINT `tb_ujian_topik_ibfk_1` FOREIGN KEY (`ut_ujian`) REFERENCES `tb_ujian` (`ujian_id`),
+  ADD CONSTRAINT `tb_ujian_topik_ibfk_2` FOREIGN KEY (`ut_topik`) REFERENCES `tb_topik` (`topik_id`);
+
+--
+-- Constraints for table `tb_ujian_users`
+--
+ALTER TABLE `tb_ujian_users`
+  ADD CONSTRAINT `tb_ujian_users_ibfk_1` FOREIGN KEY (`users_ujian`) REFERENCES `tb_ujian` (`ujian_id`),
+  ADD CONSTRAINT `tb_ujian_users_ibfk_2` FOREIGN KEY (`users_siswa`) REFERENCES `tb_siswa` (`siswa_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
