@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 10, 2021 at 05:54 PM
+-- Generation Time: May 10, 2021 at 06:33 PM
 -- Server version: 8.0.17
 -- PHP Version: 7.1.33
 
@@ -110,15 +110,17 @@ CREATE TABLE `tb_jawaban` (
   `jawaban_id` int(11) NOT NULL,
   `jawaban_soal` int(11) DEFAULT NULL,
   `jawaban_detail` text,
-  `jawaban_benar` int(11) DEFAULT NULL
+  `jawaban_benar` int(11) DEFAULT NULL,
+  `jawaban_pembuat` int(11) DEFAULT NULL
 );
 
 --
 -- Dumping data for table `tb_jawaban`
 --
 
-INSERT INTO `tb_jawaban` (`jawaban_id`, `jawaban_soal`, `jawaban_detail`, `jawaban_benar`) VALUES
-(1, 1, '100', 0);
+INSERT INTO `tb_jawaban` (`jawaban_id`, `jawaban_soal`, `jawaban_detail`, `jawaban_benar`, `jawaban_pembuat`) VALUES
+(1, 1, '100', 0, NULL),
+(3, 2, '3', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -707,7 +709,7 @@ ALTER TABLE `tb_jadwal`
 -- AUTO_INCREMENT for table `tb_jawaban`
 --
 ALTER TABLE `tb_jawaban`
-  MODIFY `jawaban_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `jawaban_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_jenjang`

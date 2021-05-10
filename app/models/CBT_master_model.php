@@ -142,7 +142,7 @@ class CBT_master_model {
 	}
 
 	public function add_jawaban($data) {
-		$query = 'INSERT INTO ' . $this->table_jawaban . ' (jawaban_soal, jawaban_detail, jawaban_benar) VALUES (:jawaban_soal, :jawaban_detail, :jawaban_benar)';
+		$query = 'INSERT INTO ' . $this->table_jawaban . ' (jawaban_soal, jawaban_detail, jawaban_benar, jawaban_pembuat) VALUES (:jawaban_soal, :jawaban_detail, :jawaban_benar, :jawaban_pembuat)';
 		$this->db->query($query);
 		$this->db->bind('jawaban_soal', $data['jawaban_soal']);
 		$this->db->bind('jawaban_detail', ($data['jawaban_detail'] != '' ? $data['jawaban_detail'] : ''));
