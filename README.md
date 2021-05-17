@@ -24,7 +24,7 @@ or
 
 ## Urwel :)
 
-## CBT Doc [here](https://github.com/adethis/hse/README_cbt.md)
+## CBT Doc [here](https://github.com/adethis/hse/blob/master/README_cbt.md)
 
 ### note
 > **:information_source: Note**<br />
