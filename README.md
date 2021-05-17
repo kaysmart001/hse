@@ -24,5 +24,8 @@ or
 
 ## Urwel :)
 
-#### note
-If you've got error collation or utf in database import process, try to use hse_noutf.sql
+## CBT Doc [here](https://github.com/adethis/hse/README_cbt.md)
+
+### note
+> **:information_source: Note**<br />
+> If you've got error collation or utf in database import process, try to use hse_noutf.sql
