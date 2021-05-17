@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 10, 2021 at 06:35 PM
+-- Generation Time: May 17, 2021 at 04:02 PM
 -- Server version: 8.0.17
 -- PHP Version: 7.1.33
 
@@ -40,12 +40,8 @@ CREATE TABLE `tb_absen` (
 --
 
 INSERT INTO `tb_absen` (`absen_id`, `absen_user`, `absen_jenis`, `absen_keterangan`, `absen_waktu`) VALUES
-(1, 2, 1, NULL, '2021-05-03 22:41:31'),
-(2, 3, 1, NULL, '2021-05-03 22:52:33'),
-(3, 2, 1, NULL, '2021-05-04 16:48:15'),
-(4, 3, 1, NULL, '2021-05-04 16:53:29'),
-(5, 4, 1, NULL, '2021-05-04 16:54:41'),
-(6, 2, 1, NULL, '2021-05-10 17:35:47');
+(1, 2, 1, NULL, '2021-05-17 21:58:04'),
+(2, 6, 1, NULL, '2021-05-17 22:01:38');
 
 -- --------------------------------------------------------
 
@@ -74,8 +70,10 @@ CREATE TABLE `tb_guru` (
 --
 
 INSERT INTO `tb_guru` (`guru_id`, `guru_nip`, `guru_nama`, `guru_tmp_lahir`, `guru_tgl_lahir`, `guru_jenis_kelamin`, `guru_agama`, `guru_alamat`, `guru_nohp`, `guru_foto`, `guru_jenjang`, `guru_jenjang_pendidikan`, `guru_uid`) VALUES
-(1, '19124212', 'Jane Doe', 'Jakarta', '1985-04-16', 2, 'Katolik', 'Jakarta', '0', 'team-4.jpg', 1, 'S1', 2),
-(2, '19124901', 'Alan', 'Jakarta', '1988-04-02', 1, 'Islam', '.', '0', 'user-default.png', 2, 'S1', 4);
+(1, '100432', 'Andin', 'Bali', '1992-03-12', 2, 'Katolik', '.', '0', 'user-default.png', 1, 'S1', 2),
+(2, '10421', 'Aliandi', 'Jakarta', '1990-03-01', 1, 'Islam', '.', '0', 'user-default.png', 2, 'S1', 3),
+(3, '104391', 'Imam', 'Jakarta', '1996-03-02', 1, 'Islam', '.', '0', 'user-default.png', 3, 'S1', 4),
+(4, '1402391', 'Aslan', 'Makassar', '1989-03-15', 1, 'Islam', '.', '0', 'user-default.png', 4, 'S1', 5);
 
 -- --------------------------------------------------------
 
@@ -97,8 +95,8 @@ CREATE TABLE `tb_jadwal` (
 --
 
 INSERT INTO `tb_jadwal` (`jadwal_id`, `jadwal_hari`, `jadwal_mulai`, `jadwal_akhir`, `jadwal_kelas`, `jadwal_mapel`) VALUES
-(1, 1, '07:20', '08:50', 1, 1),
-(2, 2, '10:00', '11:20', 2, 1);
+(1, 1, '08:40', '10:20', 1, 1),
+(2, 1, '09:00', '10:30', 13, 3);
 
 -- --------------------------------------------------------
 
@@ -119,8 +117,21 @@ CREATE TABLE `tb_jawaban` (
 --
 
 INSERT INTO `tb_jawaban` (`jawaban_id`, `jawaban_soal`, `jawaban_detail`, `jawaban_benar`, `jawaban_pembuat`) VALUES
-(1, 1, '100', 0, 1),
-(3, 2, '3', 0, 2);
+(1, 1, '20', 0, 2),
+(2, 1, '30', 1, 2),
+(3, 1, '40', 0, 2),
+(4, 1, '50', 0, 2),
+(5, 1, '60', 0, 2),
+(6, 2, '40', 0, 2),
+(7, 2, '50', 0, 2),
+(8, 2, '60', 0, 2),
+(9, 2, '70', 1, 2),
+(10, 2, '80', 0, 2),
+(11, 3, '10', 0, 2),
+(12, 3, '15', 1, 2),
+(13, 3, '20', 0, 2),
+(14, 3, '25', 0, 2),
+(15, 3, '30', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -163,8 +174,10 @@ INSERT INTO `tb_jurusan` (`jurusan_id`, `jurusan_nama`, `jurusan_jenjang`) VALUE
 (1, 'IPA', 3),
 (2, 'IPS', 3),
 (3, 'TKJ', 4),
-(4, 'RPL', 4),
-(5, 'TKR', 4);
+(4, 'TKR', 4),
+(5, 'RPL', 4),
+(6, 'Tata Boga', 4),
+(7, 'Perhotelan', 4);
 
 -- --------------------------------------------------------
 
@@ -186,10 +199,41 @@ CREATE TABLE `tb_kelas` (
 
 INSERT INTO `tb_kelas` (`kelas_id`, `kelas_jenjang`, `kelas_tingkat`, `kelas_jurusan`, `kelas_nama`) VALUES
 (1, 1, 1, NULL, '1A'),
-(2, 2, 7, NULL, '7A'),
-(3, 3, 10, 1, 'X IPA A'),
-(4, 4, 10, 3, 'X TKJ A'),
-(5, 1, 2, NULL, '2B');
+(2, 1, 1, NULL, '1B'),
+(3, 1, 2, NULL, '2A'),
+(4, 1, 2, NULL, '2B'),
+(5, 1, 3, NULL, '3A'),
+(6, 1, 3, NULL, '3B'),
+(7, 1, 4, NULL, '4A'),
+(8, 1, 4, NULL, '4B'),
+(9, 1, 5, NULL, '5A'),
+(10, 1, 5, NULL, '5B'),
+(11, 1, 6, NULL, '6A'),
+(12, 1, 6, NULL, '6B'),
+(13, 2, 7, NULL, '7A'),
+(14, 2, 7, NULL, '7B'),
+(15, 2, 8, NULL, '8A'),
+(16, 2, 8, NULL, '8B'),
+(17, 2, 9, NULL, '9A'),
+(18, 2, 9, NULL, '9B'),
+(19, 3, 10, 1, 'IPA A'),
+(20, 3, 10, 1, 'IPA B'),
+(21, 3, 11, 1, 'IPA A'),
+(22, 3, 11, 1, 'IPA B'),
+(23, 3, 12, 1, 'IPA A'),
+(24, 3, 12, 1, 'IPA B'),
+(25, 4, 10, 3, 'TKJ 1'),
+(26, 4, 10, 3, 'TKJ 2'),
+(27, 4, 10, 4, 'TKR 1'),
+(28, 4, 10, 4, 'TKR 2'),
+(29, 4, 10, 5, 'RPL 1'),
+(30, 4, 10, 5, 'RPL 2'),
+(31, 4, 11, 3, 'TKJ 1'),
+(32, 4, 11, 4, 'TKR 1'),
+(33, 4, 12, 3, 'TKJ 1'),
+(34, 4, 12, 4, 'TKR 1'),
+(35, 4, 12, 6, 'TB 1'),
+(36, 4, 12, 7, 'PH 1');
 
 -- --------------------------------------------------------
 
@@ -209,7 +253,11 @@ CREATE TABLE `tb_mapel` (
 --
 
 INSERT INTO `tb_mapel` (`mapel_id`, `mapel_kode`, `mapel_nama`, `mapel_guru`) VALUES
-(1, 'K0001', 'Biologi', 1);
+(1, 'K0016', 'MTK (SD 1)', 1),
+(2, 'K0022', 'Bahasa Indonesia (SD 1)', 1),
+(3, 'K0026', 'Biologi (SMP 7)', 2),
+(4, 'K0024', 'Fisika (SMA 1)', 3),
+(5, 'K0028', 'Jaringan (SMK 1)', 4);
 
 -- --------------------------------------------------------
 
@@ -231,7 +279,7 @@ CREATE TABLE `tb_pembayaran` (
 --
 
 INSERT INTO `tb_pembayaran` (`pembayaran_id`, `pembayaran_jenis`, `pembayaran_keterangan`, `pembayaran_bukti`, `pembayaran_status`, `pembayaran_siswa`) VALUES
-(1, 1, 'Biaya untuk pendaftaran.', 'wabot.png', 2, 1);
+(1, 1, 'Biaya untuk pendaftaran.', 'bukti.png', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -251,10 +299,10 @@ CREATE TABLE `tb_pengumuman` (
 --
 
 INSERT INTO `tb_pengumuman` (`pengumuman_id`, `pengumuman_jenjang`, `pengumuman_isi`, `pengumuman_waktu`) VALUES
-(1, 1, 'Untuk siswa SD kelas 1A harap mengerjakan tugas hariannya, trims!', '2021-05-04 18:11:05'),
-(2, 2, 'Untuk siswa SMP diharapkan besok mengikuti kelas online..', '2021-05-04 00:00:00'),
-(3, 3, 'Semua siswa SMA besok diliburkan', '2021-05-04 18:23:41'),
-(4, 1, 'Hari senin jangan lupa mengerjakan latihan soal MTK', '2021-05-04 21:42:26');
+(1, 1, 'Pengumuman jenjang SD', '2021-05-17 21:40:52'),
+(2, 2, 'Pengumuman jenjang SMP', '2021-05-17 21:41:13'),
+(3, 3, 'Pengumuman jenjang SMA', '2021-05-17 21:41:26'),
+(4, 4, 'Pengumuman jenjang SMK', '2021-05-17 21:41:38');
 
 -- --------------------------------------------------------
 
@@ -274,9 +322,7 @@ CREATE TABLE `tb_rapor` (
 --
 
 INSERT INTO `tb_rapor` (`rapor_id`, `rapor_semester`, `rapor_file`, `rapor_siswa`) VALUES
-(1, 1, 'rapor.pdf', 1),
-(2, 1, 'user-default.png', 3),
-(3, 1, 'wabot.png', 2);
+(1, 1, 'rapor.png', 1);
 
 -- --------------------------------------------------------
 
@@ -316,10 +362,11 @@ CREATE TABLE `tb_siswa` (
 --
 
 INSERT INTO `tb_siswa` (`siswa_id`, `siswa_nis`, `siswa_nama`, `siswa_tmp_lahir`, `siswa_tgl_lahir`, `siswa_jenis_kelamin`, `siswa_agama`, `siswa_anak_ke`, `siswa_alamat`, `siswa_nama_ayah`, `siswa_nama_ibu`, `siswa_alamat_ortu`, `siswa_nohp_ortu`, `siswa_pekerjaan_ayah`, `siswa_pekerjaan_ibu`, `siswa_nama_wali`, `siswa_nohp_wali`, `siswa_alamat_wali`, `siswa_pekerjaan_wali`, `siswa_jenjang`, `siswa_kelas`, `siswa_semester`, `siswa_foto`, `siswa_uid`) VALUES
-(1, '0', 'Yana', 'Jakarta', '2014-04-14', 1, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 1, 1, '1', 'avatar.png', 3),
-(2, '14002391', 'John Doe', 'Jakarta', '2019-03-05', 1, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 1, 1, '1', 'wabot.png', 5),
-(3, '0', 'Mariana', 'Jakarta', '2005-03-05', 2, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 3, 3, '1', 'user-default.png', 6),
-(4, '0', 'Aldo', 'Jakarta', '2002-03-05', 1, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 1, 1, '1', 'user-default.png', 7);
+(1, '21041', 'Dendy', 'Tangerang', '2007-03-14', 1, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 1, 1, '1', 'user-default.png', 6),
+(2, '21204', 'Alya', 'Yogyakarta', '2003-03-05', 2, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 2, 13, '1', 'user-default.png', 7),
+(3, '212049', 'Edgar', 'Jakarta', '2009-03-05', 1, 'Islam', 3, '.', '.', '-', '.', '0', '-', '-', '-', '0', '.', '-', 3, 19, '1', 'user-default.png', 8),
+(4, '21401', 'Rama', 'Jakarta', '2006-03-14', 1, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 4, 25, '1', 'user-default.png', 9),
+(5, '21049', 'Aldo', 'Jakarta', '2009-03-14', 1, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 1, 1, '1', 'user-default.png', 10);
 
 -- --------------------------------------------------------
 
@@ -340,8 +387,11 @@ CREATE TABLE `tb_soal` (
 --
 
 INSERT INTO `tb_soal` (`soal_id`, `soal_topik`, `soal_detail`, `soal_tipe`, `soal_pembuat`) VALUES
-(1, 1, '1 + 120 = ?', 1, 1),
-(2, 2, '1 + 1 = ?', 1, 2);
+(1, 1, '10 + 20 = ?', 1, 2),
+(2, 1, '20 + 50 = ?', 1, 2),
+(3, 1, '30 / 2 = ?', 1, 2),
+(4, 1, 'Sebutkan nama-nama hewan melata (minimal 2)', 2, 2),
+(5, 1, 'Sebutkan buah-buahan (minimal 2)', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -391,8 +441,7 @@ CREATE TABLE `tb_topik` (
 --
 
 INSERT INTO `tb_topik` (`topik_id`, `topik_judul`, `topik_deskripsi`, `topik_status`, `topik_pembuat`) VALUES
-(1, 'Ujian Harian.', 'Ujian Harian.', 1, 1),
-(2, 'Ujian Harian SD', 'Ujian Harian SD', 1, 2);
+(1, 'UM SD', 'Ujian Mingguan SD', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -406,15 +455,23 @@ CREATE TABLE `tb_ujian` (
   `ujian_deskripsi` text,
   `ujian_waktu_mulai` datetime DEFAULT NULL,
   `ujian_waktu_akhir` datetime DEFAULT NULL,
+  `ujian_durasi` smallint(6) DEFAULT NULL COMMENT 'menit',
   `ujian_hasil_siswa` int(11) DEFAULT NULL,
   `ujian_detail_siswa` int(11) DEFAULT NULL,
-  `ujian_nilai_benar` decimal(10,0) DEFAULT NULL,
-  `ujian_nilai_salah` decimal(10,0) DEFAULT NULL,
-  `ujian_nilai_kosong` decimal(10,0) DEFAULT NULL,
-  `ujian_nilai_maks` decimal(10,0) DEFAULT NULL,
+  `ujian_nilai_benar` decimal(10,0) DEFAULT '1',
+  `ujian_nilai_salah` decimal(10,2) DEFAULT '0.00',
+  `ujian_nilai_kosong` decimal(10,2) DEFAULT '0.00',
+  `ujian_nilai_maks` decimal(10,2) DEFAULT '0.00',
   `ujian_status` int(11) DEFAULT NULL,
   `ujian_pembuat` int(11) DEFAULT NULL
 );
+
+--
+-- Dumping data for table `tb_ujian`
+--
+
+INSERT INTO `tb_ujian` (`ujian_id`, `ujian_judul`, `ujian_deskripsi`, `ujian_waktu_mulai`, `ujian_waktu_akhir`, `ujian_durasi`, `ujian_hasil_siswa`, `ujian_detail_siswa`, `ujian_nilai_benar`, `ujian_nilai_salah`, `ujian_nilai_kosong`, `ujian_nilai_maks`, `ujian_status`, `ujian_pembuat`) VALUES
+(1, 'UM SD 1', 'Ujian mingguan SD 1', '2021-05-17 09:00:00', '2021-05-21 09:00:00', 45, 1, 1, '1', '0.00', '0.00', '5.00', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -427,6 +484,13 @@ CREATE TABLE `tb_ujian_group` (
   `group_kelas` int(11) DEFAULT NULL
 );
 
+--
+-- Dumping data for table `tb_ujian_group`
+--
+
+INSERT INTO `tb_ujian_group` (`group_ujian`, `group_kelas`) VALUES
+(1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -434,12 +498,33 @@ CREATE TABLE `tb_ujian_group` (
 --
 
 CREATE TABLE `tb_ujian_jawaban` (
-  `uj_soal` int(11) DEFAULT NULL,
-  `uj_jawaban` int(11) DEFAULT NULL,
+  `uj_soal` int(11) NOT NULL,
+  `uj_jawaban` int(11) NOT NULL,
   `uj_selected` int(11) DEFAULT NULL,
   `uj_order` int(11) DEFAULT NULL,
   `uj_posisi` int(11) DEFAULT NULL
 );
+
+--
+-- Dumping data for table `tb_ujian_jawaban`
+--
+
+INSERT INTO `tb_ujian_jawaban` (`uj_soal`, `uj_jawaban`, `uj_selected`, `uj_order`, `uj_posisi`) VALUES
+(3, 11, 0, 5, 0),
+(3, 12, 1, 4, 1),
+(3, 13, 0, 3, 0),
+(3, 14, 0, 2, 0),
+(3, 15, 0, 1, 0),
+(4, 6, 0, 5, 0),
+(4, 7, 0, 4, 0),
+(4, 8, 0, 3, 0),
+(4, 9, 1, 2, 1),
+(4, 10, 0, 1, 0),
+(5, 1, 0, 5, 0),
+(5, 2, 1, 4, 1),
+(5, 3, 0, 3, 0),
+(5, 4, 0, 2, 0),
+(5, 5, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -453,8 +538,22 @@ CREATE TABLE `tb_ujian_soal` (
   `us_soal` int(11) DEFAULT NULL,
   `us_jawaban_teks` text,
   `us_nilai` decimal(10,0) DEFAULT NULL,
-  `us_order` tinyint(4) DEFAULT NULL
+  `us_order` tinyint(4) DEFAULT NULL,
+  `us_waktu_diubah` datetime DEFAULT NULL,
+  `us_ragu` tinyint(4) DEFAULT NULL,
+  `us_komentar` varchar(150) DEFAULT NULL
 );
+
+--
+-- Dumping data for table `tb_ujian_soal`
+--
+
+INSERT INTO `tb_ujian_soal` (`us_id`, `us_users`, `us_soal`, `us_jawaban_teks`, `us_nilai`, `us_order`, `us_waktu_diubah`, `us_ragu`, `us_komentar`) VALUES
+(1, 1, 5, 'apel, mangga, jeruk', '1', 1, '2021-05-17 22:59:16', 0, 'sudah dikoreksi'),
+(2, 1, 4, 'buaya, kadal, ular', '1', 2, '2021-05-17 22:59:25', 0, 'sudah dikoreksi'),
+(3, 1, 3, NULL, '1', 3, '2021-05-17 22:59:29', 0, NULL),
+(4, 1, 2, NULL, '1', 4, '2021-05-17 22:59:33', 0, NULL),
+(5, 1, 1, NULL, '1', 5, '2021-05-17 22:59:37', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -466,13 +565,19 @@ CREATE TABLE `tb_ujian_topik` (
   `ut_id` int(11) NOT NULL,
   `ut_ujian` int(11) DEFAULT NULL,
   `ut_topik` int(11) DEFAULT NULL,
-  `ut_tipe` int(11) DEFAULT NULL,
-  `ut_total` int(11) DEFAULT NULL,
-  `ut_jawaban` int(11) DEFAULT NULL,
+  `ut_tipe` int(11) DEFAULT '0' COMMENT '0 = semua, 1 = pilihan ganda, 2 = essai',
+  `ut_total_soal` int(11) DEFAULT NULL,
+  `ut_total_jawaban` int(11) DEFAULT NULL,
   `ut_jawaban_acak` int(11) DEFAULT NULL,
-  `ut_soal_acak` int(11) DEFAULT NULL,
-  `ut_ujian_tampil` int(11) DEFAULT NULL
+  `ut_soal_acak` int(11) DEFAULT NULL
 );
+
+--
+-- Dumping data for table `tb_ujian_topik`
+--
+
+INSERT INTO `tb_ujian_topik` (`ut_id`, `ut_ujian`, `ut_topik`, `ut_tipe`, `ut_total_soal`, `ut_total_jawaban`, `ut_jawaban_acak`, `ut_soal_acak`) VALUES
+(1, 1, 1, 0, 5, 15, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -484,9 +589,16 @@ CREATE TABLE `tb_ujian_users` (
   `users_id` int(11) NOT NULL,
   `users_ujian` int(11) DEFAULT NULL,
   `users_siswa` int(11) DEFAULT NULL,
-  `users_status` int(11) DEFAULT NULL,
+  `users_status` int(11) DEFAULT NULL COMMENT '1 = sedang dikerjakan, 3 = waktu habis, 4 = selesai',
   `users_tgl_pengerjaan` datetime DEFAULT NULL
 );
+
+--
+-- Dumping data for table `tb_ujian_users`
+--
+
+INSERT INTO `tb_ujian_users` (`users_id`, `users_ujian`, `users_siswa`, `users_status`, `users_tgl_pengerjaan`) VALUES
+(1, 1, 5, 4, '2021-05-17 22:59:07');
 
 -- --------------------------------------------------------
 
@@ -507,13 +619,16 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`id`, `username`, `email`, `password`, `role`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$7sqSt.26.IwKlQd47nd3cehwS8DhIH5STS/TVl/8b2wUzxAsrWZYq', 1),
-(2, 'gurusd', 'gurusd@gmail.com', '$2y$10$xpV0.l.a3BxDFjd8FUQvo.DMieTm9qtoJe8qlNQg9IoKKfFRDQwAa', 2),
-(3, 'siswasd', 'siswasd@gmail.com', '$2y$10$XJmwXBaO3uRuOYClnFwy1OjiSHOA9BurEPp89p1oU0oQP.k3ABnIO', 3),
-(4, 'gurusmp', 'gurusmp@gmail.com', '$2y$10$h.6VEgIwaACeucm6x/toE.Uknxxn6Bei4QD/VkQc4nnGQSBhP9boO', 2),
-(5, 'siswasd2', 'siswasd2@gmail.com', '$2y$10$BDOy9F59PZ7gIDx/jBodgOxrfrnNpF.SV7nUyhHvv8SWs8QUXBJLy', 3),
-(6, 'siswasma', 'siswasma@gmail.com', '$2y$10$S42BkHkklSRCbZ1bHOl0K.96obZx1XknbkkZXkwKT4zi.Sz2qRcVa', 3),
-(7, 'aldo', 'aldo@gmail.com', '$2y$10$mZh0Cl.mcNs3SiJAfUMTMe9xj33pay4iFWWpYXfj3n9u6fx6oKEDK', 3);
+(1, 'admin', 'admin@hse.com', '$2y$10$9B4tW4Q48iJYTLJj5uu/K.yAQacIFc8KlgQQ5cwChfkZIqyiX1OMK', 1),
+(2, 'gurusd', 'gurusd@hse.com', '$2y$10$ZiG3uoufa/.gES2SnCn2aOCa0hf.qn01TUhDnPsLcTyf6gGO5Q95e', 2),
+(3, 'gurusmp', 'gurusmp@hse.com', '$2y$10$8j1RSClyF.XsZn0gNhPzoOVIiYIn0TQCwHQKNpvTzlqD7XdSuNAYm', 2),
+(4, 'gurusma', 'gurusma@hse.com', '$2y$10$QfP6zYD.WCaof9G6kEDZyuC3THpTmpzThx4GPMUYbPKrD/gWxJRKy', 2),
+(5, 'gurusmk', 'gurusmk@hse.com', '$2y$10$SqLL0IdbBRBo.40C/P8zNOq8hrfPtcdGEbcBnaAE0at0i16u1VSFy', 2),
+(6, 'siswasd', 'siswasd@hse.com', '$2y$10$RbKnp8VvJkxRMgIQoYWj7ORCduDaflU0Njf.VlByju0gQgNjTk3MS', 3),
+(7, 'siswasmp', 'siswasmp@hse.com', '$2y$10$HQwPzscuFvU2cqoh1PtSgeniYCJnzriY/3XA3pNU1vYdihv5x.auK', 3),
+(8, 'siswasma', 'siswasma@hse.com', '$2y$10$HsCgFMmmgB6scJqK9LaDC.569Gr8dW8Y3YTDcGqBTFJ92Mz436JC6', 3),
+(9, 'siswasmk', 'siswasmk@hse.com', '$2y$10$9HCdvtnMax2X/f4B5cAqmOp725scx9FTAYGCCjBeAipO43Kmmoh7S', 3),
+(10, 'aldo', 'aldo@hse.com', '$2y$10$XmcrHrxtyDhxSnXl2QdQmO5nG8MowrFC21U3XvdsWoGn1FXTZNnIS', 3);
 
 --
 -- Indexes for dumped tables
@@ -531,8 +646,8 @@ ALTER TABLE `tb_absen`
 --
 ALTER TABLE `tb_guru`
   ADD PRIMARY KEY (`guru_id`),
-  ADD KEY `guru_uid` (`guru_uid`),
-  ADD KEY `guru_jenjang` (`guru_jenjang`);
+  ADD KEY `guru_jenjang` (`guru_jenjang`),
+  ADD KEY `guru_uid` (`guru_uid`);
 
 --
 -- Indexes for table `tb_jadwal`
@@ -615,8 +730,8 @@ ALTER TABLE `tb_siswa`
 --
 ALTER TABLE `tb_soal`
   ADD PRIMARY KEY (`soal_id`),
-  ADD KEY `soal_topik` (`soal_topik`),
-  ADD KEY `soal_pembuat` (`soal_pembuat`);
+  ADD KEY `soal_pembuat` (`soal_pembuat`),
+  ADD KEY `soal_topik` (`soal_topik`);
 
 --
 -- Indexes for table `tb_tingkat`
@@ -650,16 +765,18 @@ ALTER TABLE `tb_ujian_group`
 -- Indexes for table `tb_ujian_jawaban`
 --
 ALTER TABLE `tb_ujian_jawaban`
-  ADD KEY `uj_soal` (`uj_soal`),
-  ADD KEY `uj_jawaban` (`uj_jawaban`);
+  ADD PRIMARY KEY (`uj_soal`,`uj_jawaban`),
+  ADD KEY `uj_jawaban` (`uj_jawaban`),
+  ADD KEY `uj_soal` (`uj_soal`);
 
 --
 -- Indexes for table `tb_ujian_soal`
 --
 ALTER TABLE `tb_ujian_soal`
   ADD PRIMARY KEY (`us_id`),
-  ADD KEY `us_users` (`us_users`),
-  ADD KEY `us_soal` (`us_soal`);
+  ADD UNIQUE KEY `us_users_us_soal` (`us_users`,`us_soal`),
+  ADD KEY `us_soal` (`us_soal`),
+  ADD KEY `us_users` (`us_users`);
 
 --
 -- Indexes for table `tb_ujian_topik`
@@ -674,8 +791,9 @@ ALTER TABLE `tb_ujian_topik`
 --
 ALTER TABLE `tb_ujian_users`
   ADD PRIMARY KEY (`users_id`),
-  ADD KEY `users_ujian` (`users_ujian`),
-  ADD KEY `users_siswa` (`users_siswa`);
+  ADD UNIQUE KEY `users_ujian_users_siswa_users_status` (`users_ujian`,`users_siswa`,`users_status`),
+  ADD KEY `users_siswa` (`users_siswa`),
+  ADD KEY `users_ujian` (`users_ujian`);
 
 --
 -- Indexes for table `tb_user`
@@ -691,25 +809,25 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT for table `tb_absen`
 --
 ALTER TABLE `tb_absen`
-  MODIFY `absen_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `absen_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_guru`
 --
 ALTER TABLE `tb_guru`
-  MODIFY `guru_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `guru_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tb_jadwal`
 --
 ALTER TABLE `tb_jadwal`
-  MODIFY `jadwal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `jadwal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_jawaban`
 --
 ALTER TABLE `tb_jawaban`
-  MODIFY `jawaban_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `jawaban_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tb_jenjang`
@@ -721,19 +839,19 @@ ALTER TABLE `tb_jenjang`
 -- AUTO_INCREMENT for table `tb_jurusan`
 --
 ALTER TABLE `tb_jurusan`
-  MODIFY `jurusan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `jurusan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tb_kelas`
 --
 ALTER TABLE `tb_kelas`
-  MODIFY `kelas_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `kelas_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `tb_mapel`
 --
 ALTER TABLE `tb_mapel`
-  MODIFY `mapel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `mapel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tb_pembayaran`
@@ -745,25 +863,25 @@ ALTER TABLE `tb_pembayaran`
 -- AUTO_INCREMENT for table `tb_pengumuman`
 --
 ALTER TABLE `tb_pengumuman`
-  MODIFY `pengumuman_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `pengumuman_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tb_rapor`
 --
 ALTER TABLE `tb_rapor`
-  MODIFY `rapor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `rapor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_siswa`
 --
 ALTER TABLE `tb_siswa`
-  MODIFY `siswa_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `siswa_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tb_soal`
 --
 ALTER TABLE `tb_soal`
-  MODIFY `soal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `soal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tb_tingkat`
@@ -775,37 +893,37 @@ ALTER TABLE `tb_tingkat`
 -- AUTO_INCREMENT for table `tb_topik`
 --
 ALTER TABLE `tb_topik`
-  MODIFY `topik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `topik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_ujian`
 --
 ALTER TABLE `tb_ujian`
-  MODIFY `ujian_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ujian_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_ujian_soal`
 --
 ALTER TABLE `tb_ujian_soal`
-  MODIFY `us_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `us_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tb_ujian_topik`
 --
 ALTER TABLE `tb_ujian_topik`
-  MODIFY `ut_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ut_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_ujian_users`
 --
 ALTER TABLE `tb_ujian_users`
-  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
@@ -815,27 +933,27 @@ ALTER TABLE `tb_user`
 -- Constraints for table `tb_absen`
 --
 ALTER TABLE `tb_absen`
-  ADD CONSTRAINT `tb_absen_ibfk_1` FOREIGN KEY (`absen_user`) REFERENCES `tb_user` (`id`);
+  ADD CONSTRAINT `tb_absen_ibfk_2` FOREIGN KEY (`absen_user`) REFERENCES `tb_user` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `tb_guru`
 --
 ALTER TABLE `tb_guru`
-  ADD CONSTRAINT `tb_guru_ibfk_2` FOREIGN KEY (`guru_uid`) REFERENCES `tb_user` (`id`),
-  ADD CONSTRAINT `tb_guru_ibfk_3` FOREIGN KEY (`guru_jenjang`) REFERENCES `tb_jenjang` (`jenjang_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `tb_guru_ibfk_3` FOREIGN KEY (`guru_jenjang`) REFERENCES `tb_jenjang` (`jenjang_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `tb_guru_ibfk_4` FOREIGN KEY (`guru_uid`) REFERENCES `tb_user` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `tb_jadwal`
 --
 ALTER TABLE `tb_jadwal`
   ADD CONSTRAINT `tb_jadwal_ibfk_1` FOREIGN KEY (`jadwal_kelas`) REFERENCES `tb_kelas` (`kelas_id`),
-  ADD CONSTRAINT `tb_jadwal_ibfk_2` FOREIGN KEY (`jadwal_mapel`) REFERENCES `tb_mapel` (`mapel_id`);
+  ADD CONSTRAINT `tb_jadwal_ibfk_3` FOREIGN KEY (`jadwal_mapel`) REFERENCES `tb_mapel` (`mapel_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `tb_jawaban`
 --
 ALTER TABLE `tb_jawaban`
-  ADD CONSTRAINT `tb_jawaban_ibfk_1` FOREIGN KEY (`jawaban_soal`) REFERENCES `tb_soal` (`soal_id`);
+  ADD CONSTRAINT `tb_jawaban_ibfk_2` FOREIGN KEY (`jawaban_soal`) REFERENCES `tb_soal` (`soal_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `tb_kelas`
@@ -849,7 +967,7 @@ ALTER TABLE `tb_kelas`
 -- Constraints for table `tb_mapel`
 --
 ALTER TABLE `tb_mapel`
-  ADD CONSTRAINT `tb_mapel_ibfk_1` FOREIGN KEY (`mapel_guru`) REFERENCES `tb_guru` (`guru_id`);
+  ADD CONSTRAINT `tb_mapel_ibfk_2` FOREIGN KEY (`mapel_guru`) REFERENCES `tb_guru` (`guru_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `tb_pembayaran`
@@ -875,13 +993,13 @@ ALTER TABLE `tb_rapor`
 ALTER TABLE `tb_siswa`
   ADD CONSTRAINT `tb_siswa_ibfk_1` FOREIGN KEY (`siswa_jenjang`) REFERENCES `tb_jenjang` (`jenjang_id`),
   ADD CONSTRAINT `tb_siswa_ibfk_2` FOREIGN KEY (`siswa_kelas`) REFERENCES `tb_kelas` (`kelas_id`),
-  ADD CONSTRAINT `tb_siswa_ibfk_3` FOREIGN KEY (`siswa_uid`) REFERENCES `tb_user` (`id`);
+  ADD CONSTRAINT `tb_siswa_ibfk_4` FOREIGN KEY (`siswa_uid`) REFERENCES `tb_user` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `tb_soal`
 --
 ALTER TABLE `tb_soal`
-  ADD CONSTRAINT `tb_soal_ibfk_1` FOREIGN KEY (`soal_topik`) REFERENCES `tb_topik` (`topik_id`);
+  ADD CONSTRAINT `tb_soal_ibfk_2` FOREIGN KEY (`soal_topik`) REFERENCES `tb_topik` (`topik_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `tb_topik`
@@ -890,45 +1008,39 @@ ALTER TABLE `tb_topik`
   ADD CONSTRAINT `tb_topik_ibfk_1` FOREIGN KEY (`topik_pembuat`) REFERENCES `tb_user` (`id`);
 
 --
--- Constraints for table `tb_ujian`
---
-ALTER TABLE `tb_ujian`
-  ADD CONSTRAINT `tb_ujian_ibfk_1` FOREIGN KEY (`ujian_pembuat`) REFERENCES `tb_user` (`id`);
-
---
 -- Constraints for table `tb_ujian_group`
 --
 ALTER TABLE `tb_ujian_group`
-  ADD CONSTRAINT `tb_ujian_group_ibfk_1` FOREIGN KEY (`group_ujian`) REFERENCES `tb_ujian` (`ujian_id`),
-  ADD CONSTRAINT `tb_ujian_group_ibfk_2` FOREIGN KEY (`group_kelas`) REFERENCES `tb_kelas` (`kelas_id`);
+  ADD CONSTRAINT `tb_ujian_group_ibfk_3` FOREIGN KEY (`group_ujian`) REFERENCES `tb_ujian` (`ujian_id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  ADD CONSTRAINT `tb_ujian_group_ibfk_4` FOREIGN KEY (`group_kelas`) REFERENCES `tb_kelas` (`kelas_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `tb_ujian_jawaban`
 --
 ALTER TABLE `tb_ujian_jawaban`
-  ADD CONSTRAINT `tb_ujian_jawaban_ibfk_1` FOREIGN KEY (`uj_soal`) REFERENCES `tb_ujian_soal` (`us_id`),
-  ADD CONSTRAINT `tb_ujian_jawaban_ibfk_2` FOREIGN KEY (`uj_jawaban`) REFERENCES `tb_jawaban` (`jawaban_id`);
+  ADD CONSTRAINT `tb_ujian_jawaban_ibfk_2` FOREIGN KEY (`uj_jawaban`) REFERENCES `tb_jawaban` (`jawaban_id`),
+  ADD CONSTRAINT `tb_ujian_jawaban_ibfk_3` FOREIGN KEY (`uj_soal`) REFERENCES `tb_ujian_soal` (`us_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `tb_ujian_soal`
 --
 ALTER TABLE `tb_ujian_soal`
-  ADD CONSTRAINT `tb_ujian_soal_ibfk_1` FOREIGN KEY (`us_users`) REFERENCES `tb_ujian_users` (`users_id`),
-  ADD CONSTRAINT `tb_ujian_soal_ibfk_2` FOREIGN KEY (`us_soal`) REFERENCES `tb_soal` (`soal_id`);
+  ADD CONSTRAINT `tb_ujian_soal_ibfk_2` FOREIGN KEY (`us_soal`) REFERENCES `tb_soal` (`soal_id`),
+  ADD CONSTRAINT `tb_ujian_soal_ibfk_3` FOREIGN KEY (`us_users`) REFERENCES `tb_ujian_users` (`users_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `tb_ujian_topik`
 --
 ALTER TABLE `tb_ujian_topik`
-  ADD CONSTRAINT `tb_ujian_topik_ibfk_1` FOREIGN KEY (`ut_ujian`) REFERENCES `tb_ujian` (`ujian_id`),
-  ADD CONSTRAINT `tb_ujian_topik_ibfk_2` FOREIGN KEY (`ut_topik`) REFERENCES `tb_topik` (`topik_id`);
+  ADD CONSTRAINT `tb_ujian_topik_ibfk_3` FOREIGN KEY (`ut_ujian`) REFERENCES `tb_ujian` (`ujian_id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  ADD CONSTRAINT `tb_ujian_topik_ibfk_4` FOREIGN KEY (`ut_topik`) REFERENCES `tb_topik` (`topik_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `tb_ujian_users`
 --
 ALTER TABLE `tb_ujian_users`
-  ADD CONSTRAINT `tb_ujian_users_ibfk_1` FOREIGN KEY (`users_ujian`) REFERENCES `tb_ujian` (`ujian_id`),
-  ADD CONSTRAINT `tb_ujian_users_ibfk_2` FOREIGN KEY (`users_siswa`) REFERENCES `tb_siswa` (`siswa_id`);
+  ADD CONSTRAINT `tb_ujian_users_ibfk_3` FOREIGN KEY (`users_siswa`) REFERENCES `tb_siswa` (`siswa_id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  ADD CONSTRAINT `tb_ujian_users_ibfk_5` FOREIGN KEY (`users_ujian`) REFERENCES `tb_ujian` (`ujian_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

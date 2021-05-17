@@ -13,7 +13,7 @@ class Jadwal extends Controller {
 
 	public function index() {
 		$data['mapel'] = $this->Mapel_model->get();
-		$data['kelas'] = $this->Kelas_model->get_kelas();
+		$data['kelas'] = $this->Kelas_model->get_by();
 
 		if ($_SESSION['role'] > 1) {
 			if ($_SESSION['role'] == 2) {
@@ -92,7 +92,7 @@ class Jadwal extends Controller {
 			header('Location: ' . base_url() . 'jadwal');
 
 		$data['mapel'] = $this->Mapel_model->get();
-		$data['guru'] = $this->Guru_model->get();
+		$data['guru'] = $this->Guru_model->get_all();
 
 		if ($_POST) {
 			if (isset($_POST['mapel_id'])) {

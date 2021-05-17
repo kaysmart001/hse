@@ -1,28 +1,48 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/buttons.dataTables.min.css">
+<?php if ($_SESSION['role'] == 1) { ?>
 <div id="page-wrapper">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-12">
-				<h1><i class="fa fa-home fa-fw"></i> Kelas</h1>
-				<ol class="breadcrumb">
-	                <li class="active">
-	                    <i class="fa fa-dashboard"></i> Dashboard
-	                </li>
-                    <li>Kelas</li>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h1><i class="fa fa-home fa-fw"></i> Data Kelas</h1>
+                <ol class="breadcrumb">
+                    <li class="active">
+                        <i class="fa fa-dashboard"></i> Dashboard
+                    </li>
+                    <li>Data Kelas</li>
                 </ol>
-			</div>
-		</div>
-
-		<div class="row mb-2">
+            </div>
+        </div>
+<?php } else { ?>
+<section class="page-section portfolio mt-4" id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <a href="<?php echo base_url(); ?>"><i class="fa fa-angle-left"></i>&nbsp;Kembali</a>
+            </div>
+            <div class="col-md-8">
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Data Kelas</h2>
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+<?php } ?>
+		<div class="row mb-3">
 			<div class="col-md-6">
-				<button class="btn btn-primary" data-toggle="modal" data-target="#modalAdd"><i class="fa fa-plus-circle"></i>&nbsp;Tambah Kelas</button>
+				<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalAdd"><i class="fa fa-plus-circle"></i>&nbsp;Tambah Kelas</button>
 			</div>
+			<?php if ($_SESSION['role'] == 1) : ?>
 			<div class="col-md-6 text-right">
 				<a href="<?php echo base_url(); ?>kelas/jenjang" class="btn btn-default">Tambah Jenjang</a>
 				<a href="<?php echo base_url(); ?>kelas/tingkat" class="btn btn-default">Tambah Tingkat</a>
 				<a href="<?php echo base_url(); ?>kelas/jurusan" class="btn btn-default">Tambah Jurusan</a>
 			</div>
+			<?php endif; ?>
 		</div>
 		<div class="row">
 			<div class="col-md-12"><?php Flash::flash_message(); ?></div>
@@ -80,10 +100,14 @@
         <div class="form-group">
         	<label for="">Jenjang Kelas</label>
         	<select name="kelas_jenjang" id="kelas_jenjang" class="form-control">
-        		<option value="">Pilih Jenjang</option>
-        		<?php foreach($data['jenjang'] as $key => $jenjang) : ?>
-        			<option value="<?php echo $jenjang['jenjang_id']; ?>"><?php echo $jenjang['jenjang_nama']; ?></option>
-        		<?php endforeach; ?>
+        		<?php if ($_SESSION['role'] == 1) { ?>
+        			<option value="">Pilih Jenjang</option>
+	        		<?php foreach($data['jenjang'] as $key => $jenjang) : ?>
+	        			<option value="<?php echo $jenjang['jenjang_id']; ?>"><?php echo $jenjang['jenjang_nama']; ?></option>
+	        		<?php endforeach; ?>
+	        	<?php } else { ?>
+	        		<option value="<?php echo $data['guru']->guru_jenjang; ?>"><?php echo $data['guru']->jenjang_nama; ?></option>
+	        	<?php } ?>
         	</select>
         </div>
         <div class="form-group">
@@ -125,10 +149,14 @@
         <div class="form-group">
         	<label for="">Jenjang Kelas</label>
         	<select name="kelas_jenjang" id="kelas_jenjang_edit" class="form-control">
-        		<option value="">Pilih Jenjang</option>
-        		<?php foreach($data['jenjang'] as $key => $jenjang) : ?>
-        			<option value="<?php echo $jenjang['jenjang_id']; ?>"><?php echo $jenjang['jenjang_nama']; ?></option>
-        		<?php endforeach; ?>
+        		<?php if ($_SESSION['role'] == 1) { ?>
+        			<option value="">Pilih Jenjang</option>
+	        		<?php foreach($data['jenjang'] as $key => $jenjang) : ?>
+	        			<option value="<?php echo $jenjang['jenjang_id']; ?>"><?php echo $jenjang['jenjang_nama']; ?></option>
+	        		<?php endforeach; ?>
+	        	<?php } else { ?>
+	        		<option value="<?php echo $data['guru']->guru_jenjang; ?>"><?php echo $data['guru']->jenjang_nama; ?></option>
+	        	<?php } ?>
         	</select>
         	<input type="hidden" id="kelas_id_edit" name="kelas_id">
         </div>
@@ -181,6 +209,12 @@
     </div>
   </div>
 </div>
+
+<?php if ($_SESSION['role'] == 1) { ?>
+    </div>
+<?php } else { ?>
+</section>
+<?php } ?>
 
 <script src="<?php echo base_url(); ?>assets/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>

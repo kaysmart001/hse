@@ -36,7 +36,32 @@
 	            </a>
             </div>
 
-            <!-- GANTI GAMBAR DI MENU BERANDA-->
+            <?php if ($_SESSION['role'] != 3) { ?>
+            <!-- Panel Siswa -->
+	        <div class="col-md-6 col-lg-4 mb-5">
+            	<a href="<?php echo base_url(); ?>siswa">
+            		<div class="portfolio-item mx-auto" data-toggle="modal" data-target="#modalAbsensi">
+	                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+	                		<div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+	                    </div>
+	                    <img class="img-fluid" src="<?php echo base_url(); ?>assets/img/portfolio/datasiswahse.png" alt="" />
+	                </div>
+	            </a>
+            </div>
+
+            <!-- Panel Kelas-->
+            <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
+            	<a href="<?php echo base_url(); ?>kelas">
+                <div class="portfolio-item mx-auto">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="<?php echo base_url(); ?>assets/img/portfolio/ruangkelashse.png" alt="" />
+                </div>
+	            </a>
+            </div>
+	        <?php } else { ?>
+        	<!-- GANTI GAMBAR DI MENU BERANDA-->
             <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
                 <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#modalRuangKelas">
                     <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
@@ -45,9 +70,10 @@
                     <img class="img-fluid" src="<?php echo base_url(); ?>assets/img/portfolio/ruangkelashse.png" alt="" />
                 </div>
             </div>
+	        <?php } ?>
 
             <!-- Portfolio Item 5-->
-            <div class="col-md-6 col-lg-4 mb-5 mb-md-0">
+            <div class="col-md-6 col-lg-4 mb-5">
             	<a href="<?php echo base_url(); ?>jadwal">
 	                <div class="portfolio-item mx-auto">
 	                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">

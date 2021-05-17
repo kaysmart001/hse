@@ -13,11 +13,12 @@ class Guru_model {
 		return $this->db->result();
 	}
 
-	public function get_all($by, $single = FALSE) {
+	public function get_all($by = NULL, $single = FALSE) {
 		$this->db->query(
 			'SELECT * FROM ' 
 			. $this->table . 
 			' INNER JOIN tb_jenjang ON jenjang_id = guru_jenjang ' .
+			' INNER JOIN tb_user ON id = guru_uid ' .
 			(!is_null($by) ? ' WHERE ' . $by[0] . '=:' . $by[0] : '')
 		);
 		if (!is_null($by)) {

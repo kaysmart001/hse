@@ -1,3 +1,4 @@
+<?php if ($_SESSION['role'] == 1) { ?>
 <div id="page-wrapper">
 	<div class="container-fluid">
 		<div class="row">
@@ -12,12 +13,31 @@
                 </ol>
 			</div>
 		</div>
+<?php } else { ?>
+<section class="page-section portfolio mt-4" id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <a href="<?php echo base_url(); ?>siswa"><i class="fa fa-angle-left"></i>&nbsp;Kembali</a>
+            </div>
+            <div class="col-md-8">
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Tambah Siswa</h2>
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+<?php } ?>
+
 		<div class="row">
 			<div class="col-md-12"><?php Flash::flash_message(); ?></div>
 		</div>
 		<div class="row justify-content-center">
-			<form action="<?php echo base_url(); ?>siswa/add_update" method="post" enctype="multipart/form-data" style="width: 100%">
 			<div class="col-md-3">
+				<form action="<?php echo base_url(); ?>siswa/add_update" method="post" enctype="multipart/form-data" style="width: 100%">
 				<img src="<?php echo base_url(); ?>uploads/profile/user-default.png" alt="" class="img-responsive thumbnail" width="100%">
 				<input type="file" name="siswa_foto" value="">
 				<p><small><i>Maks. ukuran foto: 10mb</i></small></p>
@@ -126,7 +146,7 @@
 					<select name="siswa_kelas" class="form-control" id="">
 						<option value="">Pilih Kelas</option>
 						<?php foreach($data['kelas'] as $key => $kelas) : ?>
-							<option value="<?php echo $kelas['kelas_id']; ?>"><?php echo $kelas['kelas_nama']; ?></option>
+							<option value="<?php echo $kelas['kelas_id']; ?>"><?php echo $kelas['tingkat_nama']. ' ' .$kelas['jenjang_nama']. ' ' .$kelas['kelas_nama']; ?></option>
 						<?php endforeach; ?>
 					</select>
 				</div>
@@ -138,8 +158,12 @@
 				<div class="form-group">
 					<input type="submit" class="btn btn-primary" value="Simpan">
 				</div>
+				</form>
 			</div>
-			</form>
 		</div>
 	</div>
+<?php if ($_SESSION['role'] == 1) { ?>
+    </div>
+<?php } else { ?>
 </section>
+<?php } ?>

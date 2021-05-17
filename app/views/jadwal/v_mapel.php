@@ -113,7 +113,7 @@
 							<select name="mapel_guru" id="" class="form-control">
 								<option value="">Pilih Guru</option>
 								<?php foreach($data['guru'] as $key => $guru) : ?>
-									<option value="<?php echo $guru['guru_id']; ?>"><?php echo $guru['guru_nama']; ?></option>
+									<option value="<?php echo $guru['guru_id']; ?>"><?php echo $guru['jenjang_nama']. ' ' .$guru['guru_nama']; ?></option>
 								<?php endforeach; ?>
 							</select>
 						</div>

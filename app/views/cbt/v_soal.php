@@ -127,7 +127,7 @@
             </div>
             <?php if ($_SESSION['role'] != 3) : ?>
             <div class="col-md-6 text-right">
-                <a href="" class="btn btn-sm btn-info"><i class="fa fa-cloud-download"></i>&nbsp;Export Soal</a>
+                <a href="<?php echo base_url(); ?>cbt/export_soal" class="btn btn-sm btn-info"><i class="fa fa-cloud-download"></i>&nbsp;Export Soal</a>
                 <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalAdd"><i class="fa fa-plus-circle"></i>&nbsp;Tambah Soal</a>
             </div>
             <?php endif; ?>
@@ -158,9 +158,9 @@
                                     <td><?php echo $soal['topik_judul']; ?></td>
                                     <td><?php echo $soal['soal_detail']; ?></td>
                                     <td><?php echo ($soal['soal_tipe'] == 1 ? 'Pilihan Ganda' : 'Essai'); ?></td>
-                                    <td></td>
+                                    <td><?php echo ($soal['soal_tipe'] == 1 ? $soal['total_jawaban'] : 'Dikoreksi manual'); ?></td>
                                     <td>
-                                        <?php if ($_SESSION['id'] == $soal['soal_pembuat']) { ?>
+                                        <?php if ($_SESSION['id'] == $soal['soal_pembuat'] || $_SESSION['role'] == 1) { ?>
                                         <a href="<?php echo base_url(); ?>cbt/jawaban/<?php echo $soal['soal_id']; ?>" class="btn btn-primary btn-xs" title="Tambah Jawaban" data-toggle="tooltip" data-placement="top" title="Tambah Jawaban"><i class="fa fa-plus-circle"></i></a>
                                         <button 
                                             class="btn btn-default btn-xs" 
@@ -174,7 +174,7 @@
                                         </button>
                                         <button class="btn btn-default btn-xs" data-id="<?php echo $soal['soal_id']; ?>" title="Hapus" onclick="hapus(this)"><i class="fa fa-trash"></i></button>
                                         <?php } else { ?>
-                                            <span class="badge bg-default">Dibuat oleh user lain</span>
+                                            <span class="badge bg-default">Dibuat oleh user lain/admin</span>
                                         <?php } ?>
                                     </td>
                                 </tr>
@@ -201,10 +201,14 @@
         <div class="form-group">
             <label for="">Topik</label>
             <select name="soal_topik" id="" class="form-control">
-                <option value="">Pilih Topik</option>
-                <?php foreach($data['topik'] as $key => $topik) : ?>
-                    <option value="<?php echo $topik['topik_id']; ?>"><?php echo $topik['topik_judul']; ?></option>
-                <?php endforeach; ?>
+                <?php if (count($data['topik']) == 0) { ?>
+                    <option value="">Buat topik terlebih dahulu</option>
+                <?php } else { ?>
+                    <option value="">Pilih Topik</option>
+                    <?php foreach($data['topik'] as $key => $topik) : ?>
+                        <option value="<?php echo $topik['topik_id']; ?>"><?php echo $topik['topik_judul']; ?></option>
+                    <?php endforeach; ?>
+                <?php } ?>
             </select>
         </div>
         <div class="form-group">
@@ -314,11 +318,11 @@
             buttons: [
                 { 
                   "extend": 'print',
-                  "title": 'Data Rapor'
+                  "title": 'Data Soal'
                 },
                 { 
                   "extend": 'excel',
-                  "title": 'Data Rapor'
+                  "title": 'Data Soal'
                 },
             ]
         });

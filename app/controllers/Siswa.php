@@ -4,9 +4,10 @@ class Siswa extends Controller {
 
 	public function __construct() {
 		if (!isset($_SESSION['login'])) { header('Location: ' . base_url()); }
-		if ($_SESSION['role'] != 1) { header('Location:' . base_url()); }
+		if ($_SESSION['role'] == 3) { header('Location: ' . base_url()); }
 		$this->Jenjang_model = $this->model('Jenjang_model');
 		$this->Siswa_model = $this->model('Siswa_model');
+		$this->Guru_model = $this->model('Guru_model');
 		$this->Kelas_model = $this->model('Kelas_model');
 		$this->User_model = $this->model('User_model');
 	}
@@ -26,12 +27,24 @@ class Siswa extends Controller {
 				header('Location: ' . base_url() . 'siswa');
 			}
 		} else {
-			$data['siswa'] = $this->Siswa_model->get_all(['siswa_jenjang', 1]);
+			$where = ['siswa_jenjang', 1];
+			if ($_SESSION['role'] == 2) {
+				$check_guru = $this->Guru_model->get_all(['guru_uid', $_SESSION['id']], TRUE);
+				$data['guru'] = $check_guru;
+				$where = ['siswa_jenjang', $check_guru->guru_jenjang];
+			}
+			$data['siswa'] = $this->Siswa_model->get_all($where);
 		}
 
-		$this->view('dashboard/v_header');
-		$this->view('siswa/v_daftar_siswa', $data);
-		$this->view('dashboard/v_footer');
+		if ($_SESSION['role'] == 2) {
+			$this->view('home/v_header');
+			$this->view('siswa/v_daftar_siswa', $data);
+			$this->view('home/v_footer');
+		} else {
+			$this->view('dashboard/v_header');
+			$this->view('siswa/v_daftar_siswa', $data);
+			$this->view('dashboard/v_footer');
+		}
 	}
 
 	// @param ID = ID siswa
@@ -50,18 +63,30 @@ class Siswa extends Controller {
 			header('Location: ' . base_url() . 'siswa');
 		}
 
-		$this->view('dashboard/v_header');
-		$this->view('siswa/v_detail_siswa', $data);
-		$this->view('dashboard/v_footer');
+		if ($_SESSION['role'] == 2) {
+			$this->view('home/v_header');
+			$this->view('siswa/v_detail_siswa', $data);
+			$this->view('home/v_footer');
+		} else {
+			$this->view('dashboard/v_header');
+			$this->view('siswa/v_detail_siswa', $data);
+			$this->view('dashboard/v_footer');
+		}
 	}
 
 	public function add() {
 		$data['jenjang'] = $this->Jenjang_model->get();
-		$data['kelas'] = $this->Kelas_model->get();
+		$data['kelas'] = $this->Kelas_model->get_by();
 		
-		$this->view('dashboard/v_header');
-		$this->view('siswa/v_form_siswa', $data);
-		$this->view('dashboard/v_footer');
+		if ($_SESSION['role'] == 2) {
+			$this->view('home/v_header');
+			$this->view('siswa/v_form_siswa', $data);
+			$this->view('home/v_footer');
+		} else {
+			$this->view('dashboard/v_header');
+			$this->view('siswa/v_form_siswa', $data);
+			$this->view('dashboard/v_footer');
+		}
 	}
 
 	public function add_update() {

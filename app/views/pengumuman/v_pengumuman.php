@@ -29,7 +29,7 @@
 						</div>
 					</div>
 					<div class="panel-footer">
-						<a href="<?php echo base_url(); ?>pengumuman/jenjang/<?php echo $jenjang['jenjang_id']; ?>"><input type="button" class="btn btn-default"  value="Lihat Absen"></a>
+						<a href="<?php echo base_url(); ?>pengumuman/jenjang/<?php echo $jenjang['jenjang_id']; ?>"><input type="button" class="btn btn-default"  value="Lihat Pengumuman"></a>
 					</div>
 				</div>
 			</div>

@@ -155,10 +155,9 @@
                                     <td><?php echo $key + 1; ?></td>
                                     <td><?php echo $topik['topik_judul']; ?></td>
                                     <td><?php echo $topik['topik_deskripsi']; ?></td>
-                                    <td></td>
+                                    <td><?php echo $topik['total_soal']; ?></td>
                                     <td><?php echo ($topik['topik_status'] == 0 ? '<span class="badge bg-default">Tidak Aktif</span>' : '<span class="badge bg-success">Aktif</span>'); ?></td>
                                     <td>
-                                        <?php if ($_SESSION['id'] == $topik['topik_pembuat']) { ?>
                                         <button 
                                             class="btn btn-default btn-xs" 
                                             data-id="<?php echo $topik['topik_id']; ?>" 
@@ -169,9 +168,6 @@
                                             <i class="fa fa-edit"></i>
                                         </button>
                                         <button class="btn btn-default btn-xs" data-id="<?php echo $topik['topik_id']; ?>" onclick="hapus(this)"><i class="fa fa-trash"></i></button>
-                                        <?php } else { ?>
-                                            <span class="badge bg-default">Dibuat oleh user lain</span>
-                                        <?php } ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -322,7 +318,7 @@
 
         modal.find('input[name=topik_id]').val(id);
         modal.find('input[name=topik_judul]').val(judul);
-        modal.find('textarea[name=topik_deskripsi]').text(judul);
+        modal.find('textarea[name=topik_deskripsi]').text(deskripsi);
         modal.find(`select[name=topik_status] option[value=${status}]`).attr('selected', 'selected');
     }
 

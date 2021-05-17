@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/buttons.dataTables.min.css">
+<?php if ($_SESSION['role'] == 1) { ?>
 <div id="page-wrapper">
     <div class="container-fluid">
         <div class="row">
@@ -13,6 +14,7 @@
                 </ol>
             </div>
         </div>
+
         <div class="row mb-3">
             <?php foreach($data['jenjang'] as $key => $jenjang) : ?>
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
@@ -38,6 +40,25 @@
             </div>
             <?php endforeach; ?>
         </div>
+<?php } else { ?>
+<section class="page-section portfolio mt-4" id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <a href="<?php echo base_url(); ?>"><i class="fa fa-angle-left"></i>&nbsp;Kembali</a>
+            </div>
+            <div class="col-md-8">
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Data Siswa</h2>
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+<?php } ?>
+
         <div class="row mb-2">
             <div class="col-md-6">
                 <button id="ExportExcel" class="btn btn-sm btn-primary"><i class="fa fa-file-excel-o"></i>&nbsp;Excel</button>
@@ -116,6 +137,12 @@
     </div>
   </div>
 </div>
+
+<?php if ($_SESSION['role'] == 1) { ?>
+    </div>
+<?php } else { ?>
+</section>
+<?php } ?>
 
 <script src="<?php echo base_url(); ?>assets/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>

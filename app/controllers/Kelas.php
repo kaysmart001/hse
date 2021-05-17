@@ -4,18 +4,25 @@ class Kelas extends Controller {
 
 	public function __construct() {
 		if (!isset($_SESSION['login'])) { header('Location: ' . base_url()); }
-		if ($_SESSION['role'] != 1) { header('Location: ' . base_url()); }
+		if ($_SESSION['role'] == 3) { header('Location: ' . base_url()); }
 
 		$this->Kelas_model = $this->model('Kelas_model');
 		$this->Jenjang_model = $this->model('Jenjang_model');
 		$this->Tingkat_model = $this->model('Tingkat_model');
 		$this->Jurusan_model = $this->model('Jurusan_model');
+		$this->Guru_model = $this->model('Guru_model');
 	}
 
 	public function index() {
 		$data['jenjang'] = $this->Jenjang_model->get();
 		$data['tingkat'] = $this->Tingkat_model->get();
-		$data['kelas'] = $this->Kelas_model->get();
+		$where = NULL;
+		if ($_SESSION['role'] == 2) {
+			$check_guru = $this->Guru_model->get_all(['guru_uid', $_SESSION['id']], TRUE);
+			$data['guru'] = $check_guru;
+			$where = ['kelas_jenjang', $check_guru->guru_jenjang];
+		}
+		$data['kelas'] = $this->Kelas_model->get_by($where);
 
 		if ($_POST) {
 			if (isset($_POST['kelas_id'])) {
@@ -54,9 +61,15 @@ class Kelas extends Controller {
 			}
 		}
 
-		$this->view('dashboard/v_header');
-		$this->view('kelas/v_kelas', $data);
-		$this->view('dashboard/v_footer');
+		if ($_SESSION['role'] == 2) {
+			$this->view('home/v_header');
+			$this->view('kelas/v_kelas', $data);
+			$this->view('home/v_footer');
+		} else {
+			$this->view('dashboard/v_header');
+			$this->view('kelas/v_kelas', $data);
+			$this->view('dashboard/v_footer');
+		}
 	}
 
 	public function jenjang() {
@@ -207,7 +220,7 @@ class Kelas extends Controller {
 
 	public function ajax_get_ubah() {
 		if ($_POST['kelas_id']) {
-			$query = $this->Kelas_model->get_by(['kelas_id', $_POST['kelas_id']]);
+			$query = $this->Kelas_model->get_by(['kelas_id', $_POST['kelas_id']], TRUE);
 
 			$data['status'] = 200;
 			$data['message'] = 'Berhasil mengambil data';

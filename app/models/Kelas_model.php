@@ -18,17 +18,26 @@ class Kelas_model {
 		return $this->db->result();
 	}
 
-	public function get_by($by) {
+	public function get_by($by = NULL, $single = FALSE) {
 		$this->db->query('
 			SELECT * FROM ' . $this->table . ' 
 			LEFT JOIN tb_jenjang ON jenjang_id = kelas_jenjang
 			LEFT JOIN tb_tingkat ON tingkat_id = kelas_tingkat
-			LEFT JOIN tb_jurusan ON jurusan_id = kelas_jurusan
-			WHERE '.$by[0].'=:'.$by[0]
+			LEFT JOIN tb_jurusan ON jurusan_id = kelas_jurusan ' .
+			(!is_null($by) ? " WHERE " . $by[0] . '=:' . $by[0] : "")
 		);
-		$this->db->bind($by[0], $by[1]);
 
-		return $this->db->row();
+		if (!is_null($by)) {
+			$this->db->bind($by[0], $by[1]);
+		}
+
+		if ($single) {
+			$method = $this->db->row();
+		} else {
+			$method = $this->db->result();
+		}
+
+		return $method;
 	}
 
 	public function get_kelas() {
