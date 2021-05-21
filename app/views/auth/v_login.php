@@ -20,7 +20,6 @@
 						<label>
 							<input type="checkbox" value="remember-me"> Remember me
 						</label>
-						<a href="#" class="pull-right">Forgot password</a>
 					</div>
 					<button type="submit" class="btn btn-primary btn-block">SIGN IN</button>
 				</form>

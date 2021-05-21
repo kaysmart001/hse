@@ -23,6 +23,8 @@ class Home extends Controller {
 					header('Location: ' . base_url() . 'profile');
 				}
 			}
+		} else {
+			header('Location: ' . base_url() . 'auth');
 		}
 	}
 

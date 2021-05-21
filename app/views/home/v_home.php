@@ -36,7 +36,7 @@
 	            </a>
             </div>
 
-            <?php if ($_SESSION['role'] != 3) { ?>
+            <?php if ($_SESSION['role'] == 1) { ?>
             <!-- Panel Siswa -->
 	        <div class="col-md-6 col-lg-4 mb-5">
             	<a href="<?php echo base_url(); ?>siswa">

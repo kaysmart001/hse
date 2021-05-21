@@ -248,16 +248,20 @@
 	            { 
 	              "extend": 'print',
 	              "title": 'Data Jadwal',
+	              <?php if ($_SESSION['role'] == 1) : ?>
 	              "exportOptions": {
 	              	"columns": [ 5, ':visible' ]
 	              }
+		          <?php endif; ?>
 	            },
 	            { 
 	              "extend": 'excel',
 	              "title": 'Data Jadwal',
+	              <?php if ($_SESSION['role'] == 1) : ?>
 	              "exportOptions": {
 	              	"columns": [ 5, ':visible' ]
 	              }
+		          <?php endif; ?>
 	            },
 	        ]
 	    });
