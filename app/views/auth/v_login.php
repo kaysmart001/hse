@@ -16,11 +16,7 @@
 						<label for="yourPassword">Your password</label>
 						<input type="password" class="form-control" name="password" id="password" placeholder="Your password">
 					</div>
-					<div class="checkbox mb-3">
-						<label>
-							<input type="checkbox" value="remember-me"> Remember me
-						</label>
-					</div>
+					<br />
 					<button type="submit" class="btn btn-primary btn-block">SIGN IN</button>
 				</form>
 			</div>

@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 <?php if ($_SESSION['role'] == 1) { ?>
 <div id="page-wrapper">
 	<div class="container-fluid">
@@ -68,11 +69,12 @@
 								<tr>
 									<td><?php echo $key + 1; ?></td>
 									<td><?php echo $pengumuman['jenjang_nama']; ?></td>
-									<td><?php echo $pengumuman['pengumuman_isi']; ?></td>
+									<td><?php echo (strlen($pengumuman['pengumuman_isi']) > 140 ? strip_tags(substr($pengumuman['pengumuman_isi'], 0, 80)) . '...' : strip_tags($pengumuman['pengumuman_isi'])); ?></td>
 									<td><?php echo date('Y-m-d', strtotime($pengumuman['pengumuman_waktu'])); ?></td>
 									<?php if ($_SESSION['role'] == 1) : ?>
 									<td>
-										<button class="btn btn-default btn-xs btn-edit" data-id="<?php echo $pengumuman['pengumuman_id'] ?>" data-jenjang="<?php echo $pengumuman['jenjang_id']; ?>" data-isi="<?php echo $pengumuman['pengumuman_isi']; ?>"><i class="fa fa-edit"></i></button>
+										<button class="btn btn-default btn-xs btn-detail" data-id="<?php echo $pengumuman['pengumuman_id'] ?>"><i class="fa fa-eye"></i></button>
+										<button class="btn btn-default btn-xs btn-edit" data-id="<?php echo $pengumuman['pengumuman_id'] ?>"><i class="fa fa-edit"></i></button>
 										<button class="btn btn-default btn-xs btn-delete" data-id="<?php echo $pengumuman['pengumuman_id']; ?>" data-jenjang="<?php echo $pengumuman['jenjang_id']; ?>"><i class="fa fa-trash"></i></button>
 									</td>
 									<?php endif; ?>
@@ -107,7 +109,7 @@
 						</div>
 						<div class="form-group">
 							<label for="">Pengumuman Isi</label>
-							<textarea name="pengumuman_isi" class="form-control" rows="5" placeholder="Pengumuman Isi"></textarea>
+							<textarea name="pengumuman_isi" class="form-control pengumuman_isi" rows="5" placeholder="Pengumuman Isi"></textarea>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -141,11 +143,7 @@
 						</div>
 						<div class="form-group">
 							<label for="">Pengumuman Isi</label>
-							<textarea name="pengumuman_isi" class="form-control" rows="5" placeholder="Pengumuman Isi"></textarea>
-						</div>
-						<div class="form-group">
-							<label for="">Pengumuman Waktu</label>
-							<input type="date" name="pengumuman_waktu" class="form-control" placeholder="Pengumuman Waktu" value="<?php echo date('Y-m-d'); ?>">
+							<textarea id="pengumuman_isi_edit" name="pengumuman_isi" class="form-control pengumuman_isi_edit" rows="5" placeholder="Pengumuman Isi"></textarea>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -186,15 +184,36 @@
 </section>
 <?php } ?>
 
+<div class="modal fade" id="modalDetail" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Detail Pengumuman</h4>
+			</div>
+			<div class="modal-body">
+				<div id="pengumuman_isi_detail"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <script src="<?php echo base_url(); ?>assets/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/datatables/js/dataTables.buttons.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/datatables/js//buttons.print.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/datatables/js/jszip.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/datatables/js/buttons.html5.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/ckeditor/ckeditor.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		CKEDITOR.replace('pengumuman_isi');
+		CKEDITOR.replace('pengumuman_isi_edit');
+
 	    var table = $('#tblPengumuman').DataTable({
 	        buttons: [
 	            { 
@@ -220,15 +239,35 @@
 	        table.button( '.buttons-excel' ).trigger();
 	    });
 
+	    $('.btn-detail').on('click', function() {
+	    	const id = $(this).data('id');
+	    	$.ajax({
+	    		url: '<?php echo base_url(); ?>pengumuman/ajax_get_ubah',
+	    		method: 'POST',
+	    		data: { pengumuman_id: id },
+	    		dataType: 'json',
+	    		success: function(response) {
+	    			const { pengumuman_id, pengumuman_jenjang, pengumuman_isi } = response.data[0]
+	    			$('#modalDetail').modal('show');
+	    			$('#modalDetail').find('div#pengumuman_isi_detail').html(pengumuman_isi)
+	    		}
+	    	});
+	    });
 	    $('.btn-edit').on('click', function() {
 	    	const id = $(this).data('id');
-	    	const jenjang = $(this).data('jenjang');
-	    	const isi = $(this).data('isi');
-
-	    	$('#modalEdit').modal('show');
-	    	$('#modalEdit').find('input[name=pengumuman_id]').val(id);
-	    	$('#modalEdit').find(`select[name=pengumuman_jenjang] option[value=${jenjang}]`).attr('selected', 'selected');
-	    	$('#modalEdit').find('textarea[name=pengumuman_isi]').text(isi);
+	    	$.ajax({
+	    		url: '<?php echo base_url(); ?>pengumuman/ajax_get_ubah',
+	    		method: 'POST',
+	    		data: { pengumuman_id: id },
+	    		dataType: 'json',
+	    		success: function(response) {
+	    			const { pengumuman_id, pengumuman_jenjang, pengumuman_isi } = response.data[0]
+	    			$('#modalEdit').modal('show');
+			    	$('#modalEdit').find('input[name=pengumuman_id]').val(id);
+			    	$('#modalEdit').find(`select[name=pengumuman_jenjang] option[value=${pengumuman_jenjang}]`).attr('selected', 'selected');
+			    	CKEDITOR.instances['pengumuman_isi_edit'].setData(pengumuman_isi);
+	    		}
+	    	});
 	    });
 
 	    $('.btn-delete').on('click', function() {

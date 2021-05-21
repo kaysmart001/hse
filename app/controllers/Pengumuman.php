@@ -82,4 +82,19 @@ class Pengumuman extends Controller {
 			header('Location: ' . base_url() . 'pengumuman');
 		}
 	}
+
+	public function ajax_get_ubah() {
+		if ($_POST) {
+			if ($_POST['pengumuman_id'] != '') {
+				$data = $this->Pengumuman_model->get(['pengumuman_id', $_POST['pengumuman_id']], NULL, TRUE);
+				$response['status'] = 200;
+				$response['data'] = $data;
+			} else {
+				$response['status'] = 401;
+				$response['data'] = 'Tidak ada';
+			}
+		}
+
+		echo json_encode($response);
+	}
 }

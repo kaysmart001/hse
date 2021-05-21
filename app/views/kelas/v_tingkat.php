@@ -77,7 +77,7 @@
       <div class="modal-body">
         <div class="form-group">
         	<label for="">Nama Tingkat</label>
-        	<input type="text" name="tingkat_nama" class="form-control">
+        	<input type="number" name="tingkat_nama" class="form-control">
         </div>
       </div>
       <div class="modal-footer">
@@ -100,7 +100,7 @@
       <div class="modal-body">
         <div class="form-group">
         	<label for="">Nama Tingkat</label>
-        	<input type="text" id="tingkat_nama" name="tingkat_nama" class="form-control">
+        	<input type="number" id="tingkat_nama" name="tingkat_nama" class="form-control">
         	<input type="hidden" id="tingkat_id" name="tingkat_id" class="form-control">
         </div>
       </div>

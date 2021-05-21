@@ -123,7 +123,7 @@
 							<select name="jadwal_kelas" id="" class="form-control">
 								<option value="">Pilih Kelas</option>
 								<?php foreach($data['kelas'] as $key => $kelas) : ?>
-									<option value="<?php echo $kelas['kelas_id']; ?>"><?php echo $kelas['tingkat_nama'] ?> - <?php echo $kelas['kelas_nama']; ?></option>
+									<option value="<?php echo $kelas['kelas_id']; ?>"><?php echo $kelas['tingkat_nama'] . ' ' .$kelas['jenjang_nama']; ?></option>
 								<?php endforeach; ?>
 							</select>
 						</div>

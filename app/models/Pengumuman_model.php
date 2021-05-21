@@ -47,7 +47,7 @@ class Pengumuman_model {
 		$this->db->query($query);
 		$this->db->bind('pengumuman_jenjang', $data['pengumuman_jenjang']);
 		$this->db->bind('pengumuman_isi', $data['pengumuman_isi']);
-		$this->db->bind('pengumuman_waktu', $data['pengumuman_waktu']);
+		$this->db->bind('pengumuman_waktu', date('Y-m-d H:i:s'));
 		$this->db->bind('pengumuman_id', $data['pengumuman_id']);
 		$this->db->execute();
 

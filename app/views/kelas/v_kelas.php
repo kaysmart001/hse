@@ -40,7 +40,6 @@
 			<div class="col-md-6 text-right">
 				<a href="<?php echo base_url(); ?>kelas/jenjang" class="btn btn-default">Tambah Jenjang</a>
 				<a href="<?php echo base_url(); ?>kelas/tingkat" class="btn btn-default">Tambah Tingkat</a>
-				<a href="<?php echo base_url(); ?>kelas/jurusan" class="btn btn-default">Tambah Jurusan</a>
 			</div>
 			<?php endif; ?>
 		</div>
@@ -56,7 +55,6 @@
 								<th>No</th>
 								<th>Jenjang Kelas</th>
 								<th>Tingkat Kelas</th>
-								<th>Jurusan Kelas</th>
 								<th>Nama Kelas</th>
 								<th class="text-center">Actions</th>
 							</tr>
@@ -67,8 +65,7 @@
 									<td><?php echo $key + 1; ?></td>
 									<td><?php echo $kelas['jenjang_nama']; ?></td>
 									<td><?php echo $kelas['tingkat_nama']; ?></td>
-									<td><?php echo (isset($kelas['jurusan_nama']) ? $kelas['jurusan_nama'] : '-'); ?></td>
-									<td><?php echo $kelas['kelas_nama']; ?></td>
+									<td><?php echo $kelas['tingkat_nama'] . ' ' . $kelas['jenjang_nama']; ?></td>
 									<td class="text-center">
 										<button class="btn btn-xs btn-default" data-id="<?php echo $kelas['kelas_id']; ?>" onclick="edit(this)">
 											<i class="fa fa-edit"></i>
@@ -122,10 +119,6 @@
         <div id="kelas_jurusan" class="form-group">
         	
         </div>
-        <div class="form-group">
-        	<label for="">Nama Kelas</label>
-        	<input type="text" name="kelas_nama" class="form-control" placeholder="Nama Kelas">
-        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
@@ -171,10 +164,6 @@
         </div>
         <div id="kelas_jurusan_edit" class="form-group">
         	
-        </div>
-        <div class="form-group">
-        	<label for="">Nama Kelas</label>
-        	<input type="text" id="kelas_nama_edit" name="kelas_nama" class="form-control" placeholder="Nama Kelas">
         </div>
       </div>
       <div class="modal-footer">
@@ -226,52 +215,9 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 	    var table = $('#tblKelas').DataTable();
-	    
-	    $('#kelas_jenjang').on('click', function(e) {
-	    	$('#kelas_jurusan').html('');
-	    	const val = $(this).val();
-	    	const val_name = $(this).text();
-
-	    	var label = '<label>Jurusan Kelas</label>';
-	    	var select = label + '<select name="kelas_jurusan" class="form-control"><option>Pilih Jurusan</option>';
-	    	$.ajax({
-	    		url: '<?php echo base_url(); ?>kelas/ajax_get_jurusan',
-				data: { jenjang: val, jenjang_nama: val_name},
-				method: 'post',
-				dataType: 'json',
-				success: function(data) {
-					for (var a = 0; a < data.length; a++) {
-						select += `<option value="${data[a].jurusan_id}">${data[a].jurusan_nama}</option>`
-					}
-					$('#kelas_jurusan').html(select);
-				}
-	    	});
-	    });
-
-	    $('#kelas_jenjang_edit').on('click', function(e) {
-	    	$('#kelas_jurusan_edit').html('');
-	    	const val = $(this).val();
-	    	const val_name = $(this).text();
-
-	    	var label = '<label>Jurusan Kelas</label>';
-	    	var select = label + '<select name="kelas_jurusan" class="form-control"><option>Pilih Jurusan</option>';
-	    	$.ajax({
-	    		url: '<?php echo base_url(); ?>kelas/ajax_get_jurusan',
-				data: { jenjang: val, jenjang_nama: val_name},
-				method: 'post',
-				dataType: 'json',
-				success: function(data) {
-					for (var a = 0; a < data.length; a++) {
-						select += `<option value="${data[a].jurusan_id}">${data[a].jurusan_nama}</option>`
-					}
-					$('#kelas_jurusan_edit').html(select);
-				}
-	    	});
-	    });
 	});
 
 	function edit(obj) {
-		$('#kelas_jurusan_edit').html('');
 		const id = obj.dataset.id
 		var label = '<label>Jurusan Kelas</label>';
     	var select = label + '<select name="kelas_jurusan" class="form-control"><option>Pilih Jurusan</option>';
@@ -286,29 +232,10 @@
 				const { 
 					kelas_id, 
 					kelas_jenjang, 
-					kelas_tingkat, 
-					kelas_jurusan, 
-					kelas_nama 
+					kelas_tingkat
 				} = data.data
 				$(`#kelas_jenjang_edit option[value=${kelas_jenjang}]`).attr('selected', 'selected');
 				$(`#kelas_tingkat_edit option[value=${kelas_tingkat}]`).attr('selected', 'selected');
-				if (kelas_jurusan) {
-					var label = '<label>Jurusan Kelas</label>';
-			    	var select = label + '<select name="kelas_jurusan" class="form-control"><option>Pilih Jurusan</option>';
-			    	$.ajax({
-			    		url: '<?php echo base_url(); ?>kelas/ajax_get_jurusan',
-						data: { jenjang: data.data.jenjang_id, jenjang_nama: data.data.jenjang_nama},
-						method: 'post',
-						dataType: 'json',
-						success: function(data) {
-							for (var a = 0; a < data.length; a++) {
-								select += `<option value="${data[a].jurusan_id}" ${data[a].jurusan_id == kelas_jurusan ? 'selected' : ''}>${data[a].jurusan_nama}</option>`
-							}
-							$('#kelas_jurusan_edit').html(select);
-						}
-			    	});
-				}
-				$('#kelas_nama_edit').val(kelas_nama);
 				$('#kelas_id_edit').val(kelas_id);
 			}
 		});
