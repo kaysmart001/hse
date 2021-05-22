@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/buttons.dataTables.min.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 <?php if ($_SESSION['role'] == 1) { ?>
 <div id="page-wrapper">
 	<div class="container-fluid">
@@ -40,7 +39,7 @@
 		</div>
 		<div class="row mb-2">
 			<div class="col-md-3">
-				<button id="ExportExcel" class="btn btn-sm btn-primary"><i class="fa fa-file-excel-o"></i>&nbsp;Excel</button>
+				<button id="ExportExcel" class="btn btn-sm btn-primary"><i class="fa fa-file-excel"></i>&nbsp;Excel</button>
 				<button id="ExportPrint" class="btn btn-sm btn-primary"><i class="fa fa-print"></i>&nbsp;Print</button>
 			</div>
 			<?php if ($_SESSION['role'] == 1) : ?>
@@ -59,9 +58,7 @@
 								<th>Jenjang</th>
 								<th>Isi Pengumuman</th>
 								<th>Tanggal/Waktu</th>
-								<?php if ($_SESSION['role'] == 1) : ?>
 								<th>Actions</th>
-								<?php endif; ?>
 							</tr>
 						</thead>
 						<tbody>
@@ -71,13 +68,14 @@
 									<td><?php echo $pengumuman['jenjang_nama']; ?></td>
 									<td><?php echo (strlen($pengumuman['pengumuman_isi']) > 140 ? strip_tags(substr($pengumuman['pengumuman_isi'], 0, 80)) . '...' : strip_tags($pengumuman['pengumuman_isi'])); ?></td>
 									<td><?php echo date('Y-m-d', strtotime($pengumuman['pengumuman_waktu'])); ?></td>
-									<?php if ($_SESSION['role'] == 1) : ?>
 									<td>
+										<?php if ($_SESSION['role'] == 1) : ?>
 										<button class="btn btn-default btn-xs btn-detail" data-id="<?php echo $pengumuman['pengumuman_id'] ?>"><i class="fa fa-eye"></i></button>
 										<button class="btn btn-default btn-xs btn-edit" data-id="<?php echo $pengumuman['pengumuman_id'] ?>"><i class="fa fa-edit"></i></button>
 										<button class="btn btn-default btn-xs btn-delete" data-id="<?php echo $pengumuman['pengumuman_id']; ?>" data-jenjang="<?php echo $pengumuman['jenjang_id']; ?>"><i class="fa fa-trash"></i></button>
+										<?php endif; ?>
+										<button class="btn btn-default btn-xs btn-detail" data-id="<?php echo $pengumuman['pengumuman_id'] ?>"><i class="fa fa-eye"></i></button>
 									</td>
-									<?php endif; ?>
 								</tr>
 							<?php endforeach; ?>
 						</tbody>
