@@ -10,12 +10,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <h1><i class="fa fa-home fa-fw"></i> Data Siswa</h1>
+                <h1><i class="fa fa-home fa-fw"></i> Data Rapor Siswa</h1>
                 <ol class="breadcrumb">
                     <li class="active">
                         <i class="fa fa-dashboard"></i> Dashboard
                     </li>
-                    <li>Data Siswa</li>
+                    <li>Data Rapor Siswa</li>
                 </ol>
             </div>
         </div>
@@ -66,7 +66,7 @@
         <?php endif; ?>
         <div class="row mb-2">
             <div class="col-md-6">
-                <button id="ExportExcel" class="btn btn-sm btn-primary"><i class="fa fa-file-excel-o"></i>&nbsp;Excel</button>
+                <button id="ExportExcel" class="btn btn-sm btn-primary"><i class="fa fa-file-excel"></i>&nbsp;Excel</button>
                 <button id="ExportPrint" class="btn btn-sm btn-primary"><i class="fa fa-print"></i>&nbsp;Print</button>
             </div>
             <?php if ($_SESSION['role'] != 3) : ?>
@@ -100,7 +100,7 @@
                                     <td><?php echo $key + 1; ?></td>
                                     <td><?php echo $rapor['siswa_nis']; ?></td>
                                     <td><?php echo $rapor['siswa_nama']; ?></td>
-                                    <td><?php echo $rapor['jenjang_nama'] . ' ' . $rapor['kelas_nama']; ?></td>
+                                    <td><?php echo $rapor['kelas_nama']; ?></td>
                                     <td><a href="<?php echo base_url(); ?>uploads/rapor/<?php echo $rapor['rapor_file']; ?>"><?php echo $rapor['rapor_file']; ?></a></td>
                                     <?php if ($_SESSION['role'] != 3) : ?>
                                     <td>

@@ -138,7 +138,7 @@
 					<select name="siswa_kelas" class="form-control" id="">
 						<option value="">Pilih Kelas</option>
 						<?php foreach($data['kelas'] as $key => $kelas) : ?>
-							<option value="<?php echo $kelas['kelas_id']; ?>" <?php echo (isset($data['siswa']->siswa_jenjang) ? ($data['siswa']->siswa_jenjang == $kelas['kelas_id'] ?  'selected' : '') : '' ); ?>><?php echo $kelas['kelas_nama']; ?></option>
+							<option value="<?php echo $kelas['kelas_id']; ?>" <?php echo (isset($data['siswa']->siswa_kelas) ? ($data['siswa']->siswa_kelas == $kelas['kelas_id'] ?  'selected' : '') : '' ); ?>><?php echo $kelas['tingkat_nama'] . ' ' . $kelas['jenjang_nama']; ?></option>
 						<?php endforeach; ?>
 					</select>
 				</div>

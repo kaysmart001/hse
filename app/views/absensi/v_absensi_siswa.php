@@ -45,7 +45,7 @@
 						<select name="by_kelas" id="" class="form-control input-sm">
 							<option value="">Pilih Kelas</option>
 							<?php foreach($data['kelas'] as $key => $kelas) : ?>
-								<option value="<?php echo $kelas['kelas_id']; ?>"><?php echo $kelas['jenjang_nama'] . ' ' . $kelas['kelas_nama']; ?></option>
+								<option value="<?php echo $kelas['kelas_id']; ?>"><?php echo $kelas['tingkat_nama'] . ' ' . $kelas['jenjang_nama']; ?></option>
 							<?php endforeach; ?>
 						</select>
 					</div>
@@ -121,7 +121,7 @@
 									<td><?php echo $key + 1; ?></td>
 									<td><?php echo $absensi['siswa_nama']; ?></td>
 									<td><?php echo $absensi['jenjang_nama']; ?></td>
-									<td><?php echo $absensi['jenjang_nama'] . ' - ' . $absensi['kelas_nama']; ?></td>
+									<td><?php echo $absensi['kelas_nama']; ?></td>
 									<td><?php echo date('Y-m-d H:i:s', strtotime($absensi['absen_waktu'])); ?></td>
 									<td><?php echo (isset($absensi['absen_keterangan']) ? $absensi['absen_keterangan'] : ($absensi['absen_jenis'] == 1 ? 'Hadir' : '-')) ?></td>
 								</tr>

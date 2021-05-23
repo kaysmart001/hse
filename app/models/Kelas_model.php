@@ -39,26 +39,34 @@ class Kelas_model {
 	}
 
 	public function get_kelas() {
-		$this->db->query('SELECT kelas_id, jenjang_nama, kelas_nama FROM ' . $this->table . ' LEFT JOIN tb_jenjang ON jenjang_id = kelas_jenjang LEFT JOIN tb_tingkat ON tingkat_id = kelas_tingkat');
+		$this->db->query('SELECT kelas_id, jenjang_nama, tingkat_nama, kelas_nama FROM ' . $this->table . ' LEFT JOIN tb_jenjang ON jenjang_id = kelas_jenjang LEFT JOIN tb_tingkat ON tingkat_id = kelas_tingkat');
 
 		return $this->db->result();
 	}
 
 	public function add($data) {
-		$query = "INSERT INTO ".$this->table." (kelas_jenjang, kelas_tingkat) VALUES (:kelas_jenjang, :kelas_tingkat)";
+		$tingkat_nama = $this->get_tingkat($data['kelas_tingkat'])->tingkat_nama;
+		$jenjang_nama = $this->get_jenjang($data['kelas_jenjang'])->jenjang_nama;
+		$kelas_nama = $tingkat_nama . ' ' . $jenjang_nama;
+		$query = "INSERT INTO ".$this->table." (kelas_jenjang, kelas_tingkat, kelas_nama) VALUES (:kelas_jenjang, :kelas_tingkat, :kelas_nama)";
 		$this->db->query($query);
 		$this->db->bind('kelas_jenjang', $data['kelas_jenjang']);
 		$this->db->bind('kelas_tingkat', $data['kelas_tingkat']);
+		$this->db->bind('kelas_nama', $kelas_nama);
 		$this->db->execute();
 
 		return $this->db->rowCount();
 	}
 
 	public function update($data) {
-		$query = "UPDATE ".$this->table." SET kelas_jenjang=:kelas_jenjang, kelas_tingkat=:kelas_tingkat WHERE kelas_id=:kelas_id";
+		$tingkat_nama = $this->get_tingkat($data['kelas_tingkat'])->tingkat_nama;
+		$jenjang_nama = $this->get_jenjang($data['kelas_jenjang'])->jenjang_nama;
+		$kelas_nama = $tingkat_nama . ' ' . $jenjang_nama;
+		$query = "UPDATE ".$this->table." SET kelas_jenjang=:kelas_jenjang, kelas_tingkat=:kelas_tingkat, kelas_nama=:kelas_nama WHERE kelas_id=:kelas_id";
 		$this->db->query($query);
 		$this->db->bind('kelas_jenjang', $data['kelas_jenjang']);
 		$this->db->bind('kelas_tingkat', $data['kelas_tingkat']);
+		$this->db->bind('kelas_nama', $kelas_nama);
 		$this->db->bind('kelas_id', $data['kelas_id']);
 		$this->db->execute();
 
@@ -72,5 +80,16 @@ class Kelas_model {
 		$this->db->execute();
 
 		return $this->db->rowCount();
+	}
+
+	private function get_jenjang($jenjang_id) {
+		$this->db->query('SELECT jenjang_nama FROM tb_jenjang WHERE jenjang_id=:jenjang_id');
+		$this->db->bind('jenjang_id', $jenjang_id);
+		return $this->db->row();
+	}
+	private function get_tingkat($tingkat_id) {
+		$this->db->query('SELECT tingkat_nama FROM tb_tingkat WHERE tingkat_id=:tingkat_id');
+		$this->db->bind('tingkat_id', $tingkat_id);
+		return $this->db->row();
 	}
 }

@@ -98,33 +98,12 @@
                     </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-id-card fa-5x"></i>
-                            </div>
-                            <div class="col-lg-9 <?php echo ($_SESSION['role'] == 1 ? 'text-right' : 'text-center'); ?>">
-                                <div>Data Rekap</div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="<?php echo base_url(); ?>cbt/rekap">
-                        <div class="panel-footer">
-                            <span class="pull-left">Lihat Semua</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
             <?php endif; ?>
         </div>
         
         <div class="row mb-2">
             <div class="col-md-6">
-                <button id="ExportExcel" class="btn btn-sm btn-primary"><i class="fa fa-file-excel-o"></i>&nbsp;Excel</button>
+                <button id="ExportExcel" class="btn btn-sm btn-primary"><i class="fa fa-file-excel"></i>&nbsp;Excel</button>
                 <button id="ExportPrint" class="btn btn-sm btn-primary"><i class="fa fa-print"></i>&nbsp;Print</button>
             </div>
             <?php if ($_SESSION['role'] != 3) : ?>
@@ -160,7 +139,7 @@
                                     <td><?php echo $ujian['ujian_judul']; ?></td>
                                     <td><?php echo $ujian['ujian_deskripsi']; ?></td>
                                     <?php if ($_SESSION['role'] != 3) : ?>
-                                    <td><?php echo $ujian['jenjang_nama'] . ' - ' . $ujian['kelas_nama']; ?></td>
+                                    <td><?php echo $ujian['kelas_nama']; ?></td>
                                     <?php endif; ?>
                                     <td><?php echo (($ujian['ujian_nilai_maks'] / $ujian['ujian_nilai_maks']) * 100); ?></td>
                                     <td style="font-size: 12px;"><?php echo $ujian['ujian_waktu_mulai'] . ' - ' . $ujian['ujian_waktu_akhir']; ?></td>

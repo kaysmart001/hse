@@ -88,6 +88,23 @@ class Guru_model {
 
 		return $this->db->rowCount();
 	}
+	public function add_without_data($data) {
+		$query = "
+			INSERT INTO ".$this->table." (
+			guru_jenjang, 
+			guru_uid) 
+			VALUES (
+			:guru_jenjang, 
+			:guru_uid)
+		";
+		$this->db->query($query);
+		$this->db->bind('guru_jenjang', $data['guru_jenjang']);
+		$this->db->bind('guru_uid', $data['guru_uid']);
+
+		$this->db->execute();
+
+		return $this->db->rowCount();
+	}
 
 	public function update($data) {
 		$query = "
@@ -120,6 +137,23 @@ class Guru_model {
 		$this->db->bind('guru_jenjang_pendidikan', $data['guru_jenjang_pendidikan']);
 		$this->db->bind('guru_uid', $data['guru_uid']);
 		$this->db->bind('guru_id', $data['guru_id']);
+
+		$this->db->execute();
+
+		return $this->db->rowCount();
+	}
+	public function update_without_data($data) {
+		$query = "
+			INSERT INTO ".$this->table." (
+			guru_jenjang, 
+			guru_uid) 
+			VALUES (
+			:guru_jenjang, 
+			:guru_uid)
+		";
+		$this->db->query($query);
+		$this->db->bind('guru_jenjang', $data['guru_jenjang']);
+		$this->db->bind('guru_uid', $data['guru_uid']);
 
 		$this->db->execute();
 

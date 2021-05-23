@@ -13,7 +13,7 @@ class Pembayaran extends Controller {
 
 	public function index() {
 		if ($_SESSION['role'] > 1) {
-			$data['pembayaran'] = $this->Pembayaran_model->get(['pembayaran_id', $this->check_profile->siswa_id]);
+			$data['pembayaran'] = $this->Pembayaran_model->get(['pembayaran_siswa', $this->check_profile->siswa_id]);
 
 			$this->view('home/v_header');
 			$this->view('pembayaran/v_pembayaran_siswa', $data);

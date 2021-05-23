@@ -27,12 +27,14 @@ class Absensi_model {
 			absen_keterangan,
 			absen_waktu,
 			jenjang_nama,
+			tingkat_nama,
 			kelas_nama
 			FROM " . $this->table . "
 			LEFT JOIN tb_user ON id = absen_user
 			LEFT JOIN tb_siswa ON siswa_uid = id
 			LEFT JOIN tb_jenjang ON jenjang_id = siswa_jenjang
 			LEFT JOIN tb_kelas ON kelas_id = siswa_kelas
+			LEFT JOIN tb_tingkat ON tingkat_id = kelas_tingkat
 			WHERE role = 3 
 			" . (!is_null($by) ? " AND " . $by[0] . "=:" . $by[0] : "") 
 			. " ORDER BY absen_waktu DESC");
@@ -49,7 +51,7 @@ class Absensi_model {
 		return $method;
 	}
 
-	public function get_siswa_bydate($by_date = NULL, $by = NULL, $single = FALSE) {
+	public function get_siswa_bydate($by_date = NULL, $by_year = NULL, $by = NULL, $single = FALSE) {
 		$this->db->query("
 			SELECT 
 			id,
@@ -63,21 +65,20 @@ class Absensi_model {
 			absen_keterangan,
 			absen_waktu,
 			jenjang_nama,
+			tingkat_nama,
 			kelas_nama
 			FROM " . $this->table . "
 			LEFT JOIN tb_user ON id = absen_user
 			LEFT JOIN tb_siswa ON siswa_uid = id
 			LEFT JOIN tb_jenjang ON jenjang_id = siswa_jenjang
 			LEFT JOIN tb_kelas ON kelas_id = siswa_kelas
+			LEFT JOIN tb_tingkat ON tingkat_id = kelas_tingkat
 			WHERE role = 3 
 			" 
-			. (!is_null($by_date) ? " AND absen_waktu <= :absen_waktu " : "")
+			. (!is_null($by_date) ? " AND MONTH(absen_waktu) = " . $by_date : "")
+			. (!is_null($by_year) ? " AND YEAR(absen_waktu) = " . $by_year : "")
 			. (!is_null($by) ? " AND " . $by[0] . "=:" . $by[0] : "")
 			. " ORDER BY absen_waktu DESC");
-
-		if (!is_null($by_date)) {
-			$this->db->bind('absen_waktu', $by_date);
-		}
 
 		if (!is_null($by)) {
 			$this->db->bind($by[0], $by[1]);
@@ -125,7 +126,7 @@ class Absensi_model {
 		return $method;
 	}
 
-	public function get_guru_bydate($by_date = NULL, $by = NULL, $single = FALSE) {
+	public function get_guru_bydate($by_date = NULL, $by_year = NULL, $by = NULL, $single = FALSE) {
 		$this->db->query("
 			SELECT 
 			id,
@@ -144,13 +145,10 @@ class Absensi_model {
 			LEFT JOIN tb_jenjang ON jenjang_id = guru_jenjang
 			WHERE role = 2 
 			" 
-			. (!is_null($by_date) ? " AND absen_waktu <= :absen_waktu " : "")
+			. (!is_null($by_date) ? " AND MONTH(absen_waktu) = " . $by_date : "")
+			. (!is_null($by_year) ? " AND YEAR(absen_waktu) = " . $by_year : "")
 			. (!is_null($by) ? " AND " . $by[0] . "=:" . $by[0] : "")
 			. " ORDER BY absen_waktu DESC");
-
-		if (!is_null($by_date)) {
-			$this->db->bind('absen_waktu', $by_date);
-		}
 
 		if (!is_null($by)) {
 			$this->db->bind($by[0], $by[1]);

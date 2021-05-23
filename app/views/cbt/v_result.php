@@ -1,5 +1,21 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/buttons.dataTables.min.css">
+<style>
+    input[type=checkbox] {
+      display: none;
+    }
+
+    .container-zoom img {
+      margin: 100px;
+      transition: transform 0.25s ease;
+      cursor: zoom-in;
+    }
+
+    input[type=checkbox]:checked ~ label > img {
+      transform: scale(2);
+      cursor: zoom-out;
+    }
+</style>
 <?php if ($_SESSION['role'] == 1) { ?>
 <div id="page-wrapper">
     <div class="container-fluid">

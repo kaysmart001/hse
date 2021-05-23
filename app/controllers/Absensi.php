@@ -12,36 +12,35 @@ class Absensi extends Controller {
 	public function index() {
 		if ($_SESSION['role'] != 1) {
 			$this->view('home/v_header');
-			$where = NULL;
+			$w_bulan = NULL;
+			$w_tahun = NULL;
 
 			if ($_SESSION['role'] == 2) {
 				if ($_POST) {
 					if ($_POST['by_bulan'] != '' && $_POST['by_tahun'] != '') {
-						$bt = date($_POST['by_tahun'] . '-' . $_POST['by_bulan'] . '-01');
-						$where = date('Y-m-t', strtotime($bt));
+						$w_bulan = $_POST['by_bulan'];
+						$w_tahun = $_POST['by_tahun'];
 					} else if ($_POST['by_bulan'] != '') {
-						$b = date('Y-' . $_POST['by_bulan'] . '-01');
-						$where = date('Y-m-t', strtotime($b));
+						$w_bulan = $_POST['by_bulan'];
 					} else if ($_POST['by_tahun'] != '') {
-						$where = date($_POST['by_tahun'] . '-m-t');
+						$w_tahun = $_POST['by_tahun'];
 					}
 				}
-				$absensi = $this->Absensi_model->get_guru_bydate($where, ['absen_user', $_SESSION['id']]);
+				$absensi = $this->Absensi_model->get_guru_bydate($w_bulan, $w_tahun, ['absen_user', $_SESSION['id']]);
 				$data['absensi'] = $absensi;
 				$this->view('absensi/v_absensi_guru', $data);
 			} else if ($_SESSION['role'] == 3) {
 				if ($_POST) {
 					if ($_POST['by_bulan'] != '' && $_POST['by_tahun'] != '') {
-						$bt = date($_POST['by_tahun'] . '-' . $_POST['by_bulan'] . '-01');
-						$where = date('Y-m-t', strtotime($bt));
+						$w_bulan = $_POST['by_bulan'];
+						$w_tahun = $_POST['by_tahun'];
 					} else if ($_POST['by_bulan'] != '') {
-						$b = date('Y-' . $_POST['by_bulan'] . '-01');
-						$where = date('Y-m-t', strtotime($b));
+						$w_bulan = $_POST['by_bulan'];
 					} else if ($_POST['by_tahun'] != '') {
-						$where = date($_POST['by_tahun'] . '-m-t');
+						$w_tahun = $_POST['by_tahun'];
 					}
 				}
-				$absensi = $this->Absensi_model->get_siswa_bydate($where, ['absen_user', $_SESSION['id']]);
+				$absensi = $this->Absensi_model->get_siswa_bydate($w_bulan, $w_tahun, ['absen_user', $_SESSION['id']]);
 				$data['absensi'] = $absensi;
 				$this->view('absensi/v_absensi_siswa', $data);
 			}
@@ -63,16 +62,11 @@ class Absensi extends Controller {
 			if (isset($_POST['by_jenjang']) && $_POST['by_jenjang'] != '') {
 				$absensi = $this->Absensi_model->get_guru(['guru_jenjang', $_POST['by_jenjang']]);
 			} else if ($_POST['by_bulan'] != '' && $_POST['by_tahun'] != '') {
-				$bt = date($_POST['by_tahun'] . '-' . $_POST['by_bulan'] . '-01');
-				$bulan_tahun = date('Y-m-t', strtotime($bt));
-				$absensi = $this->Absensi_model->get_guru_bydate($bulan_tahun);
+				$absensi = $this->Absensi_model->get_guru_bydate($_POST['by_bulan'], $_POST['by_tahun']);
 			} else if ($_POST['by_bulan'] != '') {
-				$b = date('Y-' . $_POST['by_bulan'] . '-01');
-				$bulan = date('Y-m-t', strtotime($b));
-				$absensi = $this->Absensi_model->get_guru_bydate($bulan);
+				$absensi = $this->Absensi_model->get_guru_bydate($_POST['by_bulan']);
 			} else if ($_POST['by_tahun'] != '') {
-				$tahun = date($_POST['by_tahun'] . '-m-t');
-				$absensi = $this->Absensi_model->get_guru_bydate($tahun);
+				$absensi = $this->Absensi_model->get_guru_bydate(NULL, $_POST['by_tahun']);
 			} 
 		}
 
@@ -91,17 +85,12 @@ class Absensi extends Controller {
 		if ($_POST) {
 			if (isset($_POST['by_kelas']) && $_POST['by_kelas'] != '') {
 				$absensi = $this->Absensi_model->get_siswa(['siswa_kelas', (int)$_POST['by_kelas']]);
-			} else if ($_POST['by_bulan'] != '' && $_POST['by_tahun'] != '') {
-				$bt = date($_POST['by_tahun'] . '-' . $_POST['by_bulan'] . '-01');
-				$bulan_tahun = date('Y-m-t', strtotime($bt));
-				$absensi = $this->Absensi_model->get_siswa_bydate($bulan_tahun);
-			} else if ($_POST['by_bulan'] != '') {
-				$b = date('Y-' . $_POST['by_bulan'] . '-01');
-				$bulan = date('Y-m-t', strtotime($b));
-				$absensi = $this->Absensi_model->get_siswa_bydate($bulan);
-			} else if ($_POST['by_tahun'] != '') {
-				$tahun = date($_POST['by_tahun'] . '-m-t');
-				$absensi = $this->Absensi_model->get_siswa_bydate($tahun);
+			} else if (isset($_POST['by_bulan']) && $_POST['by_bulan'] != '' && isset($_POST['by_tahun']) && $_POST['by_tahun'] != '') {
+				$absensi = $this->Absensi_model->get_siswa_bydate($_POST['by_bulan'], $_POST['by_tahun']);
+			} else if (isset($_POST['by_bulan']) && $_POST['by_bulan'] != '') {
+				$absensi = $this->Absensi_model->get_siswa_bydate($_POST['by_bulan']);
+			} else if (isset($_POST['by_tahun']) && $_POST['by_tahun'] != '') {
+				$absensi = $this->Absensi_model->get_siswa_bydate(NULL, $_POST['by_tahun']);
 			} 
 		}
 

@@ -47,6 +47,21 @@
       from {bottom: 30px; opacity: 1;}
       to {bottom: 0; opacity: 0;}
     }
+
+    .container-zoom input[type=checkbox] {
+      display: none;
+    }
+
+    .container-zoom img {
+      margin: 100px;
+      transition: transform 0.25s ease;
+      cursor: zoom-in;
+    }
+
+    .container-zoom input[type=checkbox]:checked ~ label > img {
+      transform: scale(2);
+      cursor: zoom-out;
+    }
 </style>
 <section class="page-section portfolio mt-4" id="portfolio">
     <div class="container">

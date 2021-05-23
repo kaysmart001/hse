@@ -38,7 +38,7 @@
 		</div>
 		<div class="row mb-2">
 			<div class="col-md-3">
-				<button id="ExportExcel" class="btn btn-sm btn-primary"><i class="fa fa-file-excel-o"></i>&nbsp;Excel</button>
+				<button id="ExportExcel" class="btn btn-sm btn-primary"><i class="fa fa-file-excel"></i>&nbsp;Excel</button>
 				<button id="ExportPrint" class="btn btn-sm btn-primary"><i class="fa fa-print"></i>&nbsp;Print</button>
 			</div>
 			<?php if ($_SESSION['role'] == 1) : ?>
@@ -71,7 +71,7 @@
 									<td><?php echo get_hari($jadwal['jadwal_hari']); ?></td>
 									<td><?php echo $jadwal['mapel_nama']; ?></td>
 									<td><?php echo $jadwal['jadwal_mulai'].' - '.$jadwal['jadwal_akhir']; ?></td>
-									<td><?php echo $jadwal['jenjang_nama'].' - '.$jadwal['kelas_nama']; ?></td>
+									<td><?php echo $jadwal['kelas_nama']; ?></td>
 									<?php if ($_SESSION['role'] == 1) : ?>
 									<td>
 										<button class="btn btn-default btn-xs btn-edit" data-id="<?php echo $jadwal['jadwal_id']; ?>"><i class="fa fa-edit"></i></button>
@@ -123,7 +123,7 @@
 							<select name="jadwal_kelas" id="" class="form-control">
 								<option value="">Pilih Kelas</option>
 								<?php foreach($data['kelas'] as $key => $kelas) : ?>
-									<option value="<?php echo $kelas['kelas_id']; ?>"><?php echo $kelas['tingkat_nama'] . ' ' .$kelas['jenjang_nama']; ?></option>
+									<option value="<?php echo $kelas['kelas_id']; ?>"><?php echo $kelas['kelas_nama']; ?></option>
 								<?php endforeach; ?>
 							</select>
 						</div>

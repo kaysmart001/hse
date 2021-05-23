@@ -14,7 +14,8 @@ class Rapor_model {
 			. $this->table .
 			" INNER JOIN tb_siswa ON siswa_id = rapor_siswa " .
 			" INNER JOIN tb_jenjang ON jenjang_id = siswa_jenjang " .
-			" INNER JOIN tb_kelas ON kelas_id = siswa_kelas "
+			" INNER JOIN tb_kelas ON kelas_id = siswa_kelas " .
+			" INNER JOIN tb_tingkat ON tingkat_id = kelas_tingkat "
 			. (!is_null($jenjang) ? " WHERE " . $jenjang[0] . '=:' . $jenjang[0] : "")
 			. (!is_null($siswa) ? " AND " . $siswa[0] . '=:' . $siswa[0] : "")
 			. ""

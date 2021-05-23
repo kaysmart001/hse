@@ -46,7 +46,7 @@
                             </td>
                             <td>
                                 <b>Kelas:</b>
-                                <p><?php echo (isset($data['ujian']->jenjang_nama) ? $data['ujian']->jenjang_nama . ' ' . $data['ujian']->kelas_nama : ''); ?></p>
+                                <p><?php echo (isset($data['ujian']->jenjang_nama) ? $data['ujian']->tingkat_nama . ' ' . $data['ujian']->jenjang_nama : ''); ?></p>
                             </td>
                             <td style="max-width: 12vw;">
                                 <b>Range Tanggal & Waktu:</b>
@@ -73,6 +73,9 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-md-12">
+                <?php Flash::flash_message(); ?>
+            </div>
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Daftar Siswa Ujian</div>
@@ -117,7 +120,7 @@
                                                     echo '<a href="'.base_url() . 'cbt/result/'. $user['users_id'].'" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>&nbsp;';
                                                     echo '<a href="'.base_url() . 'cbt/print_hasil_ujian/'. $user['users_id'].'" class="btn btn-info btn-xs"><i class="fa fa-print"></i></a>';
                                                 } ?>
-                                                <button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
+                                                <button class="btn btn-danger btn-xs" data-ujian="<?php echo $user['ujian_id']; ?>" data-id="<?php echo $user['users_id']; ?>" onclick="hapus(this)"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -130,6 +133,32 @@
         </div>
     </div>
 </div>
+
+<?php if ($_SESSION['role'] != 3) : ?>
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Delete Ujian</h4>
+          </div>
+          <form action="<?php echo base_url(); ?>cbt/delete_ujian_siswa" method="post">
+          <div class="modal-body">
+            <div class="form-group">
+                <h4 class="text-center">Anda yakin akan menghapus ujian siswa ini?</h4>
+                <input type="hidden" name="ujian_id">
+                <input type="hidden" name="users_id">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-danger">Ya, hapus</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+<?php endif; ?>
 
 <?php if ($_SESSION['role'] == 1) { ?>
     </div>
@@ -168,16 +197,9 @@
         $('[data-toggle="tooltip"]').tooltip();
     });
 
-    function detail(obj) {
-        const modal = $('#modalDetail').modal('show');
-        modal.find('input[name=ujian_id]').val(obj.dataset.id);
-        modal.find('input[name=ujian_judul]').val(obj.dataset.judul);
-        modal.find('textarea[name=ujian_deskripsi]').text(obj.dataset.deskripsi);
-        modal.find('input[name=ujian_durasi]').val(`${obj.dataset.durasi} menit`);
-    }
-
     function hapus(obj) {
         $('#modalDelete').modal('show');
-        $('#modalDelete').find('input[name=ujian_id]').val(obj.dataset.id);
+        $('#modalDelete').find('input[name=ujian_id]').val(obj.dataset.ujian);
+        $('#modalDelete').find('input[name=users_id]').val(obj.dataset.id);
     }
 </script>

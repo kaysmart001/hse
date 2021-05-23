@@ -65,7 +65,7 @@
 									<td><?php echo $key + 1; ?></td>
 									<td><?php echo $kelas['jenjang_nama']; ?></td>
 									<td><?php echo $kelas['tingkat_nama']; ?></td>
-									<td><?php echo $kelas['tingkat_nama'] . ' ' . $kelas['jenjang_nama']; ?></td>
+									<td><?php echo $kelas['kelas_nama']; ?></td>
 									<td class="text-center">
 										<button class="btn btn-xs btn-default" data-id="<?php echo $kelas['kelas_id']; ?>" onclick="edit(this)">
 											<i class="fa fa-edit"></i>
@@ -219,9 +219,6 @@
 
 	function edit(obj) {
 		const id = obj.dataset.id
-		var label = '<label>Jurusan Kelas</label>';
-    	var select = label + '<select name="kelas_jurusan" class="form-control"><option>Pilih Jurusan</option>';
-
 		$.ajax({
 			url: '<?php echo base_url(); ?>kelas/ajax_get_ubah',
 			data: { kelas_id : id },

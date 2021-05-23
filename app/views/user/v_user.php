@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/css/buttons.dataTables.min.css">
+<style>.hidden { display: none }</style>
 <div id="page-wrapper">
 	<div class="container-fluid">
 		<div class="row">
@@ -84,12 +85,31 @@
         </div>
         <div class="form-group">
         	<label for="">Level/Role</label>
-        	<select name="role" id="" class="form-control">
+        	<select name="role" id="role" class="form-control">
         		<option value="">Pilih Level</option>
         		<option value="1">Admin</option>
         		<option value="2">Guru</option>
         		<option value="3">Siswa</option>
         	</select>
+        </div>
+        <div id="pilih_kelas" class="form-group hidden">
+          <label for="">Kelas</label>
+          <select name="kelas" id="kelas" class="form-control">
+            <option value="">Pilih Kelas</option>
+            <?php foreach($data['kelas'] as $key => $kelas) : ?>
+              <option value="<?php echo $kelas['kelas_id']; ?>" data-jenjang="<?php echo $kelas['jenjang_id']; ?>"><?php echo $kelas['tingkat_nama'] . ' ' . $kelas['jenjang_nama']; ?></option>
+            <?php endforeach; ?>
+            <input type="hidden" id="siswa_jenjang" name="siswa_jenjang">
+          </select>
+        </div>
+        <div id="pilih_jenjang" class="form-group hidden">
+          <label for="">Jenjang</label>
+          <select name="jenjang" id="jenjang" class="form-control">
+            <option value="">Pilih Jenjang</option>
+            <?php foreach($data['jenjang'] as $key => $jenjang) : ?>
+              <option value="<?php echo $jenjang['jenjang_id']; ?>"><?php echo $jenjang['jenjang_nama']; ?></option>
+            <?php endforeach; ?>
+          </select>
         </div>
       </div>
       <div class="modal-footer">
@@ -119,14 +139,24 @@
         	<label for="">Email</label>
         	<input type="text" name="email" id="email" class="form-control" placeholder="Email" required="">
         </div>
-        <div class="form-group">
-        	<label for="">Level/Role</label>
-        	<select name="role" id="role" class="form-control">
-        		<option value="">Pilih Level</option>
-        		<option value="1">Admin</option>
-        		<option value="2">Guru</option>
-        		<option value="3">Siswa</option>
-        	</select>
+        <div id="pilih_kelas_edit" class="form-group hidden">
+          <label for="">Kelas</label>
+          <select name="kelas" id="kelas_edit" class="form-control">
+            <option value="">Pilih Kelas</option>
+            <?php foreach($data['kelas'] as $key => $kelas) : ?>
+              <option value="<?php echo $kelas['kelas_id']; ?>" data-jenjang="<?php echo $kelas['jenjang_id']; ?>"><?php echo $kelas['tingkat_nama'] . ' ' . $kelas['jenjang_nama']; ?></option>
+            <?php endforeach; ?>
+            <input type="hidden" id="siswa_jenjang_edit" name="siswa_jenjang">
+          </select>
+        </div>
+        <div id="pilih_jenjang_edit" class="form-group hidden">
+          <label for="">Jenjang</label>
+          <select name="jenjang" id="jenjang_edit" class="form-control">
+            <option value="">Pilih Jenjang</option>
+            <?php foreach($data['jenjang'] as $key => $jenjang) : ?>
+              <option value="<?php echo $jenjang['jenjang_id']; ?>"><?php echo $jenjang['jenjang_nama']; ?></option>
+            <?php endforeach; ?>
+          </select>
         </div>
       </div>
       <div class="modal-footer">
@@ -171,6 +201,47 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 	    var table = $('#tblUser').DataTable();
+      $('#role').on('change', function(e) {
+        if ($(this).val() == 2) {
+          $('#pilih_jenjang').removeClass('hidden');
+          $('#pilih_jenjang').find('#jenjang').prop('required', true);
+          $('#pilih_kelas').addClass('hidden');
+          $('#pilih_kelas').find('#kelas').prop('required', false);
+        } else if ($(this).val() == 3) {
+          $('#pilih_kelas').removeClass('hidden');
+          $('#pilih_kelas').find('#kelas').prop('required', true);
+          $('#pilih_jenjang').addClass('hidden');
+          $('#pilih_jenjang').find('#jenjang').prop('required', false);
+        } else {
+          $('#pilih_kelas').addClass('hidden');
+          $('#pilih_kelas').find('#kelas').prop('required', false);
+          $('#pilih_jenjang').addClass('hidden');
+          $('#pilih_jenjang').find('#jenjang').prop('required', false);
+        }
+      });
+      $('#role_edit').on('change', function(e) {
+        if ($(this).val() == 2) {
+          $('#pilih_jenjang_edit').removeClass('hidden');
+          $('#pilih_kelas_edit').addClass('hidden');
+        } else if ($(this).val() == 3) {
+          $('#pilih_kelas_edit').removeClass('hidden');
+          $('#pilih_jenjang_edit').addClass('hidden');
+        } else {
+          $('#pilih_kelas_edit').addClass('hidden');
+          $('#pilih_jenjang_edit').addClass('hidden');
+        }
+      });
+      $('#kelas').on('change', function(e) {
+        $('#siswa_jenjang').val($(this).find(':selected').data('jenjang'));
+      });
+      $('#kelas_edit').on('change', function(e) {
+        $('#siswa_jenjang_edit').val($(this).find(':selected').data('jenjang'));
+      });
+      $('#modalEdit').on('hidden.bs.modal', function(){
+          $(this).find('form')[0].reset();
+          $('#pilih_jenjang_edit').addClass('hidden');
+          $('#pilih_kelas_edit').addClass('hidden');
+      });
 	});
 
 	function edit(obj) {
@@ -183,11 +254,19 @@
 			dataType: 'json',
 			success: function(data) {
 				$('#modalEdit').modal('show');
-				const { id, username, email, role } = data.data
+				const { id, username, email, role, guru_jenjang, siswa_kelas, siswa_jenjang } = data.data[0]
 				$('#id').val(id);
 				$('#username').val(username);
 				$('#email').val(email);
-				$('#role').prop('selectedIndex', role);
+				$('#role_edit').prop('selectedIndex', role);
+        if (role == 2) {
+          $('#pilih_jenjang_edit').removeClass('hidden');
+          $('#jenjang_edit').prop('selectedIndex', guru_jenjang);
+        } else if (role ==3) {
+          $('#pilih_kelas_edit').removeClass('hidden');
+          $('#kelas_edit').prop('selectedIndex', siswa_kelas);
+          $('#siswa_jenjang_edit').val(siswa_jenjang);
+        }
 			}
 		});
 	}

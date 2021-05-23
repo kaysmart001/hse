@@ -81,7 +81,7 @@ class CBT_master_model {
 	/* Master Soal */
 	public function get_soal($by = NULL, $single = FALSE) {
 		$this->db->query(
-			'SELECT soal_id, topik_judul, soal_topik, soal_detail, soal_tipe, soal_pembuat, COUNT(soal_id) as total_jawaban FROM ' . 
+			'SELECT soal_id, topik_judul, soal_topik, soal_detail, soal_tipe, soal_pembuat, soal_gambar, COUNT(jawaban_id) as total_jawaban FROM ' . 
 			$this->table_soal . 
 			' INNER JOIN ' . $this->table_topik . ' ON topik_id = soal_topik ' .
 			' LEFT JOIN ' . $this->table_jawaban . ' ON jawaban_soal = soal_id' .
@@ -101,12 +101,13 @@ class CBT_master_model {
 	}
 
 	public function add_soal($data) {
-		$query = 'INSERT INTO ' . $this->table_soal . ' (soal_topik, soal_detail, soal_tipe, soal_pembuat) VALUES (:soal_topik, :soal_detail, :soal_tipe, :soal_pembuat)';
+		$query = 'INSERT INTO ' . $this->table_soal . ' (soal_topik, soal_detail, soal_tipe, soal_pembuat, soal_gambar) VALUES (:soal_topik, :soal_detail, :soal_tipe, :soal_pembuat, :soal_gambar)';
 		$this->db->query($query);
 		$this->db->bind('soal_topik', $data['soal_topik']);
 		$this->db->bind('soal_detail', ($data['soal_detail'] != '' ? $data['soal_detail'] : ''));
 		$this->db->bind('soal_tipe', $data['soal_tipe']);
 		$this->db->bind('soal_pembuat', $_SESSION['id']);
+		$this->db->bind('soal_gambar', $data['soal_gambar']);
 
 		$this->db->execute();
 
@@ -114,11 +115,12 @@ class CBT_master_model {
 	}
 
 	public function update_soal($data) {
-		$query = 'UPDATE ' . $this->table_soal . ' SET soal_topik=:soal_topik, soal_detail=:soal_detail, soal_tipe=:soal_tipe WHERE soal_id=:soal_id';
+		$query = 'UPDATE ' . $this->table_soal . ' SET soal_topik=:soal_topik, soal_detail=:soal_detail, soal_tipe=:soal_tipe, soal_gambar=:soal_gambar WHERE soal_id=:soal_id';
 		$this->db->query($query);
 		$this->db->bind('soal_topik', $data['soal_topik']);
 		$this->db->bind('soal_detail', ($data['soal_detail'] != '' ? $data['soal_detail'] : ''));
 		$this->db->bind('soal_tipe', $data['soal_tipe']);
+		$this->db->bind('soal_gambar', $data['soal_gambar']);
 		$this->db->bind('soal_id', $data['soal_id']);
 
 		$this->db->execute();

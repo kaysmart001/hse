@@ -10,7 +10,7 @@ class Home extends Controller {
 				// Load model
 				$this->Siswa_model = $this->model('Siswa_model');
 				// Check if profile guru is not complete redirect to profile page
-				if ( ! $this->Siswa_model->check_profile($_SESSION['id']) ) {
+				if ( is_null($this->Siswa_model->check_profile($_SESSION['id'])->siswa_nama) ) {
 					header('Location: ' . base_url() . 'profile');
 				}
 			}
@@ -19,7 +19,7 @@ class Home extends Controller {
 				// Load model
 				$this->Guru_model = $this->model('Guru_model');
 				// Check if profile guru is not complete redirect to profile page
-				if ( ! $this->Guru_model->check_profile($_SESSION['id']) ) {
+				if ( is_null($this->Guru_model->check_profile($_SESSION['id'])->guru_nama) ) {
 					header('Location: ' . base_url() . 'profile');
 				}
 			}

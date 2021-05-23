@@ -63,6 +63,7 @@
 					<label>No. Handphone</label>
 					<input type="text" name="guru_nohp" class="form-control" placeholder="No. Handphone" value="<?php echo (isset($data['guru']->guru_nohp) ? $data['guru']->guru_nohp : '' ); ?>" required>
 				</div>
+				<?php if ($_SESSION['role'] == 1) { ?>
 				<div class="form-group">
 					<label>Guru Jenjang</label>
 					<select name="guru_jenjang" class="form-control" id="">
@@ -72,6 +73,9 @@
 						<?php endforeach; ?>
 					</select>
 				</div>
+				<?php } else { ?>
+					<input type="hidden" name="guru_jenjang" value="<?php echo $data['guru']->guru_jenjang; ?>">
+				<?php } ?>
 				<div class="form-group">
 					<label>Jenjang Pendidikan</label>
 					<input type="text" name="guru_jenjang_pendidikan" class="form-control" placeholder="Jenjang Pendidikan" value="<?php echo (isset($data['guru']->guru_jenjang_pendidikan) ? $data['guru']->guru_jenjang_pendidikan : '' ); ?>" required>

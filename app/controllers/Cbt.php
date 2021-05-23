@@ -93,36 +93,79 @@ class Cbt extends Controller {
 		}
 	}
 	public function cud_soal() {
+		// Setting upload photo
+		$extension = ['png', 'jpg', 'jpeg'];
+		$size = 1044070;
 		if ($_POST) {
-			if (isset($_POST['soal_id'])) {
-				if ($this->CBT_master_model->update_soal($_POST) > 0) {
-					Flash::flasher('Berhasil', 'Soal berhasil diubah', 'success');
-					header('Location: ' . base_url() . 'cbt/soal');
-					exit;
+			if ($_FILES['soal_gambar']['name'] != '' && $_FILES['soal_gambar']['size'] != 0) {
+				// Photo upload
+				$name_photo = $_FILES['soal_gambar']['name'];
+				$x = explode('.', $name_photo);
+				$ext = strtolower(end($x));
+				$size_photo = $_FILES['soal_gambar']['size'];
+				$tmp_photo = $_FILES['soal_gambar']['tmp_name'];
+				// Check extension
+				if (in_array($ext, $extension)) {
+					if ($size_photo < $size) {
+						// Move photo location and
+						move_uploaded_file($tmp_photo, 'uploads/soal/' . $name_photo);
+						// Change value post photo
+						$_POST['soal_gambar'] = $name_photo;
+						
+						// Check complete or update profile
+						if ($_POST['soal_id'] != '') {
+							if ($this->CBT_master_model->update_soal($_POST) > 0) {
+								Flash::flasher('Berhasil', 'Soal berhasil diubah', 'success');
+								header('Location: ' . base_url() . 'cbt/soal');
+								exit;
+							} else {
+								Flash::flasher('Gagal', 'Soal gagal diubah 2', 'danger');
+								header('Location: ' . base_url() . 'cbt/soal');
+								exit;
+							}
+						} else {
+							if ($this->CBT_master_model->add_soal($_POST) > 0) {
+								Flash::flasher('Berhasil', 'Soal berhasil dibuat', 'success');
+								header('Location: ' . base_url() . 'cbt/soal');
+								exit;
+							} else {
+								Flash::flasher('Gagal', 'Soal gagal dibuat', 'danger');
+								header('Location: ' . base_url() . 'cbt/soal');
+								exit;
+							}
+						}
+					} else {
+						Flash::flasher('Gagal', 'Ukuran foto melebihi ukuran yang sudah ditentukan.', 'danger');
+						header('Location: ' . base_url() . 'profile');
+						exit;
+					}
 				} else {
-					Flash::flasher('Gagal', 'Soal gagal diubah', 'danger');
-					header('Location: ' . base_url() . 'cbt/soal');
-					exit;
-				}
-			} else if (isset($_POST['soal_id_delete'])) {
-				if ($this->CBT_master_model->delete_soal($_POST['soal_id_delete']) > 0) {
-					Flash::flasher('Berhasil', 'Soal berhasil dihapus', 'success');
-					header('Location: ' . base_url() . 'cbt/soal');
-					exit;
-				} else {
-					Flash::flasher('Gagal', 'Soal gagal dihapus', 'danger');
-					header('Location: ' . base_url() . 'cbt/soal');
+					Flash::flasher('Gagal', 'Ekstensi foto tidak diperbolehkan.', 'danger');
+					header('Location: ' . base_url() . 'profile');
 					exit;
 				}
 			} else {
-				if ($this->CBT_master_model->add_soal($_POST) > 0) {
-					Flash::flasher('Berhasil', 'Soal berhasil dibuat', 'success');
-					header('Location: ' . base_url() . 'cbt/soal');
-					exit;
+				$_POST['soal_gambar'] = ($_POST['soal_gambar_old'] != '' ? $_POST['soal_gambar_old'] : NULL);
+				if ($_POST['soal_id'] != '') {
+					if ($this->CBT_master_model->update_soal($_POST) > 0) {
+						Flash::flasher('Berhasil', 'Soal berhasil diubah', 'success');
+						header('Location: ' . base_url() . 'cbt/soal');
+						exit;
+					} else {
+						Flash::flasher('Gagal', 'Soal gagal diubah 3', 'danger');
+						header('Location: ' . base_url() . 'cbt/soal');
+						exit;
+					}
 				} else {
-					Flash::flasher('Gagal', 'Soal gagal dibuat', 'danger');
-					header('Location: ' . base_url() . 'cbt/soal');
-					exit;
+					if ($this->CBT_master_model->add_soal($_POST) > 0) {
+						Flash::flasher('Berhasil', 'Soal berhasil dibuat', 'success');
+						header('Location: ' . base_url() . 'cbt/soal');
+						exit;
+					} else {
+						Flash::flasher('Gagal', 'Soal gagal dibuat', 'danger');
+						header('Location: ' . base_url() . 'cbt/soal');
+						exit;
+					}
 				}
 			}
 		}
@@ -213,19 +256,31 @@ class Cbt extends Controller {
 	}
 
 	public function ujian() {
+		$data['ujian'] = [];
 		$where_ujian = NULL;
 		$where_ujian_siswa = NULL;
 		if ($_SESSION['role'] == 2) {
 			$where_ujian = ['ujian_pembuat', $_SESSION['id']];
-		}
-
-		if ($_SESSION['role'] == 3) {
+			$data['ujian'] = $this->Ujian_model->get($where_ujian);
+		} else if ($_SESSION['role'] == 3) {
 			$data_siswa = $this->Siswa_model->get_all(['siswa_uid', $_SESSION['id']], TRUE);
 			$where_ujian = ['group_kelas', $data_siswa->siswa_kelas];
 			$where_ujian_siswa = ['users_siswa', $data_siswa->siswa_id];
+
+			$ujian_query = $this->Ujian_model->get($where_ujian);
+			// Cek waktu tanggal ujian
+			foreach ($ujian_query as $value) {
+				$date = new DateTime();
+				$tgl_ujian_mulai = new DateTime($value['ujian_waktu_mulai']);
+				$tgl_ujian_akhir = new DateTime($value['ujian_waktu_akhir']);
+				if ($date >= $tgl_ujian_mulai && $date <= $tgl_ujian_akhir) {
+					$data['ujian'] = $this->Ujian_model->get_withdt($where_ujian, $value['ujian_waktu_mulai'], $value['ujian_waktu_akhir']);
+				}
+			}
+		} else if ($_SESSION['role'] == 1) {
+			$data['ujian'] = $this->Ujian_model->get();
 		}
 
-		$data['ujian'] = $this->Ujian_model->get($where_ujian);
 		$data['ujian_users'] = $this->Ujian_model->get_users($where_ujian_siswa, NULL, TRUE);
 
 		if ($_SESSION['role'] != 1) {
@@ -239,7 +294,12 @@ class Cbt extends Controller {
 		}
 	}
 	public function form_ujian($id = NULL) {
-		$data['kelas'] = $this->Kelas_model->get();
+		$where_kelas = NULL;
+		if ($_SESSION['role'] == 2) {
+			$where_kelas = ['kelas_jenjang', $this->Guru_model->check_profile($_SESSION['id'])->guru_jenjang];
+		}
+
+		$data['kelas'] = $this->Kelas_model->get_by($where_kelas);
 		$data['topik'] = $this->CBT_master_model->get_topik();
 		$data['guru'] = $this->Guru_model->get_all();
 
@@ -734,7 +794,13 @@ class Cbt extends Controller {
 					$data['us_order'] = $query_soal->us_order;
 
 					$soal = $soal . '<div class="form-group">';
+					// Embed soal bergambar
+					if (!is_null($query_soal->soal_gambar)) {
+						$soal = $soal . '<div class="container-zoom"><input type="checkbox" id="zoomCheck'.$query_soal->soal_id.'"><label for="zoomCheck'.$query_soal->soal_id.'"><img src="' . base_url() . 'uploads/soal/' . $query_soal->soal_gambar . '" style="max-width: 340px; display: block; margin: 10px 0 20px;"" /></label></div>';
+					}
+
 					$soal = $soal . '<label>' . $query_soal->soal_detail . '</label>';
+
 					if ($query_soal->soal_tipe == 1) {
 						$query_jawaban = $this->Ujian_model->get_jawaban(['us_id', $us_id]);
 						if (count($query_jawaban) > 0) {
@@ -962,10 +1028,16 @@ class Cbt extends Controller {
     		$soal = $temp['soal_detail'];
     		$soal = str_replace("[base_url]", base_url(), $soal);
 
+    		// Embed soal bergambar
+    		$soal_gambar = '';
+			if (!is_null($temp['soal_gambar'])) {
+				$soal_gambar = '<div class="container-zoom"><input type="checkbox" id="zoomCheck'.$temp['soal_id'].'"><label for="zoomCheck'.$temp['soal_id'].'"><img src="' . base_url() . 'uploads/soal/' . $temp['soal_gambar'] . '" style="max-width: 340px; display: block; margin: 10px 0 20px;"" /></label></div>';
+			}
+
     		$table_soal = '
     			<table class="table" border="0">
     				<tr>
-    					<td colspan="4">'.$soal.'</td>
+    					<td colspan="4">'.$soal. ' ' .$soal_gambar. '</td>
     				</tr>
     		';
 
@@ -1170,5 +1242,21 @@ class Cbt extends Controller {
 	    }
 
 	    $this->view('cbt/v_print_hasil', $data);
+    }
+
+    public function delete_ujian_siswa() {
+    	if ($_POST) {
+    		if ($_POST['users_id'] != '') {
+    			if ($this->Ujian_model->delete_ujian_siswa($_POST['users_id']) > 0) {
+    				Flash::flasher('Berhasil', 'Ujian siswa berhasil dihapus', 'success');
+					header('Location: ' . base_url() . 'cbt/detail_ujian/' . $_POST['ujian_id']);
+					exit;
+    			} else {
+    				Flash::flasher('Gagal', 'Ujian siswa gagal dihapus', 'success');
+					header('Location: ' . base_url() . 'cbt/detail_ujian/' . $_POST['ujian_id']);
+					exit;
+    			}
+    		}
+    	}
     }
 }

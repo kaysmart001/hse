@@ -17,6 +17,7 @@ class Pembayaran_model {
 			INNER JOIN tb_user ON id = siswa_uid
 			INNER JOIN tb_kelas ON kelas_id = siswa_kelas
 			INNER JOIN tb_jenjang ON jenjang_id = kelas_jenjang
+			INNER JOIN tb_tingkat ON tingkat_id = kelas_tingkat
 			"
 			. (!is_null($by) ? " WHERE " . $by[0] . "=:" . $by[0] : "") 
 			. (!is_null($order) ? ' ORDER BY ' . $order : '') 

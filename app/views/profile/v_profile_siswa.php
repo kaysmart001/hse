@@ -102,6 +102,7 @@
 					<label>Pekerjaan Wali</label>
 					<input type="text" name="siswa_pekerjaan_wali" class="form-control" placeholder="Pekerjaan Wali" value="<?php echo (isset($data['siswa']->siswa_pekerjaan_wali) ? $data['siswa']->siswa_pekerjaan_wali : '' ); ?>" required>
 				</div>
+				<?php if ($_SESSION['role'] != 3) { ?>
 				<div class="form-group">
 					<label>Siswa Jenjang</label>
 					<select name="siswa_jenjang" class="form-control" id="">
@@ -116,7 +117,7 @@
 					<select name="siswa_kelas" class="form-control" id="">
 						<option value="">Pilih Kelas</option>
 						<?php foreach($data['kelas'] as $key => $kelas) : ?>
-							<option value="<?php echo $kelas['kelas_id']; ?>" <?php echo (isset($data['siswa']->siswa_jenjang) ? ($data['siswa']->siswa_jenjang == $kelas['kelas_id'] ?  'selected' : '') : '' ); ?>><?php echo $kelas['kelas_nama']; ?></option>
+							<option value="<?php echo $kelas['kelas_id']; ?>" <?php echo (isset($data['siswa']->siswa_kelas) ? ($data['siswa']->siswa_kelas == $kelas['kelas_id'] ?  'selected' : '') : '' ); ?>><?php echo $kelas['tingkat_nama'] . ' ' . $kelas['jenjang_nama']; ?></option>
 						<?php endforeach; ?>
 					</select>
 				</div>
@@ -124,6 +125,11 @@
 					<label>Semester</label>
 					<input type="text" name="siswa_semester" class="form-control" placeholder="Semester" value="<?php echo (isset($data['siswa']->siswa_semester) ? $data['siswa']->siswa_semester : '' ); ?>" required>
 				</div>
+				<?php } else { ?>
+					<input type="hidden" name="siswa_jenjang" value="<?php echo $data['siswa']->siswa_jenjang; ?>">
+					<input type="hidden" name="siswa_kelas" value="<?php echo $data['siswa']->siswa_kelas; ?>">
+					<input type="hidden" name="siswa_semester" value="<?php echo $data['siswa']->siswa_semester; ?>">
+				<?php } ?>
 				<hr>
 				<div class="form-group">
 					<input type="submit" class="btn btn-primary" value="Simpan">

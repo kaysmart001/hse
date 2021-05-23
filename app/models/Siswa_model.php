@@ -19,6 +19,7 @@ class Siswa_model {
 			. $this->table . 
 			' INNER JOIN tb_jenjang ON jenjang_id = siswa_jenjang ' .
 			' INNER JOIN tb_kelas ON kelas_id = siswa_kelas ' .
+			' INNER JOIN tb_tingkat ON tingkat_id = kelas_tingkat ' .
 			(!is_null($by) ? ' WHERE ' . $by[0] . '=:' . $by[0] : '')
 		);
 		if (!is_null($by)) {
@@ -120,6 +121,28 @@ class Siswa_model {
 
 		return $this->db->rowCount();
 	}
+	public function add_without_data($data) {
+		$query = "
+			INSERT INTO ".$this->table." 
+			(
+			siswa_jenjang,
+			siswa_kelas,
+			siswa_uid)
+			VALUES 
+			(
+			:siswa_jenjang,
+			:siswa_kelas,
+			:siswa_uid)
+		";
+		$this->db->query($query);
+		$this->db->bind('siswa_jenjang', $data['siswa_jenjang']);
+		$this->db->bind('siswa_kelas', $data['siswa_kelas']);
+		$this->db->bind('siswa_uid', $data['siswa_uid']);
+
+		$this->db->execute();
+
+		return $this->db->rowCount();
+	}
 
 	public function update($data) {
 		$query = "
@@ -174,6 +197,22 @@ class Siswa_model {
 		$this->db->bind('siswa_foto', $data['siswa_foto']);
 		$this->db->bind('siswa_uid', $data['siswa_uid']);
 		$this->db->bind('siswa_id', $data['siswa_id']);
+
+		$this->db->execute();
+
+		return $this->db->rowCount();
+	}
+	public function update_without_data($data) {
+		$query = "
+			UPDATE ".$this->table." SET
+			siswa_jenjang=:siswa_jenjang,
+			siswa_kelas=:siswa_kelas
+			WHERE siswa_uid=:siswa_uid
+		";
+		$this->db->query($query);
+		$this->db->bind('siswa_jenjang', $data['siswa_jenjang']);
+		$this->db->bind('siswa_kelas', $data['siswa_kelas']);
+		$this->db->bind('siswa_uid', $data['siswa_uid']);
 
 		$this->db->execute();
 

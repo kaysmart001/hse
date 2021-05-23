@@ -38,7 +38,7 @@
 									<td><?php echo $pembayaran['siswa_nis']; ?></td>
 									<td><?php echo $pembayaran['siswa_nama']; ?></td>
 									<td>
-										<?php echo $pembayaran['jenjang_nama'].' '.$pembayaran['kelas_nama']; ?>
+										<?php echo $pembayaran['kelas_nama']; ?>
 									</td>
 									<td>
 										<?php echo ($pembayaran['pembayaran_status'] == 1 ? '<span class="badge bg-success">Diverifikasi</span>' : ($pembayaran['pembayaran_status'] == 2 ? '<span class="badge bg-danger">Ditolak</span>' : '<span class="badge bg-default">Menunggu</span>')) ?>

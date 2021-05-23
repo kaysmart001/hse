@@ -41,6 +41,9 @@
                         <form action="<?php echo base_url(); ?>cbt/cud_jawaban" method="post">
                             <div class="form-group well">
                                 <label for="">Soal</label>
+                                <?php if (!is_null($data['soal']->soal_gambar)) : ?>
+                                    <div class="form-group"><img src="<?php echo base_url(); ?>uploads/soal/<?php echo $data['soal']->soal_gambar; ?>" alt="" style="width: auto;height: 430px;object-fit: cover;"></div>
+                                <?php endif; ?>
                                 <p><?php echo (($data['soal']) ? $data['soal']->soal_detail : '-'); ?></p>
                                 <input type="hidden" name="jawaban_soal" value="<?php echo (($data['soal']) ? $data['soal']->soal_id : '-'); ?>">
                             </div>

@@ -16,6 +16,7 @@ class Jadwal_model {
 			JOIN tb_kelas ON kelas_id = jadwal_kelas
 			JOIN tb_mapel ON mapel_id = jadwal_mapel
 			JOIN tb_jenjang ON jenjang_id = kelas_jenjang
+			JOIN tb_tingkat ON tingkat_id = kelas_tingkat
 			"
 			. (!is_null($by) ? " WHERE " . $by[0] . "=:" . $by[0] : "") .
 			"

@@ -69,12 +69,11 @@
 									<td><?php echo (strlen($pengumuman['pengumuman_isi']) > 140 ? strip_tags(substr($pengumuman['pengumuman_isi'], 0, 80)) . '...' : strip_tags($pengumuman['pengumuman_isi'])); ?></td>
 									<td><?php echo date('Y-m-d', strtotime($pengumuman['pengumuman_waktu'])); ?></td>
 									<td>
-										<?php if ($_SESSION['role'] == 1) : ?>
 										<button class="btn btn-default btn-xs btn-detail" data-id="<?php echo $pengumuman['pengumuman_id'] ?>"><i class="fa fa-eye"></i></button>
+										<?php if ($_SESSION['role'] == 1) : ?>
 										<button class="btn btn-default btn-xs btn-edit" data-id="<?php echo $pengumuman['pengumuman_id'] ?>"><i class="fa fa-edit"></i></button>
 										<button class="btn btn-default btn-xs btn-delete" data-id="<?php echo $pengumuman['pengumuman_id']; ?>" data-jenjang="<?php echo $pengumuman['jenjang_id']; ?>"><i class="fa fa-trash"></i></button>
 										<?php endif; ?>
-										<button class="btn btn-default btn-xs btn-detail" data-id="<?php echo $pengumuman['pengumuman_id'] ?>"><i class="fa fa-eye"></i></button>
 									</td>
 								</tr>
 							<?php endforeach; ?>
@@ -98,7 +97,6 @@
 							<label for="">Pengumuman Jenjang</label>
 							<select name="pengumuman_jenjang" class="form-control" id="pengumuman_jenjang" required="">
 								<option value="">Pilih Jenjang</option>
-								<option value="0">Semua</option>
 								<?php foreach ($data['jenjang'] as $key => $jenjang) : ?>
 									<option value="<?php echo $jenjang['jenjang_id']; ?>"><?php echo $jenjang['jenjang_nama']; ?></option>
 								<?php endforeach; ?>
