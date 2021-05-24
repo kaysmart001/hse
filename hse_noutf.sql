@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 23, 2021 at 03:51 PM
+-- Generation Time: May 24, 2021 at 05:04 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.1.33
 
@@ -98,7 +98,8 @@ CREATE TABLE `tb_jadwal` (
 INSERT INTO `tb_jadwal` (`jadwal_id`, `jadwal_hari`, `jadwal_mulai`, `jadwal_akhir`, `jadwal_kelas`, `jadwal_mapel`) VALUES
 (1, 1, '07:30', '08:20', 1, 1),
 (2, 1, '09:10', '10:50', 7, 5),
-(3, 1, '08:30', '09:30', 10, 3);
+(3, 1, '08:30', '09:30', 10, 3),
+(4, 1, '10:10', '11:30', 13, 6);
 
 -- --------------------------------------------------------
 
@@ -171,6 +172,14 @@ CREATE TABLE `tb_jurusan` (
   `jurusan_jenjang` int(11) DEFAULT NULL
 );
 
+--
+-- Dumping data for table `tb_jurusan`
+--
+
+INSERT INTO `tb_jurusan` (`jurusan_id`, `jurusan_nama`, `jurusan_jenjang`) VALUES
+(1, 'IPA', 3),
+(2, 'IPS', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -199,9 +208,12 @@ INSERT INTO `tb_kelas` (`kelas_id`, `kelas_jenjang`, `kelas_tingkat`, `kelas_jur
 (7, 2, 1, NULL, '1 SMP'),
 (8, 2, 2, NULL, '2 SMP'),
 (9, 2, 3, NULL, '3 SMP'),
-(10, 3, 1, NULL, '1 SMA'),
-(11, 3, 2, NULL, '2 SMA'),
-(12, 3, 3, NULL, '3 SMA');
+(10, 3, 1, 1, '1 SMA IPA'),
+(11, 3, 2, 1, '2 SMA IPA'),
+(12, 3, 3, 1, '3 SMA IPA'),
+(13, 3, 1, 2, '1 SMA IPS'),
+(14, 3, 2, 2, '2 SMA IPS'),
+(15, 3, 3, 2, '3 SMA IPS');
 
 -- --------------------------------------------------------
 
@@ -224,7 +236,8 @@ INSERT INTO `tb_mapel` (`mapel_id`, `mapel_kode`, `mapel_nama`, `mapel_guru`) VA
 (1, 'K0011', 'Bahasa Indonesia', 1),
 (2, 'K0021', 'Matematika', 1),
 (3, 'K0030', 'Biologi', 1),
-(5, 'K0022', 'Bahasa Inggris', 1);
+(5, 'K0022', 'Bahasa Inggris', 1),
+(6, 'K0027', 'Sejarah', 3);
 
 -- --------------------------------------------------------
 
@@ -787,7 +800,7 @@ ALTER TABLE `tb_guru`
 -- AUTO_INCREMENT for table `tb_jadwal`
 --
 ALTER TABLE `tb_jadwal`
-  MODIFY `jadwal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `jadwal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tb_jawaban`
@@ -805,19 +818,19 @@ ALTER TABLE `tb_jenjang`
 -- AUTO_INCREMENT for table `tb_jurusan`
 --
 ALTER TABLE `tb_jurusan`
-  MODIFY `jurusan_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `jurusan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_kelas`
 --
 ALTER TABLE `tb_kelas`
-  MODIFY `kelas_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `kelas_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tb_mapel`
 --
 ALTER TABLE `tb_mapel`
-  MODIFY `mapel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `mapel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_pembayaran`
