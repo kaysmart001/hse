@@ -215,6 +215,49 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 	    var table = $('#tblKelas').DataTable();
+      $('#modalEdit').on('hidden.bs.modal', function(){
+          $(this).find('form')[0].reset();
+          $('#kelas_jurusan').remove();
+          $('#kelas_jurusan_edit').remove();
+      });
+      $('#kelas_jenjang').on('change', function() {
+        $('#kelas_jurusan').html('');
+        if ($(this).val() == 3) {
+          var label = '<label>Jurusan Kelas</label>';
+          var select = label + '<select name="kelas_jurusan" class="form-control"><option>Pilih Jurusan</option>';
+          $.ajax({
+            url: '<?php echo base_url(); ?>kelas/ajax_get_jurusan',
+            data: { jenjang: $(this).val() },
+            method: 'post',
+            dataType: 'json',
+            success: function(data){
+              for (let a = 0; a < data.length; a++) {
+                select += `<option value="${data[a].jurusan_id}">${data[a].jurusan_nama}</option>`
+              }
+              $('#kelas_jurusan').html(select)
+            }
+          });
+        }
+      });
+      $('#kelas_jenjang_edit').on('change', function() {
+        $('#kelas_jurusan_edit').html('');
+        if ($(this).val() == 3) {
+          var label = '<label>Jurusan Kelas</label>';
+          var select = label + '<select name="kelas_jurusan" class="form-control"><option>Pilih Jurusan</option>';
+          $.ajax({
+            url: '<?php echo base_url(); ?>kelas/ajax_get_jurusan',
+            data: { jenjang: $(this).val() },
+            method: 'post',
+            dataType: 'json',
+            success: function(data){
+              for (let a = 0; a < data.length; a++) {
+                select += `<option value="${data[a].jurusan_id}">${data[a].jurusan_nama}</option>`
+              }
+              $('#kelas_jurusan_edit').html(select)
+            }
+          });
+        }
+      });
 	});
 
 	function edit(obj) {

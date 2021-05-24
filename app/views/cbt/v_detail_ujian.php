@@ -46,7 +46,7 @@
                             </td>
                             <td>
                                 <b>Kelas:</b>
-                                <p><?php echo (isset($data['ujian']->jenjang_nama) ? $data['ujian']->tingkat_nama . ' ' . $data['ujian']->jenjang_nama : ''); ?></p>
+                                <p><?php echo (isset($data['ujian']->jenjang_nama) ? $data['ujian']->kelas_nama : ''); ?></p>
                             </td>
                             <td style="max-width: 12vw;">
                                 <b>Range Tanggal & Waktu:</b>

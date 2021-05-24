@@ -37,7 +37,7 @@ class User_model {
 			} else if ($query[$key]['role'] == 3) {
 				$query[$key]['nama'] = $query[$key]['siswa_nama'];
 				$query[$key]['level'] = 'Siswa';
-				$query[$key]['kelas'] = $this->get_kelas($query[$key]['siswa_kelas'])->tingkat_nama . ' ' . $this->get_kelas($query[$key]['siswa_kelas'])->jenjang_nama;
+				$query[$key]['kelas'] = $this->get_kelas($query[$key]['siswa_kelas'])->kelas_nama;
 			}
 
 			unset($query[$key]['guru_nama']);
@@ -182,7 +182,7 @@ class User_model {
 	}
 
 	private function get_kelas($kelas_id) {
-		$this->db->query("SELECT jenjang_nama, tingkat_nama FROM tb_kelas LEFT JOIN tb_jenjang ON kelas_jenjang = jenjang_id LEFT JOIN tb_tingkat ON tingkat_id = kelas_tingkat WHERE kelas_id=:kelas_id");
+		$this->db->query("SELECT jenjang_nama, tingkat_nama, kelas_nama FROM tb_kelas LEFT JOIN tb_jenjang ON kelas_jenjang = jenjang_id LEFT JOIN tb_tingkat ON tingkat_id = kelas_tingkat WHERE kelas_id=:kelas_id");
 		$this->db->bind('kelas_id', $kelas_id);
 		return $this->db->row();
 	}

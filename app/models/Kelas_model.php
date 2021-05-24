@@ -47,11 +47,20 @@ class Kelas_model {
 	public function add($data) {
 		$tingkat_nama = $this->get_tingkat($data['kelas_tingkat'])->tingkat_nama;
 		$jenjang_nama = $this->get_jenjang($data['kelas_jenjang'])->jenjang_nama;
-		$kelas_nama = $tingkat_nama . ' ' . $jenjang_nama;
-		$query = "INSERT INTO ".$this->table." (kelas_jenjang, kelas_tingkat, kelas_nama) VALUES (:kelas_jenjang, :kelas_tingkat, :kelas_nama)";
+		if ($data['kelas_jenjang'] < 3) {
+			$kelas_nama = $tingkat_nama . ' ' . $jenjang_nama;
+			$query = "INSERT INTO ".$this->table." (kelas_jenjang, kelas_tingkat, kelas_nama) VALUES (:kelas_jenjang, :kelas_tingkat, :kelas_nama)";
+		} else if ($data['kelas_jenjang'] == 3 || $jenjang_nama == 'SMA') {
+			$jurusan_nama = $this->get_jurusan($data['kelas_jurusan'])->jurusan_nama;
+			$kelas_nama = $tingkat_nama . ' ' . $jenjang_nama . ' ' . $jurusan_nama;
+			$query = "INSERT INTO ".$this->table." (kelas_jenjang, kelas_tingkat, kelas_jurusan, kelas_nama) VALUES (:kelas_jenjang, :kelas_tingkat, :kelas_jurusan, :kelas_nama)";
+		}
 		$this->db->query($query);
 		$this->db->bind('kelas_jenjang', $data['kelas_jenjang']);
 		$this->db->bind('kelas_tingkat', $data['kelas_tingkat']);
+		if ($data['kelas_jenjang'] == 3 || $jenjang_nama == 'SMA') {
+			$this->db->bind('kelas_jurusan', $data['kelas_jurusan']);
+		}
 		$this->db->bind('kelas_nama', $kelas_nama);
 		$this->db->execute();
 
@@ -61,11 +70,20 @@ class Kelas_model {
 	public function update($data) {
 		$tingkat_nama = $this->get_tingkat($data['kelas_tingkat'])->tingkat_nama;
 		$jenjang_nama = $this->get_jenjang($data['kelas_jenjang'])->jenjang_nama;
-		$kelas_nama = $tingkat_nama . ' ' . $jenjang_nama;
-		$query = "UPDATE ".$this->table." SET kelas_jenjang=:kelas_jenjang, kelas_tingkat=:kelas_tingkat, kelas_nama=:kelas_nama WHERE kelas_id=:kelas_id";
+		if ($data['kelas_jenjang'] < 3) {
+			$kelas_nama = $tingkat_nama . ' ' . $jenjang_nama;
+			$query = "UPDATE ".$this->table." SET kelas_jenjang=:kelas_jenjang, kelas_tingkat=:kelas_tingkat, kelas_nama=:kelas_nama WHERE kelas_id=:kelas_id";
+		} else if ($data['kelas_jenjang'] == 3 || $jenjang_nama == 'SMA') {
+			$jurusan_nama = $this->get_jurusan($data['kelas_jurusan'])->jurusan_nama;
+			$kelas_nama = $tingkat_nama . ' ' . $jenjang_nama . ' ' . $jurusan_nama;
+			$query = "UPDATE ".$this->table." SET kelas_jenjang=:kelas_jenjang, kelas_tingkat=:kelas_tingkat, kelas_jurusan=:kelas_jurusan, kelas_nama=:kelas_nama WHERE kelas_id=:kelas_id";
+		}
 		$this->db->query($query);
 		$this->db->bind('kelas_jenjang', $data['kelas_jenjang']);
 		$this->db->bind('kelas_tingkat', $data['kelas_tingkat']);
+		if ($data['kelas_jenjang'] == 3 || $jenjang_nama == 'SMA') {
+			$this->db->bind('kelas_jurusan', $data['kelas_jurusan']);
+		}
 		$this->db->bind('kelas_nama', $kelas_nama);
 		$this->db->bind('kelas_id', $data['kelas_id']);
 		$this->db->execute();
@@ -90,6 +108,11 @@ class Kelas_model {
 	private function get_tingkat($tingkat_id) {
 		$this->db->query('SELECT tingkat_nama FROM tb_tingkat WHERE tingkat_id=:tingkat_id');
 		$this->db->bind('tingkat_id', $tingkat_id);
+		return $this->db->row();
+	}
+	private function get_jurusan($jurusan_id) {
+		$this->db->query('SELECT jurusan_nama FROM tb_jurusan WHERE jurusan_id=:jurusan_id');
+		$this->db->bind('jurusan_id', $jurusan_id);
 		return $this->db->row();
 	}
 }

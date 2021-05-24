@@ -122,7 +122,7 @@
                             <tr>
                                 <th style="max-width: 30px;">No</th>
                                 <th>Topik</th>
-                                <th>Soal</th>
+                                <th style="max-width: 210px;">Soal</th>
                                 <th>Tipe</th>
                                 <th>Total Jawaban</th>
                                 <?php if ($_SESSION['role'] != 3) : ?>

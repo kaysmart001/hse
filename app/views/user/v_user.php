@@ -97,7 +97,7 @@
           <select name="kelas" id="kelas" class="form-control">
             <option value="">Pilih Kelas</option>
             <?php foreach($data['kelas'] as $key => $kelas) : ?>
-              <option value="<?php echo $kelas['kelas_id']; ?>" data-jenjang="<?php echo $kelas['jenjang_id']; ?>"><?php echo $kelas['tingkat_nama'] . ' ' . $kelas['jenjang_nama']; ?></option>
+              <option value="<?php echo $kelas['kelas_id']; ?>" data-jenjang="<?php echo $kelas['jenjang_id']; ?>"><?php echo $kelas['kelas_nama']; ?></option>
             <?php endforeach; ?>
             <input type="hidden" id="siswa_jenjang" name="siswa_jenjang">
           </select>
@@ -144,7 +144,7 @@
           <select name="kelas" id="kelas_edit" class="form-control">
             <option value="">Pilih Kelas</option>
             <?php foreach($data['kelas'] as $key => $kelas) : ?>
-              <option value="<?php echo $kelas['kelas_id']; ?>" data-jenjang="<?php echo $kelas['jenjang_id']; ?>"><?php echo $kelas['tingkat_nama'] . ' ' . $kelas['jenjang_nama']; ?></option>
+              <option value="<?php echo $kelas['kelas_id']; ?>" data-jenjang="<?php echo $kelas['jenjang_id']; ?>"><?php echo $kelas['kelas_nama']; ?></option>
             <?php endforeach; ?>
             <input type="hidden" id="siswa_jenjang_edit" name="siswa_jenjang">
           </select>

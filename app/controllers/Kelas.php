@@ -209,7 +209,7 @@ class Kelas extends Controller {
 	}
 
 	public function ajax_get_jurusan() {
-		if ($_POST['jenjang'] == 3 || $_POST['jenjang_nama'] == 'SMA') {
+		if ($_POST['jenjang'] == 3) {
 			$data = $this->Jurusan_model->get_jurusan_sma();
 		} else if ($_POST['jenjang'] == 4 || $_POST['jenjang_nama'] == 'SMK') {
 			$data = $this->Jurusan_model->get_jurusan_smk();

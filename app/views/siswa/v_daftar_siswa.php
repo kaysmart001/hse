@@ -95,7 +95,7 @@
                                     <td><?php echo $siswa['siswa_nama']; ?></td>
                                     <td><?php echo ($siswa['siswa_jenis_kelamin'] == 1 ? 'Laki-Laki' : ($siswa['siswa_jenis_kelamin'] == 2 ? 'Wanita' : '')); ?></td>
                                     <td><?php echo $siswa['jenjang_nama']; ?></td>
-                                    <td><?php echo $siswa['tingkat_nama'] . ' ' . $siswa['jenjang_nama'] ; ?></td>
+                                    <td><?php echo $siswa['kelas_nama']; ?></td>
                                     <td><?php echo $siswa['siswa_semester']; ?></td>
                                     <td>
                                         <a href="<?php echo base_url(); ?>siswa/detail/<?php echo $siswa['siswa_id']; ?>" class="btn btn-default btn-xs"><i class="fa fa-eye"></i></a>

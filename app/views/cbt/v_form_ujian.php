@@ -55,7 +55,7 @@
                                         <select name="group_kelas" class="form-control" required="">
                                             <option value="">Pilih Kelas</option>
                                             <?php foreach($data['kelas'] as $key => $kelas) : ?>
-                                                <option value="<?php echo $kelas['kelas_id']; ?>" <?php echo (isset($data['ujian']->group_kelas) ? ($data['ujian']->group_kelas == $kelas['kelas_id'] ? 'selected' : '') : ''); ?>><?php echo $kelas['tingkat_nama'] . ' - ' . $kelas['jenjang_nama']; ?></option>
+                                                <option value="<?php echo $kelas['kelas_id']; ?>" <?php echo (isset($data['ujian']->group_kelas) ? ($data['ujian']->group_kelas == $kelas['kelas_id'] ? 'selected' : '') : ''); ?>><?php echo $kelas['kelas_nama']; ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>

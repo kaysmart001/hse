@@ -295,12 +295,14 @@ class Cbt extends Controller {
 	}
 	public function form_ujian($id = NULL) {
 		$where_kelas = NULL;
+		$where_topik = NULL;
 		if ($_SESSION['role'] == 2) {
 			$where_kelas = ['kelas_jenjang', $this->Guru_model->check_profile($_SESSION['id'])->guru_jenjang];
+			$where_topik = ['topik_pembuat', $_SESSION['id']];
 		}
 
 		$data['kelas'] = $this->Kelas_model->get_by($where_kelas);
-		$data['topik'] = $this->CBT_master_model->get_topik();
+		$data['topik'] = $this->CBT_master_model->get_topik($where_topik);
 		$data['guru'] = $this->Guru_model->get_all();
 
 		if (!is_null($id))
