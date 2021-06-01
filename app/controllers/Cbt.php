@@ -243,14 +243,18 @@ class Cbt extends Controller {
 			if ($_POST['topik_id'] != '') {
 				$gs = $this->CBT_master_model->get_soal(['soal_topik', $_POST['topik_id']]);
 				$a = [];
+				$tipe = 0;
 				foreach ($gs as $key => $value) {
 					if ($value['soal_tipe'] == 1) {
+						$tipe = 1;
 						array_push($a, $value['soal_id']);
+					} else {
+						$a = [0];
 					}
 				}
 				$gj = $this->CBT_master_model->get_jawaban(NULL, implode(",", $a), FALSE);
 
-				echo json_encode(['total' => count($gj)]);
+				echo json_encode(['total' => ($tipe > 0 ? count($gj) : count($gs))]);
 			}
 		}
 	}
@@ -266,22 +270,15 @@ class Cbt extends Controller {
 			$data_siswa = $this->Siswa_model->get_all(['siswa_uid', $_SESSION['id']], TRUE);
 			$where_ujian = ['group_kelas', $data_siswa->siswa_kelas];
 			$where_ujian_siswa = ['users_siswa', $data_siswa->siswa_id];
+			$ujian_query = $this->Ujian_model->get_ujian($where_ujian);
 
-			$ujian_query = $this->Ujian_model->get($where_ujian);
-			// Cek waktu tanggal ujian
-			foreach ($ujian_query as $value) {
-				$date = new DateTime();
-				$tgl_ujian_mulai = new DateTime($value['ujian_waktu_mulai']);
-				$tgl_ujian_akhir = new DateTime($value['ujian_waktu_akhir']);
-				if ($date >= $tgl_ujian_mulai && $date <= $tgl_ujian_akhir) {
-					$data['ujian'] = $this->Ujian_model->get_withdt($where_ujian, $value['ujian_waktu_mulai'], $value['ujian_waktu_akhir']);
-				}
+			$data['ujian'] = $ujian_query;
+			foreach ($data['ujian'] as $key => $v) {
+				$data['ujian'][$key]['ujian_users'] = $this->Ujian_model->get_users($where_ujian_siswa, ['ujian_id', $v['ujian_id']], TRUE);
 			}
 		} else if ($_SESSION['role'] == 1) {
 			$data['ujian'] = $this->Ujian_model->get();
 		}
-
-		$data['ujian_users'] = $this->Ujian_model->get_users($where_ujian_siswa, NULL, TRUE);
 
 		if ($_SESSION['role'] != 1) {
 			$this->view('home/v_header');

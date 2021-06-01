@@ -35,6 +35,29 @@ class Ujian_model {
 		}
 		return $method;
 	}
+	public function get_ujian($by = NULL, $single = FALSE) {
+		$this->db->query(
+			'SELECT * FROM ' . 
+			$this->table_ujian . 
+			' INNER JOIN tb_ujian_group ON group_ujian = ujian_id ' .
+			' INNER JOIN tb_kelas ON kelas_id = group_kelas ' .
+			' INNER JOIN tb_ujian_topik ON ut_ujian = ujian_id ' .
+			' INNER JOIN tb_jenjang ON jenjang_id = kelas_jenjang ' .
+			' INNER JOIN tb_tingkat ON tingkat_id = kelas_tingkat ' .
+			(!is_null($by) ? " WHERE " . $by[0] . '=:' . $by[0] : "") .
+			(!is_null($by) ? " AND ujian_waktu_mulai<=NOW() AND ujian_waktu_akhir>=NOW() " : " WHERE ujian_waktu_mulai<=NOW() AND ujian_waktu_akhir>=NOW() ") .
+			' ORDER BY ujian_id DESC');
+		if (!is_null($by)) {
+			$this->db->bind($by[0], $by[1]);
+		}
+
+		if ($single) {
+			$method = $this->db->row();
+		} else {
+			$method = $this->db->result();
+		}
+		return $method;
+	}
 	public function get_withdt($by = NULL, $sdate, $edate, $single = FALSE) {
 		$this->db->query(
 			'SELECT * FROM ' . 
@@ -45,8 +68,8 @@ class Ujian_model {
 			' INNER JOIN tb_jenjang ON jenjang_id = kelas_jenjang ' .
 			' INNER JOIN tb_tingkat ON tingkat_id = kelas_tingkat ' .
 			(!is_null($by) ? " WHERE " . $by[0] . '=:' . $by[0] : "") .
-			(!is_null($sdate) ? " AND ujian_waktu_mulai = '" . $sdate . "'" : "") .
-			(!is_null($edate) ? " AND ujian_waktu_akhir = '" . $edate . "'" : "") .
+			(!is_null($sdate) ? " AND ujian_waktu_mulai >= '" . $sdate . "'" : "") .
+			(!is_null($edate) ? " AND ujian_waktu_akhir <= '" . $edate . "'" : "") .
 			' ORDER BY ujian_id DESC');
 		if (!is_null($by)) {
 			$this->db->bind($by[0], $by[1]);

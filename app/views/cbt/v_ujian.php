@@ -149,15 +149,15 @@
                                             <a href="<?php echo base_url(); ?>cbt/form_ujian/<?php echo $ujian['ujian_id']; ?>" class="btn btn-default btn-xs"><i class="fa fa-edit"></i></a>
                                             <button class="btn btn-default btn-xs" data-id="<?php echo $ujian['ujian_id']; ?>" onclick="hapus(this)"><i class="fa fa-trash"></i></button>
                                         <?php } else { ?>
-                                            <?php if ($data['ujian_users']) { ?>
-                                                <?php if (count($data['ujian_users']) > 0) { ?>
+                                            <?php if ($ujian['ujian_users']) { ?>
+                                                <?php if (count($ujian['ujian_users']) > 0) { ?>
                                                     <?php 
                                                         $date = new DateTime();
-                                                        $ujian_dikerjakan = new DateTime($data['ujian_users']->users_tgl_pengerjaan);
+                                                        $ujian_dikerjakan = new DateTime($ujian['ujian_users']->users_tgl_pengerjaan);
                                                         $ujian_dikerjakan->modify('+' . $ujian['ujian_durasi'] . ' minutes');
                                                     ?>
-                                                    <?php if ($date >= $ujian_dikerjakan || $data['ujian_users']->users_status == 4) { ?>
-                                                        <a href="<?php echo base_url(); ?>cbt/result/<?php echo $data['ujian_users']->users_id; ?>" class="btn btn-primary btn-xs">Detail</a>
+                                                    <?php if ($date >= $ujian_dikerjakan || $ujian['ujian_users']->users_status == 4) { ?>
+                                                        <a href="<?php echo base_url(); ?>cbt/result/<?php echo $ujian['ujian_users']->users_id; ?>" class="btn btn-primary btn-xs">Detail</a>
                                                     <?php } else { ?>
                                                         <a href="<?php echo base_url(); ?>cbt/start/<?php echo $ujian['ujian_id']; ?>" class="btn btn-primary btn-xs">Lanjutkan</a>
                                                     <?php } ?>
