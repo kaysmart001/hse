@@ -27,14 +27,14 @@
 			</div>
 			<div class="col-md-9">
 				<div class="form-group">
-					<label>NIS</label>
-					<input type="text" name="guru_nip" class="form-control" placeholder="NIS" value="<?php echo (isset($data['guru']->guru_nip) ?  $data['guru']->guru_nip : '' ); ?>" required>
+					<label>NIP</label>
+					<input type="text" name="guru_nip" class="form-control" placeholder="NIP" value="<?php echo (isset($data['guru']->guru_nip) ?  $data['guru']->guru_nip : '' ); ?>" required>
 					<input type="hidden" name="guru_id" value="<?php echo (isset($data['guru']->guru_id) ?  $data['guru']->guru_id : '' ); ?>">
 					<input type="hidden" name="guru_uid" value="<?php echo $data['guru']->guru_uid; ?>">
 				</div>
 				<div class="form-group">
-					<label>Nama</label>
-					<input type="text" name="guru_nama" class="form-control" placeholder="Nama" value="<?php echo (isset($data['guru']->guru_nama) ? $data['guru']->guru_nama : '' ); ?>" required>
+					<label>Nama Lengkap</label>
+					<input type="text" name="guru_nama" class="form-control" placeholder="Nama Lengkap" value="<?php echo (isset($data['guru']->guru_nama) ? $data['guru']->guru_nama : '' ); ?>" required>
 				</div>
 				<div class="form-group">
 					<label>Tempat Lahir</label>
@@ -46,11 +46,10 @@
 				</div>
 				<div class="form-group">
 					<label>Jenis Kelamin</label>
-					<select name="guru_jenis_kelamin" class="form-control" id="">
-						<option value="">Pilih Jenis Kelamin</option>
-						<option value="1" <?php echo (isset($data['guru']->guru_jenis_kelamin) ? ($data['guru']->guru_jenis_kelamin == 1 ?  'selected' : '') : '' ); ?>>Laki-Laki</option>
-						<option value="2" <?php echo (isset($data['guru']->guru_jenis_kelamin) ? ($data['guru']->guru_jenis_kelamin == 2 ?  'selected' : '') : '' ); ?>>Perempuan</option>
-					</select>
+					<div class="radio">
+					 	<label class="radio-inline"><input type="radio" name="guru_jenis_kelamin" id="laki" value="1" <?php echo (isset($data['guru']->guru_jenis_kelamin) ? ($data['guru']->guru_jenis_kelamin == 1 ?  'checked' : '') : '' ); ?>>Laki-Laki</label>
+						<label class="radio-inline"><input type="radio" name="guru_jenis_kelamin" id="perempuan" value="2" <?php echo (isset($data['guru']->guru_jenis_kelamin) ? ($data['guru']->guru_jenis_kelamin == 2 ?  'checked' : '') : '' ); ?>>Perempuan</label>
+					</div>
 				</div>
 				<div class="form-group">
 					<label>Agama</label>
@@ -61,7 +60,7 @@
 					<textarea name="guru_alamat" id="" cols="30" rows="3" class="form-control" placeholder="Alamat" required><?php echo (isset($data['guru']->guru_alamat) ? $data['guru']->guru_alamat : '' ); ?></textarea>
 				</div>
 				<div class="form-group">
-					<label>No. Handphone</label>
+					<label>No. Handphone/ No. WA</label>
 					<input type="text" name="guru_nohp" class="form-control" placeholder="No. Handphone" value="<?php echo (isset($data['guru']->guru_nohp) ? $data['guru']->guru_nohp : '' ); ?>" required>
 				</div>
 				<div class="form-group">
@@ -74,9 +73,52 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<label>Jenjang Pendidikan</label>
-					<input type="text" name="guru_jenjang_pendidikan" class="form-control" placeholder="Jenjang Pendidikan" value="<?php echo (isset($data['guru']->guru_jenjang_pendidikan) ? $data['guru']->guru_jenjang_pendidikan : '' ); ?>" required>
+					<label>Tgl.Bergabung</label>
+					<input type="date" class="form-control" name="guru_tgl_bergabung" placeholder="Tgl.Bergabung" value="<?php echo (isset($data['guru']->guru_tgl_bergabung) ? $data['guru']->guru_tgl_bergabung : '' ); ?>" required>
 				</div>
+				<div class="form-group">
+					<label>Status Kepegawaian</label>
+					<div class="radio">
+						<label class="radio-inline"><input type="radio" name="guru_status_peg" id="honorer" value="1" <?php echo (isset($data['guru']->guru_jenjang) ? ($data['guru']->guru_status_peg == 1 ?  'checked' : '') : '' ); ?> required>Honorer</label>
+						<label class="radio-inline"><input type="radio" name="guru_status_peg" id="gurutetap" value="2" <?php echo (isset($data['guru']->guru_jenjang) ? ($data['guru']->guru_status_peg == 2 ?  'checked' : '') : '' ); ?> required>Guru Tetap</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>Tugas Mengajar</label>
+					<input type="text" class="form-control" name="guru_tgs_mengajar" placeholder="Tugas Mengajar" value="<?php echo (isset($data['guru']->guru_tgs_mengajar) ? $data['guru']->guru_tgs_mengajar : '' ); ?>" required>
+				</div>
+				<div class="form-group">
+					<label>Tugas Tambahan</label>
+					<div class="radio">
+						<label class="radio-inline" style="width: auto; margin-right: 20px;"><input type="radio" name="guru_tgs_tambahan" id="koordjenjang" value="1" <?php echo (isset($data['guru']->guru_jenjang) ? ($data['guru']->guru_tgs_tambahan == 1 ?  'checked' : '') : '' ); ?> required>Kordinator Jenjang</label>
+						<label class="radio-inline" style="width: auto; margin-right: 20px;"><input type="radio" name="guru_tgs_tambahan" id="walikelas" value="2" <?php echo (isset($data['guru']->guru_jenjang) ? ($data['guru']->guru_tgs_tambahan == 2 ?  'checked' : '') : '' ); ?> required>Wali Kelas</label>
+						<label class="radio-inline" style="width: auto; margin-right: 20px;"><input type="radio" name="guru_tgs_tambahan" id="stafmgmt" value="3" <?php echo (isset($data['guru']->guru_jenjang) ? ($data['guru']->guru_tgs_tambahan == 3 ?  'checked' : '') : '' ); ?> required>Staff Management</label>
+						<label class="radio-inline" style="width: auto; margin-right: 20px;"><input type="radio" name="guru_tgs_tambahan" id="lainnya" value="4" <?php echo (isset($data['guru']->guru_jenjang) ? ($data['guru']->guru_tgs_tambahan == 4 ?  'checked' : '') : '' ); ?> required>Lainnya</label>
+					</div>
+				</div>
+				<br>
+				<div class="form-group">
+					<label>RIWAYAT PENDIDIKAN</label>
+				</div>
+				<input type="hidden" name="guru_jenjang_pendidikan" class="form-control" placeholder="Jenjang Pendidikan" value="<?php echo (isset($data['guru']->guru_jenjang_pendidikan) ? $data['guru']->guru_jenjang_pendidikan : '' ); ?>" required>
+				<div class="form-group">
+					<label>SD</label>
+					<input type="text" name="guru_riwayat_pend_sd" class="form-control" placeholder="SD" value="<?php echo (isset($data['guru']->guru_riwayat_pend_sd) ? $data['guru']->guru_riwayat_pend_sd : '' ); ?>" required>
+				</div>
+				<div class="form-group">
+					<label>SMP</label>
+					<input type="text" name="guru_riwayat_pend_smp" class="form-control" placeholder="SMP" value="<?php echo (isset($data['guru']->guru_riwayat_pend_smp) ? $data['guru']->guru_riwayat_pend_smp : '' ); ?>" required>
+				</div>
+				<div class="form-group">
+					<label>SMA</label>
+					<input type="text" name="guru_riwayat_pend_sma" class="form-control" placeholder="SMA" value="<?php echo (isset($data['guru']->guru_riwayat_pend_sma) ? $data['guru']->guru_riwayat_pend_sma : '' ); ?>" required>
+				</div>
+				<div class="form-group">
+					<label>Perguruan Tinggi</label>
+					<input type="text" name="guru_riwayat_pend_pt" class="form-control" placeholder="Perguruan Tinggi" value="<?php echo (isset($data['guru']->guru_riwayat_pend_pt) ? $data['guru']->guru_riwayat_pend_pt : '' ); ?>" required>
+				</div>
+				<br>
+				
 				<hr>
 				<div class="form-group">
 					<input type="submit" class="btn btn-primary" value="Simpan">

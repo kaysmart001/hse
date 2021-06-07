@@ -45,19 +45,31 @@ class Siswa_model {
 		$query = "
 			INSERT INTO ".$this->table." 
 			(siswa_nis, 
-			siswa_nama, 
+			siswa_nama,
+			siswa_nama_panggilan,
 			siswa_tmp_lahir, 
 			siswa_tgl_lahir, 
 			siswa_jenis_kelamin, 
 			siswa_agama, 
 			siswa_anak_ke,
 			siswa_alamat,
+			siswa_nohp,
+			siswa_jenjang_terakhir,
+			siswa_gol_darah,
+			siswa_hobi,
 			siswa_nama_ayah,
 			siswa_nama_ibu,
 			siswa_alamat_ortu,
-			siswa_nohp_ortu,
 			siswa_pekerjaan_ayah,
 			siswa_pekerjaan_ibu,
+			siswa_pend_terakhir_ayah,
+			siswa_pend_terakhir_ibu,
+			siswa_nohp_ayah,
+			siswa_nohp_ibu,
+			siswa_email_ayah,
+			siswa_email_ibu,
+			siswa_penghasilan_ayah,
+			siswa_penghasilan_ibu,
 			siswa_nama_wali,
 			siswa_nohp_wali,
 			siswa_alamat_wali,
@@ -69,19 +81,31 @@ class Siswa_model {
 			siswa_uid)
 			VALUES 
 			(:siswa_nis, 
-			:siswa_nama, 
+			:siswa_nama,
+			:siswa_nama_panggilan,
 			:siswa_tmp_lahir, 
 			:siswa_tgl_lahir, 
 			:siswa_jenis_kelamin, 
 			:siswa_agama, 
 			:siswa_anak_ke,
 			:siswa_alamat,
+			:siswa_nohp,
+			:siswa_jenjang_terakhir,
+			:siswa_gol_darah,
+			:siswa_hobi,
 			:siswa_nama_ayah,
 			:siswa_nama_ibu,
 			:siswa_alamat_ortu,
-			:siswa_nohp_ortu,
 			:siswa_pekerjaan_ayah,
 			:siswa_pekerjaan_ibu,
+			:siswa_pend_terakhir_ayah,
+			:siswa_pend_terakhir_ibu,
+			:siswa_nohp_ayah,
+			:siswa_nohp_ibu,
+			:siswa_email_ayah,
+			:siswa_email_ibu,
+			:siswa_penghasilan_ayah,
+			:siswa_penghasilan_ibu,
 			:siswa_nama_wali,
 			:siswa_nohp_wali,
 			:siswa_alamat_wali,
@@ -95,18 +119,30 @@ class Siswa_model {
 		$this->db->query($query);
 		$this->db->bind('siswa_nis', $data['siswa_nis']);
 		$this->db->bind('siswa_nama', $data['siswa_nama']);
+		$this->db->bind('siswa_nama_panggilan', $data['siswa_nama_panggilan']);
 		$this->db->bind('siswa_tmp_lahir', $data['siswa_tmp_lahir']);
 		$this->db->bind('siswa_tgl_lahir', $data['siswa_tgl_lahir']);
 		$this->db->bind('siswa_jenis_kelamin', $data['siswa_jenis_kelamin']);
 		$this->db->bind('siswa_agama', $data['siswa_agama']);
 		$this->db->bind('siswa_anak_ke', $data['siswa_anak_ke']);
 		$this->db->bind('siswa_alamat', $data['siswa_alamat']);
+		$this->db->bind('siswa_nohp', $data['siswa_nohp']);
+		$this->db->bind('siswa_jenjang_terakhir', $data['siswa_jenjang_terakhir']);
+		$this->db->bind('siswa_gol_darah', $data['siswa_gol_darah']);
+		$this->db->bind('siswa_hobi', $data['siswa_hobi']);
 		$this->db->bind('siswa_nama_ayah', $data['siswa_nama_ayah']);
 		$this->db->bind('siswa_nama_ibu', $data['siswa_nama_ibu']);
 		$this->db->bind('siswa_alamat_ortu', $data['siswa_alamat_ortu']);
-		$this->db->bind('siswa_nohp_ortu', $data['siswa_nohp_ortu']);
 		$this->db->bind('siswa_pekerjaan_ayah', $data['siswa_pekerjaan_ayah']);
 		$this->db->bind('siswa_pekerjaan_ibu', $data['siswa_pekerjaan_ibu']);
+		$this->db->bind('siswa_pend_terakhir_ayah', $data['siswa_pend_terakhir_ayah']);
+		$this->db->bind('siswa_pend_terakhir_ibu', $data['siswa_pend_terakhir_ibu']);
+		$this->db->bind('siswa_nohp_ayah', $data['siswa_nohp_ayah']);
+		$this->db->bind('siswa_nohp_ibu', $data['siswa_nohp_ibu']);
+		$this->db->bind('siswa_email_ayah', $data['siswa_email_ayah']);
+		$this->db->bind('siswa_email_ibu', $data['siswa_email_ibu']);
+		$this->db->bind('siswa_penghasilan_ayah', $data['siswa_penghasilan_ayah']);
+		$this->db->bind('siswa_penghasilan_ibu', $data['siswa_penghasilan_ibu']);
 		$this->db->bind('siswa_nama_wali', $data['siswa_nama_wali']);
 		$this->db->bind('siswa_nohp_wali', $data['siswa_nohp_wali']);
 		$this->db->bind('siswa_alamat_wali', $data['siswa_alamat_wali']);
@@ -148,19 +184,31 @@ class Siswa_model {
 		$query = "
 			UPDATE ".$this->table." SET
 			siswa_nis=:siswa_nis, 
-			siswa_nama=:siswa_nama, 
+			siswa_nama=:siswa_nama,
+			siswa_nama_panggilan=:siswa_nama_panggilan,
 			siswa_tmp_lahir=:siswa_tmp_lahir, 
 			siswa_tgl_lahir=:siswa_tgl_lahir, 
 			siswa_jenis_kelamin=:siswa_jenis_kelamin, 
 			siswa_agama=:siswa_agama, 
 			siswa_anak_ke=:siswa_anak_ke,
 			siswa_alamat=:siswa_alamat,
+			siswa_nohp=:siswa_nohp,
+			siswa_jenjang_terakhir=:siswa_jenjang_terakhir,
+			siswa_gol_darah=:siswa_gol_darah,
+			siswa_hobi=:siswa_hobi,
 			siswa_nama_ayah=:siswa_nama_ayah,
 			siswa_nama_ibu=:siswa_nama_ibu,
 			siswa_alamat_ortu=:siswa_alamat_ortu,
-			siswa_nohp_ortu=:siswa_nohp_ortu,
 			siswa_pekerjaan_ayah=:siswa_pekerjaan_ayah,
 			siswa_pekerjaan_ibu=:siswa_pekerjaan_ibu,
+			siswa_pend_terakhir_ayah=:siswa_pend_terakhir_ayah,
+			siswa_pend_terakhir_ibu=:siswa_pend_terakhir_ibu,
+			siswa_nohp_ayah=:siswa_nohp_ayah,
+			siswa_nohp_ibu=:siswa_nohp_ibu,
+			siswa_email_ayah=:siswa_email_ayah,
+			siswa_email_ibu=:siswa_email_ibu,
+			siswa_penghasilan_ayah=:siswa_penghasilan_ayah,
+			siswa_penghasilan_ibu=:siswa_penghasilan_ibu,
 			siswa_nama_wali=:siswa_nama_wali,
 			siswa_nohp_wali=:siswa_nohp_wali,
 			siswa_alamat_wali=:siswa_alamat_wali,
@@ -175,18 +223,30 @@ class Siswa_model {
 		$this->db->query($query);
 		$this->db->bind('siswa_nis', $data['siswa_nis']);
 		$this->db->bind('siswa_nama', $data['siswa_nama']);
+		$this->db->bind('siswa_nama_panggilan', $data['siswa_nama_panggilan']);
 		$this->db->bind('siswa_tmp_lahir', $data['siswa_tmp_lahir']);
 		$this->db->bind('siswa_tgl_lahir', $data['siswa_tgl_lahir']);
 		$this->db->bind('siswa_jenis_kelamin', $data['siswa_jenis_kelamin']);
 		$this->db->bind('siswa_agama', $data['siswa_agama']);
 		$this->db->bind('siswa_anak_ke', $data['siswa_anak_ke']);
 		$this->db->bind('siswa_alamat', $data['siswa_alamat']);
+		$this->db->bind('siswa_nohp', $data['siswa_nohp']);
+		$this->db->bind('siswa_jenjang_terakhir', $data['siswa_jenjang_terakhir']);
+		$this->db->bind('siswa_gol_darah', $data['siswa_gol_darah']);
+		$this->db->bind('siswa_hobi', $data['siswa_hobi']);
 		$this->db->bind('siswa_nama_ayah', $data['siswa_nama_ayah']);
 		$this->db->bind('siswa_nama_ibu', $data['siswa_nama_ibu']);
 		$this->db->bind('siswa_alamat_ortu', $data['siswa_alamat_ortu']);
-		$this->db->bind('siswa_nohp_ortu', $data['siswa_nohp_ortu']);
 		$this->db->bind('siswa_pekerjaan_ayah', $data['siswa_pekerjaan_ayah']);
 		$this->db->bind('siswa_pekerjaan_ibu', $data['siswa_pekerjaan_ibu']);
+		$this->db->bind('siswa_pend_terakhir_ayah', $data['siswa_pend_terakhir_ayah']);
+		$this->db->bind('siswa_pend_terakhir_ibu', $data['siswa_pend_terakhir_ibu']);
+		$this->db->bind('siswa_nohp_ayah', $data['siswa_nohp_ayah']);
+		$this->db->bind('siswa_nohp_ibu', $data['siswa_nohp_ibu']);
+		$this->db->bind('siswa_email_ayah', $data['siswa_email_ayah']);
+		$this->db->bind('siswa_email_ibu', $data['siswa_email_ibu']);
+		$this->db->bind('siswa_penghasilan_ayah', $data['siswa_penghasilan_ayah']);
+		$this->db->bind('siswa_penghasilan_ibu', $data['siswa_penghasilan_ibu']);
 		$this->db->bind('siswa_nama_wali', $data['siswa_nama_wali']);
 		$this->db->bind('siswa_nohp_wali', $data['siswa_nohp_wali']);
 		$this->db->bind('siswa_alamat_wali', $data['siswa_alamat_wali']);

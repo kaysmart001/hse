@@ -8,7 +8,7 @@ class Dashboard extends Controller {
 	}
 
 	public function index() {
-		$data['user'] = count($this->model('User_model')->get_all());
+		$data['user'] = count($this->model('User_model')->get());
 		$data['jadwal'] = count($this->model('Jadwal_model')->get());
 		$data['absen'] = count($this->model('Absensi_model')->get());
 		$data['guru'] = count($this->model('Guru_model')->get());

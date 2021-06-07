@@ -8,6 +8,25 @@ class User_model {
 		$this->db = new Model;
 	}
 
+	public function get() {
+		$this->db->query('SELECT 
+			guru_nama, 
+			guru_jenjang, 
+			siswa_nama, 
+			siswa_kelas, 
+			id, 
+			username, 
+			email, 
+			role, 
+			guru_jenjang, 
+			siswa_kelas 
+			FROM ' . $this->table . ' 
+			LEFT JOIN tb_guru ON guru_uid = id 
+			LEFT JOIN tb_siswa ON siswa_uid = id 
+			ORDER BY id DESC');
+		return $this->db->result();
+	}
+
 	public function get_all() {
 		$this->db->query('SELECT 
 			guru_nama, 

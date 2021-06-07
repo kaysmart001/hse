@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 24, 2021 at 05:04 AM
+-- Generation Time: Jun 07, 2021 at 12:37 PM
 -- Server version: 8.0.17
 -- PHP Version: 7.1.33
 
@@ -65,6 +65,14 @@ CREATE TABLE `tb_guru` (
   `guru_foto` varchar(255) DEFAULT NULL,
   `guru_jenjang` int(11) DEFAULT NULL,
   `guru_jenjang_pendidikan` varchar(128) DEFAULT NULL,
+  `guru_tgl_bergabung` date DEFAULT NULL,
+  `guru_status_peg` int(11) DEFAULT '1' COMMENT '1 = honorer - 2 = guru tetap',
+  `guru_tgs_mengajar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
+  `guru_tgs_tambahan` int(11) DEFAULT NULL COMMENT '1 = kordinator - 2 = wali kelas - 3 = staff mngmnt - 4 = dll',
+  `guru_riwayat_pend_sd` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
+  `guru_riwayat_pend_smp` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
+  `guru_riwayat_pend_sma` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
+  `guru_riwayat_pend_pt` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
   `guru_uid` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -72,10 +80,10 @@ CREATE TABLE `tb_guru` (
 -- Dumping data for table `tb_guru`
 --
 
-INSERT INTO `tb_guru` (`guru_id`, `guru_nip`, `guru_nama`, `guru_tmp_lahir`, `guru_tgl_lahir`, `guru_jenis_kelamin`, `guru_agama`, `guru_alamat`, `guru_nohp`, `guru_foto`, `guru_jenjang`, `guru_jenjang_pendidikan`, `guru_uid`) VALUES
-(1, '32012', 'Ariana Gultom', 'Jakarta', '1991-03-03', 2, 'Katolik', '.', '+62', 'user-default.png', 1, 'S1', 2),
-(2, '31029', 'Nicolas Flamel', 'Bali', '1991-01-01', 1, 'Katolik', '.', '0', 'user-default.png', 2, 'S1', 3),
-(3, '320159', 'Dolores Umbridge', 'Jepara', '1975-01-04', 2, 'Katolik', '.', '0', 'user-default.png', 3, 'S1', 4);
+INSERT INTO `tb_guru` (`guru_id`, `guru_nip`, `guru_nama`, `guru_tmp_lahir`, `guru_tgl_lahir`, `guru_jenis_kelamin`, `guru_agama`, `guru_alamat`, `guru_nohp`, `guru_foto`, `guru_jenjang`, `guru_jenjang_pendidikan`, `guru_tgl_bergabung`, `guru_status_peg`, `guru_tgs_mengajar`, `guru_tgs_tambahan`, `guru_riwayat_pend_sd`, `guru_riwayat_pend_smp`, `guru_riwayat_pend_sma`, `guru_riwayat_pend_pt`, `guru_uid`) VALUES
+(1, '32012', 'Ariana Gultom', 'Jakarta', '1991-03-03', 2, 'Katolik', '.', '+62', NULL, 1, 'S1', '2012-04-04', 2, 'Iya', 2, 'SD 1 Ambon', 'SMP 1 Ambon', 'SMA 1 Ambon', 'Harvard Univ', 2),
+(2, '31029', 'Nicolas Flamel', 'Bali', '1991-01-01', 1, 'Katolik', '.', '0', 'user-default.png', 2, 'S1', NULL, NULL, NULL, NULL, '-', '-', '-', '-', 3),
+(3, '320159', 'Dolores Umbridge', 'Jepara', '1975-01-04', 2, 'Katolik', '.', '0', 'user-default.png', 3, 'S1', NULL, NULL, NULL, NULL, '-', '-', '-', '-', 4);
 
 -- --------------------------------------------------------
 
@@ -139,7 +147,22 @@ INSERT INTO `tb_jawaban` (`jawaban_id`, `jawaban_soal`, `jawaban_detail`, `jawab
 (16, 4, '3', 0, 2),
 (17, 4, '2', 0, 2),
 (18, 4, '4', 1, 2),
-(19, 4, '5', 0, 2);
+(19, 4, '5', 0, 2),
+(20, 7, '20', 0, 2),
+(21, 7, '30', 1, 2),
+(22, 7, '40', 0, 2),
+(23, 7, '50', 0, 2),
+(24, 7, '60', 0, 2),
+(25, 8, '40', 0, 2),
+(26, 8, '50', 0, 2),
+(27, 8, '60', 0, 2),
+(28, 8, '70', 1, 2),
+(29, 8, '80', 0, 2),
+(30, 9, '10', 0, 2),
+(31, 9, '15', 1, 2),
+(32, 9, '20', 0, 2),
+(33, 9, '25', 0, 2),
+(34, 9, '30', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -315,18 +338,31 @@ CREATE TABLE `tb_siswa` (
   `siswa_id` int(11) NOT NULL,
   `siswa_nis` varchar(255) DEFAULT NULL,
   `siswa_nama` varchar(255) DEFAULT NULL,
+  `siswa_nama_panggilan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
   `siswa_tmp_lahir` varchar(255) DEFAULT NULL,
   `siswa_tgl_lahir` date DEFAULT NULL,
   `siswa_jenis_kelamin` int(11) DEFAULT NULL,
   `siswa_agama` varchar(255) DEFAULT NULL,
   `siswa_anak_ke` int(11) DEFAULT NULL,
   `siswa_alamat` text,
+  `siswa_nohp` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
+  `siswa_jenjang_terakhir` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
+  `siswa_gol_darah` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
+  `siswa_hobi` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
   `siswa_nama_ayah` varchar(255) DEFAULT NULL,
   `siswa_nama_ibu` varchar(255) DEFAULT NULL,
   `siswa_alamat_ortu` text,
   `siswa_nohp_ortu` varchar(255) DEFAULT NULL,
   `siswa_pekerjaan_ayah` varchar(255) DEFAULT NULL,
   `siswa_pekerjaan_ibu` varchar(255) DEFAULT NULL,
+  `siswa_pend_terakhir_ayah` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
+  `siswa_pend_terakhir_ibu` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
+  `siswa_nohp_ayah` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
+  `siswa_nohp_ibu` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
+  `siswa_email_ayah` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
+  `siswa_email_ibu` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '-',
+  `siswa_penghasilan_ayah` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0',
+  `siswa_penghasilan_ibu` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0',
   `siswa_nama_wali` varchar(255) DEFAULT NULL,
   `siswa_nohp_wali` varchar(255) DEFAULT NULL,
   `siswa_alamat_wali` text,
@@ -342,11 +378,11 @@ CREATE TABLE `tb_siswa` (
 -- Dumping data for table `tb_siswa`
 --
 
-INSERT INTO `tb_siswa` (`siswa_id`, `siswa_nis`, `siswa_nama`, `siswa_tmp_lahir`, `siswa_tgl_lahir`, `siswa_jenis_kelamin`, `siswa_agama`, `siswa_anak_ke`, `siswa_alamat`, `siswa_nama_ayah`, `siswa_nama_ibu`, `siswa_alamat_ortu`, `siswa_nohp_ortu`, `siswa_pekerjaan_ayah`, `siswa_pekerjaan_ibu`, `siswa_nama_wali`, `siswa_nohp_wali`, `siswa_alamat_wali`, `siswa_pekerjaan_wali`, `siswa_jenjang`, `siswa_kelas`, `siswa_semester`, `siswa_foto`, `siswa_uid`) VALUES
-(1, '14002113', 'Yusuf Kamma', 'Makassar', '2004-03-19', 1, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 1, 1, '1', 'user-default.png', 5),
-(2, '1400239193', 'Susan Bones', 'Pontianak', '2005-03-21', 2, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 2, 7, '1', 'user-default.png', 6),
-(3, '0', 'Lazardi Amar', 'Jakarta', '2010-03-21', 1, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 3, 10, '1', 'user-default.png', 7),
-(4, '14002311', 'Aldo MA', 'Jakarta', '2007-03-21', 1, 'Islam', 3, '.', '-', '-', '.', '0', '-', '-', '-', '0', '.', '-', 1, 1, '1', 'user-default.png', 8);
+INSERT INTO `tb_siswa` (`siswa_id`, `siswa_nis`, `siswa_nama`, `siswa_nama_panggilan`, `siswa_tmp_lahir`, `siswa_tgl_lahir`, `siswa_jenis_kelamin`, `siswa_agama`, `siswa_anak_ke`, `siswa_alamat`, `siswa_nohp`, `siswa_jenjang_terakhir`, `siswa_gol_darah`, `siswa_hobi`, `siswa_nama_ayah`, `siswa_nama_ibu`, `siswa_alamat_ortu`, `siswa_nohp_ortu`, `siswa_pekerjaan_ayah`, `siswa_pekerjaan_ibu`, `siswa_pend_terakhir_ayah`, `siswa_pend_terakhir_ibu`, `siswa_nohp_ayah`, `siswa_nohp_ibu`, `siswa_email_ayah`, `siswa_email_ibu`, `siswa_penghasilan_ayah`, `siswa_penghasilan_ibu`, `siswa_nama_wali`, `siswa_nohp_wali`, `siswa_alamat_wali`, `siswa_pekerjaan_wali`, `siswa_jenjang`, `siswa_kelas`, `siswa_semester`, `siswa_foto`, `siswa_uid`) VALUES
+(1, '14002113', 'Yusuf Kamma', 'Ucup', 'Makassar', '2004-03-19', 1, 'Islam', 3, '.', '0812', 'TK', 'AB', 'Main Epep', 'Arsi', 'Irma', '.', NULL, 'Seniman', 'Ibu Rumah Tangga', 'D3', 'SMA', '0812', '0812', '-', '-', '9.000.000', '0', '-', '0', '.', '-', 1, 1, '1', 'user-default.png', 5),
+(2, '1400239193', 'Susan Bones', '-', 'Pontianak', '2005-03-21', 2, 'Islam', 3, '.', '-', '-', '-', '-', '-', '-', '.', '0', '-', '-', '-', '-', '-', '-', '-', '-', '0', '0', '-', '0', '.', '-', 2, 7, '1', 'user-default.png', 6),
+(3, '0', 'Lazardi Amar', '-', 'Jakarta', '2010-03-21', 1, 'Islam', 3, '.', '-', '-', '-', '-', '-', '-', '.', '0', '-', '-', '-', '-', '-', '-', '-', '-', '0', '0', '-', '0', '.', '-', 3, 10, '1', 'user-default.png', 7),
+(4, '14002311', 'Aldo MA', '-', 'Jakarta', '2007-03-21', 1, 'Islam', 3, '.', '-', '-', '-', '-', '-', '-', '.', '0', '-', '-', '-', '-', '-', '-', '-', '-', '0', '0', '-', '0', '.', '-', 1, 1, '1', 'user-default.png', 8);
 
 -- --------------------------------------------------------
 
@@ -373,7 +409,13 @@ INSERT INTO `tb_soal` (`soal_id`, `soal_topik`, `soal_detail`, `soal_tipe`, `soa
 (3, 1, '30 / 2 = ?', 1, 2, NULL),
 (4, 1, 'Ada berapa bendera di foto berikut ?', 1, 2, 'nwss.jpg'),
 (5, 1, 'Apa nama ibu kota Indonesia?', 2, 2, NULL),
-(6, 1, 'Gambar apakah berikut ini?', 2, 2, 'checklist.png');
+(6, 1, 'Gambar apakah berikut ini?', 2, 2, 'checklist.png'),
+(7, 2, '10 + 20 = ?', 1, 2, NULL),
+(8, 2, '20 + 50 = ?', 1, 2, NULL),
+(9, 2, '30 / 2 = ?', 1, 2, NULL),
+(10, 3, 'Sebutkan nama hewan yang hidup di air?', 2, 2, NULL),
+(11, 3, 'Berapa kaki dari hewan ayam?', 2, 2, NULL),
+(12, 3, 'Ibu membeli 2 buah telur, saat di jalan telur pecah 1, tinggal berapa telur ibu?', 2, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -417,7 +459,9 @@ CREATE TABLE `tb_topik` (
 --
 
 INSERT INTO `tb_topik` (`topik_id`, `topik_judul`, `topik_deskripsi`, `topik_status`, `topik_pembuat`) VALUES
-(1, 'Ujian SD 1', 'Ujian mingguan SD 1', 1, 2);
+(1, 'Ujian SD 1', 'Ujian mingguan SD 1', 1, 2),
+(2, 'Ujian Semester 1', 'ujian semster', 1, 2),
+(3, 'Ujian Harian SD 1', 'harian', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -447,7 +491,9 @@ CREATE TABLE `tb_ujian` (
 --
 
 INSERT INTO `tb_ujian` (`ujian_id`, `ujian_judul`, `ujian_deskripsi`, `ujian_waktu_mulai`, `ujian_waktu_akhir`, `ujian_durasi`, `ujian_hasil_siswa`, `ujian_detail_siswa`, `ujian_nilai_benar`, `ujian_nilai_salah`, `ujian_nilai_kosong`, `ujian_nilai_maks`, `ujian_status`, `ujian_pembuat`) VALUES
-(1, 'Ujian SD 1', 'Ujian testing 1', '2021-05-23 08:00:00', '2021-05-27 08:00:00', 30, 1, 1, '1', '0.00', '0.00', '6.00', 1, 2);
+(1, 'Ujian SD 1', 'Ujian testing 1', '2021-05-23 08:00:00', '2021-05-27 08:00:00', 30, 1, 1, '1', '0.00', '0.00', '6.00', 1, 2),
+(2, 'Ujian Semester 1', 'Ujian semeser', '2021-06-01 01:00:00', '2021-06-09 09:00:00', 30, 1, 1, '1', '0.00', '0.00', '3.00', 1, 2),
+(3, 'Ujian Harian SD 1', 'Ujian Harian SD 1', '2021-06-10 01:00:00', '2021-06-25 09:00:00', 30, 1, 1, '1', '0.00', '0.00', '3.00', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -465,7 +511,9 @@ CREATE TABLE `tb_ujian_group` (
 --
 
 INSERT INTO `tb_ujian_group` (`group_ujian`, `group_kelas`) VALUES
-(1, 1);
+(1, 1),
+(2, 1),
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -504,7 +552,22 @@ INSERT INTO `tb_ujian_jawaban` (`uj_soal`, `uj_jawaban`, `uj_selected`, `uj_orde
 (6, 2, 1, 4, 1),
 (6, 3, 0, 3, 0),
 (6, 4, 0, 2, 0),
-(6, 5, 0, 1, 0);
+(6, 5, 0, 1, 0),
+(7, 30, 0, 5, 0),
+(7, 31, 1, 4, 1),
+(7, 32, 0, 3, 0),
+(7, 33, 0, 2, 0),
+(7, 34, 0, 1, 0),
+(8, 25, 0, 5, 0),
+(8, 26, 0, 4, 0),
+(8, 27, 0, 3, 0),
+(8, 28, 1, 2, 1),
+(8, 29, 0, 1, 0),
+(9, 20, 0, 5, 0),
+(9, 21, 1, 4, 1),
+(9, 22, 0, 3, 0),
+(9, 23, 0, 2, 0),
+(9, 24, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -534,7 +597,10 @@ INSERT INTO `tb_ujian_soal` (`us_id`, `us_users`, `us_soal`, `us_jawaban_teks`, 
 (3, 1, 4, NULL, '1', 3, '2021-05-23 22:46:42', 0, NULL),
 (4, 1, 3, NULL, '1', 4, '2021-05-23 22:46:45', 0, NULL),
 (5, 1, 2, NULL, '1', 5, '2021-05-23 22:46:48', 0, NULL),
-(6, 1, 1, NULL, '1', 6, '2021-05-23 22:46:51', 0, NULL);
+(6, 1, 1, NULL, '1', 6, '2021-05-23 22:46:51', 0, NULL),
+(7, 2, 9, NULL, '1', 1, '2021-06-01 01:07:03', 0, NULL),
+(8, 2, 8, NULL, '1', 2, '2021-06-01 01:07:06', 0, NULL),
+(9, 2, 7, NULL, '1', 3, '2021-06-01 01:07:08', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -558,7 +624,9 @@ CREATE TABLE `tb_ujian_topik` (
 --
 
 INSERT INTO `tb_ujian_topik` (`ut_id`, `ut_ujian`, `ut_topik`, `ut_tipe`, `ut_total_soal`, `ut_total_jawaban`, `ut_jawaban_acak`, `ut_soal_acak`) VALUES
-(1, 1, 1, 0, 6, 19, 1, 1);
+(1, 1, 1, 0, 6, 19, 1, 1),
+(2, 2, 2, 0, 3, 15, 1, 1),
+(3, 3, 3, 0, 3, 3, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -579,7 +647,8 @@ CREATE TABLE `tb_ujian_users` (
 --
 
 INSERT INTO `tb_ujian_users` (`users_id`, `users_ujian`, `users_siswa`, `users_status`, `users_tgl_pengerjaan`) VALUES
-(1, 1, 4, 4, '2021-05-23 22:46:19');
+(1, 1, 4, 4, '2021-05-23 22:46:19'),
+(2, 2, 4, 4, '2021-06-01 01:07:00');
 
 -- --------------------------------------------------------
 
@@ -607,7 +676,8 @@ INSERT INTO `tb_user` (`id`, `username`, `email`, `password`, `role`) VALUES
 (5, 'siswasd', 'siswasd@hse.com', '$2y$10$Frk1PrnjpcIs8JgpOD/eyOzOOjnTqliKTgPTDQgHSrdx8pVJE/Udq', 3),
 (6, 'siswasmp', 'siswasmp@hse.com', '$2y$10$Uw2mXCcuSVa7HvBBag/Us.lm5QVLuoyIDFyIU9Aiy/8gXYwS0JNjy', 3),
 (7, 'siswasma', 'siswasma@hse.com', '$2y$10$5riHUTcO496xyXIinlBF6.5sj0UStQ1Zrzq3auINayk6nYqZC6I7a', 3),
-(8, 'aldo', 'aldo@hse.com', '$2y$10$y/N8tUgULldYze84089tRewI/3tLH07XBukKr9hhf83B1HaYa3kLC', 3);
+(8, 'aldo', 'aldo@hse.com', '$2y$10$y/N8tUgULldYze84089tRewI/3tLH07XBukKr9hhf83B1HaYa3kLC', 3),
+(9, 'staffsma', 'staffsma@hse.com', '$2y$10$8FbrtwI2dfSSdTvDkML2gOJuXVdSF0C7nZlfAo55narbWJWuM3A.S', 2);
 
 --
 -- Indexes for dumped tables
@@ -807,7 +877,7 @@ ALTER TABLE `tb_jadwal`
 -- AUTO_INCREMENT for table `tb_jawaban`
 --
 ALTER TABLE `tb_jawaban`
-  MODIFY `jawaban_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `jawaban_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `tb_jenjang`
@@ -861,7 +931,7 @@ ALTER TABLE `tb_siswa`
 -- AUTO_INCREMENT for table `tb_soal`
 --
 ALTER TABLE `tb_soal`
-  MODIFY `soal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `soal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tb_tingkat`
@@ -873,37 +943,37 @@ ALTER TABLE `tb_tingkat`
 -- AUTO_INCREMENT for table `tb_topik`
 --
 ALTER TABLE `tb_topik`
-  MODIFY `topik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `topik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_ujian`
 --
 ALTER TABLE `tb_ujian`
-  MODIFY `ujian_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ujian_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_ujian_soal`
 --
 ALTER TABLE `tb_ujian_soal`
-  MODIFY `us_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `us_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tb_ujian_topik`
 --
 ALTER TABLE `tb_ujian_topik`
-  MODIFY `ut_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ut_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_ujian_users`
 --
 ALTER TABLE `tb_ujian_users`
-  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables

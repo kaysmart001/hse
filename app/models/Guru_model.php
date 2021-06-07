@@ -54,7 +54,15 @@ class Guru_model {
 			guru_nohp, 
 			guru_foto, 
 			guru_jenjang, 
-			guru_jenjang_pendidikan, 
+			guru_jenjang_pendidikan,
+			guru_tgl_bergabung,
+			guru_status_peg,
+			guru_tgs_mengajar,
+			guru_tgs_tambahan,
+			guru_riwayat_pend_sd,
+			guru_riwayat_pend_smp,
+			guru_riwayat_pend_sma,
+			guru_riwayat_pend_pt,
 			guru_uid) 
 			VALUES (
 			:guru_nip, 
@@ -67,7 +75,15 @@ class Guru_model {
 			:guru_nohp, 
 			:guru_foto, 
 			:guru_jenjang, 
-			:guru_jenjang_pendidikan, 
+			:guru_jenjang_pendidikan,
+			:guru_tgl_bergabung,
+			:guru_status_peg,
+			:guru_tgs_mengajar,
+			:guru_tgs_tambahan,
+			:guru_riwayat_pend_sd,
+			:guru_riwayat_pend_smp,
+			:guru_riwayat_pend_sma,
+			:guru_riwayat_pend_pt,
 			:guru_uid)
 		";
 		$this->db->query($query);
@@ -82,6 +98,14 @@ class Guru_model {
 		$this->db->bind('guru_foto', ($data['guru_foto'] != '' ? $data['guru_foto'] : NULL));
 		$this->db->bind('guru_jenjang', $data['guru_jenjang']);
 		$this->db->bind('guru_jenjang_pendidikan', $data['guru_jenjang_pendidikan']);
+		$this->db->bind('guru_tgl_bergabung', $data['guru_tgl_bergabung']);
+		$this->db->bind('guru_status_peg', $data['guru_status_peg']);
+		$this->db->bind('guru_tgs_mengajar', $data['guru_tgs_mengajar']);
+		$this->db->bind('guru_tgs_tambahan', $data['guru_tgs_tambahan']);
+		$this->db->bind('guru_riwayat_pend_sd', $data['guru_riwayat_pend_sd']);
+		$this->db->bind('guru_riwayat_pend_smp', $data['guru_riwayat_pend_smp']);
+		$this->db->bind('guru_riwayat_pend_sma', $data['guru_riwayat_pend_sma']);
+		$this->db->bind('guru_riwayat_pend_pt', $data['guru_riwayat_pend_pt']);
 		$this->db->bind('guru_uid', $data['guru_uid']);
 
 		$this->db->execute();
@@ -120,6 +144,14 @@ class Guru_model {
 			guru_foto=:guru_foto, 
 			guru_jenjang=:guru_jenjang, 
 			guru_jenjang_pendidikan=:guru_jenjang_pendidikan, 
+			guru_tgl_bergabung=:guru_tgl_bergabung,
+			guru_status_peg=:guru_status_peg,
+			guru_tgs_mengajar=:guru_tgs_mengajar,
+			guru_tgs_tambahan=:guru_tgs_tambahan,
+			guru_riwayat_pend_sd=:guru_riwayat_pend_sd,
+			guru_riwayat_pend_smp=:guru_riwayat_pend_smp,
+			guru_riwayat_pend_sma=:guru_riwayat_pend_sma,
+			guru_riwayat_pend_pt=:guru_riwayat_pend_pt,
 			guru_uid=:guru_uid
 			WHERE guru_id=:guru_id
 		";
@@ -135,6 +167,14 @@ class Guru_model {
 		$this->db->bind('guru_foto', $data['guru_foto']);
 		$this->db->bind('guru_jenjang', $data['guru_jenjang']);
 		$this->db->bind('guru_jenjang_pendidikan', $data['guru_jenjang_pendidikan']);
+		$this->db->bind('guru_tgl_bergabung', $data['guru_tgl_bergabung']);
+		$this->db->bind('guru_status_peg', $data['guru_status_peg']);
+		$this->db->bind('guru_tgs_mengajar', $data['guru_tgs_mengajar']);
+		$this->db->bind('guru_tgs_tambahan', $data['guru_tgs_tambahan']);
+		$this->db->bind('guru_riwayat_pend_sd', $data['guru_riwayat_pend_sd']);
+		$this->db->bind('guru_riwayat_pend_smp', $data['guru_riwayat_pend_smp']);
+		$this->db->bind('guru_riwayat_pend_sma', $data['guru_riwayat_pend_sma']);
+		$this->db->bind('guru_riwayat_pend_pt', $data['guru_riwayat_pend_pt']);
 		$this->db->bind('guru_uid', $data['guru_uid']);
 		$this->db->bind('guru_id', $data['guru_id']);
 
